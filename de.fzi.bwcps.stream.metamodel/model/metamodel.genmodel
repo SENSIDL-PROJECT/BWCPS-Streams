@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/de.fzi.bwcps.stream.metamodel/src-gen" creationIcons="false"
+    editDirectory="/de.fzi.bwcps.stream.metamodel.edit/src-gen" editorDirectory="/de.fzi.bwcps.stream.metamodel.editor/src-gen"
+    modelPluginID="de.fzi.bwcps.stream.metamodel" modelName="Metamodel" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>metamodel.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Metamodel" basePackage="de.fzi.bwcps.stream" disposableProviderFactory="true"
+      ecorePackage="metamodel.ecore#/">
+    <genClasses ecoreClass="metamodel.ecore#//Stream">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//Stream/links"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//Node">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Node/nodeType"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//NodeLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeLink/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeLink/sink"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//PrimitiveNodeLink"/>
+    <genClasses ecoreClass="metamodel.ecore#//AggregatedNodeLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//AggregatedNodeLink/aggregatedLinks"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//NodeType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeType/refines"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//SinkNodeType"/>
+    <genClasses ecoreClass="metamodel.ecore#//SourceNodeType"/>
+    <genClasses ecoreClass="metamodel.ecore#//NewEClass10"/>
+    <genClasses ecoreClass="metamodel.ecore#//SinkSourceNodeType"/>
+  </genPackages>
+</genmodel:GenModel>
