@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="bwcps_streams" nsURI="http://www.fzi.de/bwcps/stream/1.0" nsPrefix="streams">
-  <eClassifiers xsi:type="ecore:EClass" name="Stream" abstract="true" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Stream" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" lowerBound="1" upperBound="-1"
         eType="#//NodeLink" containment="true"/>
   </eClassifiers>
@@ -28,6 +28,15 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SinkNodeType" eSuperTypes="#//NodeType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SourceNodeType" eSuperTypes="#//NodeType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NewEClass10"/>
   <eClassifiers xsi:type="ecore:EClass" name="SinkSourceNodeType" eSuperTypes="#//SourceNodeType #//SinkNodeType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StreamRepository" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="streams" upperBound="-1"
+        eType="#//Stream" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
+        eType="#//Node" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nodeTypes" upperBound="-1"
+        eType="#//NodeType" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EdgeNode" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EdgeGateway" eSuperTypes="#//Node"/>
 </ecore:EPackage>

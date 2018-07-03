@@ -32,7 +32,13 @@
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//SinkNodeType"/>
     <genClasses ecoreClass="metamodel.ecore#//SourceNodeType"/>
-    <genClasses ecoreClass="metamodel.ecore#//NewEClass10"/>
     <genClasses ecoreClass="metamodel.ecore#//SinkSourceNodeType"/>
+    <genClasses ecoreClass="metamodel.ecore#//StreamRepository">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//StreamRepository/streams"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//StreamRepository/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//StreamRepository/nodeTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//EdgeNode"/>
+    <genClasses ecoreClass="metamodel.ecore#//EdgeGateway"/>
   </genPackages>
 </genmodel:GenModel>
