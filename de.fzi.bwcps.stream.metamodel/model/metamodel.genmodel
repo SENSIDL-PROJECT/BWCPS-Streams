@@ -53,6 +53,8 @@
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//Domain">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Domain/subSpaces"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Domain/dimension"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Domain/contraints"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//OperationalElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//OperationalElement/value"/>
@@ -71,9 +73,12 @@
     <genClasses ecoreClass="metamodel.ecore#//CompositionalOperational">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//CompositionalOperational/operational"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//Scalar"/>
-    <genClasses ecoreClass="metamodel.ecore#//Vector">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Vector/dimension"/>
+    <genClasses ecoreClass="metamodel.ecore#//DomainContraints"/>
+    <genClasses ecoreClass="metamodel.ecore#//NumericalConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//NumericalConstraint/numericalConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//TextualConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//TextualConstraint/regularExpression"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

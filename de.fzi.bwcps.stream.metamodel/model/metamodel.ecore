@@ -58,6 +58,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Domain" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subSpaces" upperBound="-1"
         eType="#//Domain"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contraints" eType="#//DomainContraints"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OperationalElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
@@ -81,8 +84,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="operational" lowerBound="1"
         eType="#//Operational"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Scalar" eSuperTypes="#//OperationalElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Vector" eSuperTypes="#//OperationalElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DomainContraints"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NumericalConstraint" eSuperTypes="#//DomainContraints">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numericalConstraint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextualConstraint" eSuperTypes="#//DomainContraints">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="regularExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>
