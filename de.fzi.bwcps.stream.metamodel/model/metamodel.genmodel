@@ -20,7 +20,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeLink/source"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeLink/sink"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//PrimitiveNodeLink"/>
+    <genClasses ecoreClass="metamodel.ecore#//PrimitiveNodeLink">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//PrimitiveNodeLink/operational"/>
+    </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//AggregatedNodeLink">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//AggregatedNodeLink/aggregatedLinks"/>
     </genClasses>
@@ -40,5 +42,38 @@
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//EdgeNode"/>
     <genClasses ecoreClass="metamodel.ecore#//EdgeGateway"/>
+    <genClasses ecoreClass="metamodel.ecore#//DataStorage"/>
+    <genClasses ecoreClass="metamodel.ecore#//OperationRepository">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationRepository/operations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationRepository/domains"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//Operation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operation/domain"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operation/codomain"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//Domain">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Domain/subSpaces"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//OperationalElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//OperationalElement/value"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationalElement/domain"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//Operational">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operational/inputs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operational/mappingRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operational/outputs"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//BlackBoxOperation"/>
+    <genClasses ecoreClass="metamodel.ecore#//DeclarativeExpressionOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//DeclarativeExpressionOperation/functionalExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//SimpleOperation"/>
+    <genClasses ecoreClass="metamodel.ecore#//CompositionalOperational">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//CompositionalOperational/operational"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//Scalar"/>
+    <genClasses ecoreClass="metamodel.ecore#//Vector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Vector/dimension"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

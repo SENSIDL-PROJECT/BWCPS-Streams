@@ -14,7 +14,10 @@
         eType="#//Node"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sink" lowerBound="1" eType="#//Node"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveNodeLink" eSuperTypes="#//NodeLink"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveNodeLink" eSuperTypes="#//NodeLink">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operational" lowerBound="1"
+        eType="#//Operational" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregatedNodeLink" eSuperTypes="#//NodeLink">
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedLinks" lowerBound="1"
         upperBound="-1" eType="#//NodeLink"/>
@@ -39,4 +42,47 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EdgeNode" eSuperTypes="#//Node"/>
   <eClassifiers xsi:type="ecore:EClass" name="EdgeGateway" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataStorage" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OperationRepository">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
+        eType="#//Operation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domains" upperBound="-1"
+        eType="#//Domain" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operation" abstract="true" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domain" lowerBound="1"
+        eType="#//Domain"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="codomain" lowerBound="1"
+        eType="#//Domain"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Domain" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subSpaces" upperBound="-1"
+        eType="#//Domain"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OperationalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domain" lowerBound="1"
+        eType="#//Domain"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operational" abstract="true" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" lowerBound="1"
+        upperBound="-1" eType="#//OperationalElement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mappingRule" lowerBound="1"
+        eType="#//Operation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outputs" lowerBound="1"
+        upperBound="-1" eType="#//OperationalElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BlackBoxOperation" eSuperTypes="#//Operation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativeExpressionOperation" eSuperTypes="#//Operation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionalExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleOperation" eSuperTypes="#//Operational"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositionalOperational" eSuperTypes="#//Operational">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operational" lowerBound="1"
+        eType="#//Operational"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Scalar" eSuperTypes="#//OperationalElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Vector" eSuperTypes="#//OperationalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
 </ecore:EPackage>
