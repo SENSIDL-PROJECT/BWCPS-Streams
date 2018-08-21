@@ -43,42 +43,230 @@
     <genClasses ecoreClass="metamodel.ecore#//EdgeNode"/>
     <genClasses ecoreClass="metamodel.ecore#//EdgeGateway"/>
     <genClasses ecoreClass="metamodel.ecore#//DataStorage"/>
-    <genClasses ecoreClass="metamodel.ecore#//OperationRepository">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationRepository/operations"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationRepository/domains"/>
+    <genClasses ecoreClass="metamodel.ecore#//EdgeOperationRepository">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperationRepository/operations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperationRepository/domains"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//Operation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operation/domain"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operation/codomain"/>
+    <genClasses ecoreClass="metamodel.ecore#//EdgeOperation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperation/domain"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperation/codomain"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//Domain">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Domain/subSpaces"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Domain/dimension"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Domain/contraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Domain/arguments"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//OperationalElement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//OperationalElement/value"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationalElement/domain"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationalElement/element"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//OperationalElement/values"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//Operational">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operational/inputs"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operational/mappingRule"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//Operational/outputs"/>
+    <genClasses ecoreClass="metamodel.ecore#//EdgeOperational">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperational/input"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperational/mappingRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperational/output"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//BlackBoxOperation"/>
-    <genClasses ecoreClass="metamodel.ecore#//DeclarativeExpressionOperation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//DeclarativeExpressionOperation/functionalExpression"/>
+    <genClasses ecoreClass="metamodel.ecore#//EdgeBlackBoxOperation"/>
+    <genClasses ecoreClass="metamodel.ecore#//EdgeDeclarativeExpressionOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//EdgeDeclarativeExpressionOperation/functionalExpression"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//SimpleOperation"/>
-    <genClasses ecoreClass="metamodel.ecore#//CompositionalOperational">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//CompositionalOperational/operational"/>
+    <genClasses ecoreClass="metamodel.ecore#//SimpleEdgeOperation"/>
+    <genClasses ecoreClass="metamodel.ecore#//CompositionalEdgeOperational">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//CompositionalEdgeOperational/operational"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//DomainContraints"/>
-    <genClasses ecoreClass="metamodel.ecore#//NumericalConstraint">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//NumericalConstraint/numericalConstraint"/>
+  </genPackages>
+  <genPackages prefix="DataRepresentation" ecorePackage="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType">
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/INT8"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UINT8"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/INT16"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UINT16"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/INT32"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UINT32"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/INT64"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UINT64"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/FLOAT"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/DOUBLE"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/STRING"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UNDEFINED"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Unit">
+      <genTypeParameters ecoreTypeParameter="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Unit/Q"/>
+    </genDataTypes>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/SensorDataDescription">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/SensorDataDescription/dataSets"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/SensorDataDescription/sensorInterface"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//TextualConstraint">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//TextualConstraint/regularExpression"/>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet/sensorDataDescription"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet/data"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet/method"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet/usedDataSets"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data/dataSet"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data/dataType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data/excludedMethods"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MeasurementData">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MeasurementData/adjustments"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MeasurementData/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/NonMeasurementData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/NonMeasurementData/constant"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/NonMeasurementData/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataAdjustment">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataAdjustment/measurementData"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataRange">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataRange/range"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataConversion"/>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversion">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversion/scalingFactor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversion/offset"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversionWithInterval">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversionWithInterval/fromInterval"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversionWithInterval/toInterval"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversionWithInterval/dataType"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/lowerBound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/upperBound"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/linearDataConversionFrom"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/linearDataConversionTo"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/dataRange"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/dataSet"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/parameter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/returnType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/visibility"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/returnTypeDataSet"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter/name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter/method"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter/dataType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter/dataTypeDataSet"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/ListData">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/ListData/dataTypeDataSet"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Sensidl" ecorePackage="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//Coding">
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//Coding/SENSIDL_BINARY"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//Coding/SENSIDL_JSON"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//Endianness">
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//Endianness/BIG_ENDIAN"/>
+      <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//Endianness/LITTLE_ENDIAN"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//IdentifiableElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//IdentifiableElement/ID"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//NamedElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//NamedElement/description"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//SensorInterface">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//SensorInterface/encodingSettings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//SensorInterface/dataDescription"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//EncodingSettings">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//EncodingSettings/sensorInterface"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//EncodingSettings/coding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//EncodingSettings/endianness"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//EncodingSettings/alignment"/>
+    </genClasses>
+    <nestedGenPackages prefix="DataRepresentation" disposableProviderFactory="true"
+        ecorePackage="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType">
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/INT8"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UINT8"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/INT16"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UINT16"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/INT32"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UINT32"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/INT64"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UINT64"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/FLOAT"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/DOUBLE"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/BOOLEAN"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/STRING"/>
+        <genEnumLiterals ecoreEnumLiteral="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType/UNDEFINED"/>
+      </genEnums>
+      <genDataTypes ecoreDataType="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Unit">
+        <genTypeParameters ecoreTypeParameter="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Unit/Q"/>
+      </genDataTypes>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/SensorDataDescription">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/SensorDataDescription/dataSets"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/SensorDataDescription/sensorInterface"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet/sensorDataDescription"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet/data"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet/method"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataSet/usedDataSets"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data/dataSet"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data/dataType"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data/excludedMethods"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MeasurementData">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MeasurementData/adjustments"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MeasurementData/unit"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/NonMeasurementData">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/NonMeasurementData/constant"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/NonMeasurementData/value"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataAdjustment">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataAdjustment/measurementData"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataRange">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataRange/range"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataConversion"/>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversion">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversion/scalingFactor"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversion/offset"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversionWithInterval">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversionWithInterval/fromInterval"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversionWithInterval/toInterval"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/LinearDataConversionWithInterval/dataType"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/lowerBound"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/upperBound"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/linearDataConversionFrom"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/linearDataConversionTo"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Interval/dataRange"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/dataSet"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/parameter"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/returnType"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/visibility"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Method/returnTypeDataSet"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter/name"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter/method"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter/dataType"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/MethodParameter/dataTypeDataSet"/>
+      </genClasses>
+      <genClasses ecoreClass="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/ListData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/ListData/dataTypeDataSet"/>
+      </genClasses>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>
