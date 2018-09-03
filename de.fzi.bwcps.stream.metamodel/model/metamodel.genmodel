@@ -16,17 +16,16 @@
       <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//JoinOperation/PRODUCT"/>
       <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//JoinOperation/MIN"/>
       <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//JoinOperation/MAX"/>
-      <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//JoinOperation/NONE"/>
     </genEnums>
     <genClasses ecoreClass="metamodel.ecore#//Stream">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//Stream/links"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//Node">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Node/nodeType"/>
+    <genClasses ecoreClass="metamodel.ecore#//NodeContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeContainer/nodes"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//NodeLink">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeLink/source"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeLink/sink"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeLink/target"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//PrimitiveNodeLink">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//PrimitiveNodeLink/operational"/>
@@ -36,6 +35,7 @@
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//NodeType">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeType/refines"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//NodeType/dataType"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//NamedElement/name"/>
@@ -45,10 +45,11 @@
     <genClasses ecoreClass="metamodel.ecore#//SinkSourceNodeType"/>
     <genClasses ecoreClass="metamodel.ecore#//StreamRepository">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//StreamRepository/streams"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//StreamRepository/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//StreamRepository/container"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//StreamRepository/nodeTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//StreamRepository/nodes"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//EdgeNode"/>
+    <genClasses ecoreClass="metamodel.ecore#//EdgeDevice"/>
     <genClasses ecoreClass="metamodel.ecore#//EdgeGateway"/>
     <genClasses ecoreClass="metamodel.ecore#//DataSink"/>
     <genClasses ecoreClass="metamodel.ecore#//EdgeOperationRepository">
@@ -58,6 +59,8 @@
     <genClasses ecoreClass="metamodel.ecore#//EdgeOperation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperation/domain"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperation/codomain"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperation/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperation/type"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//Domain">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Domain/subDomains"/>
@@ -69,7 +72,7 @@
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//EdgeOperational">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperational/input"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperational/mappingRule"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperational/operation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//EdgeOperational/output"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//BlackBoxMapping"/>
@@ -84,17 +87,31 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationalDefintions/operationals"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationalDefintions/imports"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//Mapping"/>
-    <genClasses ecoreClass="metamodel.ecore#//Aggregation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Aggregation/size"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Aggregation/joinOperation"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Aggregation/step"/>
+    <genClasses ecoreClass="metamodel.ecore#//Aggregatable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Aggregatable/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Aggregatable/step"/>
     </genClasses>
     <genClasses ecoreClass="metamodel.ecore#//OperationalValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//OperationalValue/referenceDomain"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//OperationalValue/value"/>
     </genClasses>
-    <genClasses ecoreClass="metamodel.ecore#//Selection"/>
-    <genClasses ecoreClass="metamodel.ecore#//Projection"/>
+    <genClasses ecoreClass="metamodel.ecore#//Node">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Node/nodetype"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//ProcessingNode"/>
+    <genClasses ecoreClass="metamodel.ecore#//ProducingNode"/>
+    <genClasses ecoreClass="metamodel.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Property/priority"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//OperationType"/>
+    <genClasses ecoreClass="metamodel.ecore#//Selectable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Selectable/appliesTo"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//Joinable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//Joinable/joinOperation"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodel.ecore#//Projection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodel.ecore#//Projection/selections"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
