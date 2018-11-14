@@ -1,140 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="bwcps_streams" nsURI="http://www.fzi.de/bwcps/stream/1.0" nsPrefix="streams">
-  <eClassifiers xsi:type="ecore:EClass" name="Stream" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="links" lowerBound="1" upperBound="-1"
-        eType="#//NodeLink" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeContainer" abstract="true" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" lowerBound="1" upperBound="-1"
-        eType="#//Node" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeLink" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
-        eType="#//Node"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
-        eType="#//Node"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveNodeLink" eSuperTypes="#//NodeLink">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operational" eType="#//EdgeOperational"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregatedNodeLink" eSuperTypes="#//NodeLink">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedLinks" lowerBound="1"
-        upperBound="-1" eType="#//NodeLink"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeType" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="refines" upperBound="-1"
-        eType="#//NodeType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataType" lowerBound="1"
-        eType="ecore:EClass platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SinkNodeType" eSuperTypes="#//NodeType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SourceNodeType" eSuperTypes="#//NodeType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SinkSourceNodeType" eSuperTypes="#//SourceNodeType #//SinkNodeType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StreamRepository" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="streams" upperBound="-1"
-        eType="#//Stream" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="container" upperBound="-1"
-        eType="#//NodeContainer" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodeTypes" upperBound="-1"
-        eType="#//NodeType" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
-        eType="#//Node" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EdgeDevice" eSuperTypes="#//NodeContainer"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EdgeGateway" eSuperTypes="#//NodeContainer"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DataSink" eSuperTypes="#//NodeContainer"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EdgeOperationRepository">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
-        eType="#//EdgeOperation" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="domains" upperBound="-1"
-        eType="#//Domain" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EdgeOperation" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="domain" lowerBound="1"
-        eType="#//Domain"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="codomain" lowerBound="1"
-        eType="#//Domain"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
-        eType="#//Property" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//OperationType"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Domain" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subDomains" upperBound="-1"
-        eType="#//Domain"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dimensions" lowerBound="1"
-        upperBound="-1" eType="#//NodeType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OperationalElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="domain" lowerBound="1"
-        eType="#//Domain"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="values" lowerBound="1"
-        upperBound="-1" eType="#//OperationalValue" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EdgeOperational" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="input" lowerBound="1" eType="#//OperationalElement"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operation" lowerBound="1"
-        eType="#//EdgeOperation"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="output" lowerBound="1"
-        eType="#//OperationalElement" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BlackBoxMapping" eSuperTypes="#//OperationType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DeclarativeMapping" eSuperTypes="#//OperationType">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionalExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AtomicEdgeOperation" eSuperTypes="#//EdgeOperational"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CompositionalEdgeOperational" eSuperTypes="#//EdgeOperational">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operational" lowerBound="1"
-        eType="#//EdgeOperational"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OperationalDefintions">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operationals" upperBound="-1"
-        eType="#//EdgeOperational" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="#//OperationalDefintions"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Aggregatable" eSuperTypes="#//Property">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="step" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OperationalValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceDomain" lowerBound="1"
-        eType="ecore:EClass platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EEnum platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType"
-        defaultValueLiteral="UNDEFINED"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="JoinOperation">
-    <eLiterals name="SUM"/>
-    <eLiterals name="PRODUCT" value="1"/>
-    <eLiterals name="MIN" value="2"/>
-    <eLiterals name="MAX" value="3"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodetype" lowerBound="1"
-        eType="#//NodeType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessingNode" eSuperTypes="#//Node"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProducingNode" eSuperTypes="#//Node"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Property" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OperationType" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Selectable" eSuperTypes="#//Property">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="appliesTo" lowerBound="1"
-        eType="#//NodeType"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Joinable" eSuperTypes="#//Property">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="joinOperation" lowerBound="1"
-        eType="#//JoinOperation"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Projection" eSuperTypes="#//OperationType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="selections" lowerBound="1"
-        upperBound="-1" eType="#//NodeType"/>
-  </eClassifiers>
+  <eSubpackages name="operations" nsURI="http://www.fzi.de/bwcps/stream/operations/1.0"
+      nsPrefix="operations">
+    <eClassifiers xsi:type="ecore:EClass" name="Domain">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="subDomain" upperBound="-1"
+          eType="#//operations/Domain"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dimensions" lowerBound="1"
+          upperBound="-1" eType="#//operations/Dimension" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Property" abstract="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Operation" abstract="true" eSuperTypes="#//commons/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="properties" eType="#//operations/Property"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//operations/OperationType"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="domain" lowerBound="1"
+          eType="#//operations/Domain"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="range" lowerBound="1"
+          eType="#//operations/Domain"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Aggregating" eSuperTypes="#//operations/Property">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="step" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="joinOperation" lowerBound="1"
+          eType="#//operations/JoinOperation"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CompositionellOperation" eSuperTypes="#//operations/Operation">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="operation" lowerBound="1"
+          eType="#//operations/Operation"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="JoinOperation">
+      <eLiterals name="SUM"/>
+      <eLiterals name="PRODUCT" value="1"/>
+      <eLiterals name="MIN" value="2"/>
+      <eLiterals name="MAX" value="3"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Mapping" eSuperTypes="#//operations/OperationType"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Dimension">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueSpace" lowerBound="1"
+          eType="ecore:EEnum platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/DataType"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OperationDefinition">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
+          eType="#//operations/Operation" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="domains" upperBound="-1"
+          eType="#//operations/Domain" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Selecting" eSuperTypes="#//operations/Property"/>
+    <eClassifiers xsi:type="ecore:EClass" name="AtomicOperation" eSuperTypes="#//operations/Operation"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Projection" eSuperTypes="#//operations/OperationType"/>
+    <eClassifiers xsi:type="ecore:EClass" name="OperationType" abstract="true"/>
+  </eSubpackages>
+  <eSubpackages name="entity" nsURI="http://www.fzi.de/bwcps/stream/entity/1.0" nsPrefix="entity">
+    <eClassifiers xsi:type="ecore:EClass" name="EdgeDevice" eSuperTypes="#//entity/NodeContainer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="AggregatedNodeLink" eSuperTypes="#//entity/NodeLink">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="aggregatedLinks" lowerBound="1"
+          upperBound="-1" eType="#//entity/NodeLink"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StreamRepository" eSuperTypes="#//commons/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="streams" upperBound="-1"
+          eType="#//entity/Stream" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="container" upperBound="-1"
+          eType="#//entity/NodeContainer" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="nodeTypes" upperBound="-1"
+          eType="#//entity/NodeType" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
+          eType="#//entity/Node" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="nodelinks" upperBound="-1"
+          eType="#//entity/NodeLink" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Stream" eSuperTypes="#//commons/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="nodelinks" lowerBound="1"
+          upperBound="-1" eType="#//entity/NodeLink"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PrimitiveNodeLink" eSuperTypes="#//entity/NodeLink"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//commons/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="nodetype" lowerBound="1"
+          eType="#//entity/NodeType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="operational" lowerBound="1"
+          upperBound="-1" eType="#//operations/Operation"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SinkSourceNodeType" eSuperTypes="#//entity/SourceNodeType #//entity/SinkNodeType"/>
+    <eClassifiers xsi:type="ecore:EClass" name="NodeLink" abstract="true" eSuperTypes="#//commons/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+          eType="#//entity/Node"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+          eType="#//entity/Node"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EdgeGateway" eSuperTypes="#//entity/NodeContainer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DataSink" eSuperTypes="#//entity/NodeContainer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SourceNodeType" eSuperTypes="#//entity/NodeType"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SinkNodeType" eSuperTypes="#//entity/NodeType"/>
+    <eClassifiers xsi:type="ecore:EClass" name="NodeContainer" abstract="true" eSuperTypes="#//commons/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" lowerBound="1"
+          upperBound="-1" eType="#//entity/Node"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NodeType" eSuperTypes="#//commons/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="refines" upperBound="-1"
+          eType="#//entity/NodeType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
+          eType="ecore:EClass platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="output" upperBound="-1"
+          eType="ecore:EClass platform:/plugin/de.fzi.sensidl.design/model/sensIDL.ecore#//dataRepresentation/Data"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="commons" nsURI="http://www.fzi.de/bwcps/stream/commons/1.0"
+      nsPrefix="commons">
+    <eClassifiers xsi:type="ecore:EClass" name="NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
 </ecore:EPackage>
