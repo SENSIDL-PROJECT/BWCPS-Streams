@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<!-- ============ Wizard Commands =========== -->
+  	<extension point="org.eclipse.ui.commands">
+        <command
+              id="bw_cps_code_generator.language.ui.handler.ContextMenuCommand"
+              name="Wizard...">
+        </command>
+  	</extension>
+  	
+  	<extension point="org.eclipse.ui.commands">
+        <command
+              id="bw_cps_code_generator.language.ui.handler.EditorMenuCommand"
+              name="Wizard...">
+        </command>
+  	</extension>
+  	
+  	<extension point="org.eclipse.ui.commands">
+        <command
+              id="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler"
+              name="Generate now...">
+        </command>
+  	</extension>
+<!-- ============ Wizard Commands Handlers =========== -->
+ 	<extension point="org.eclipse.ui.handlers">
+     	<handler
+           class="bw_cps_code_generator.language.ui.handler.ContextMenuHandler"
+           commandId="bw_cps_code_generator.language.ui.handler.ContextMenuCommand">
+     	</handler>  
+  	</extension>
+  	
+  	<extension point="org.eclipse.ui.handlers">
+     	<handler
+           class="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler"
+           commandId="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler">
+     	</handler>  
+  	</extension>
+  		
+  	<extension point="org.eclipse.ui.handlers">
+     	<handler
+           class="bw_cps_code_generator.language.ui.handler.EditorMenuHandler"
+           commandId="bw_cps_code_generator.language.ui.handler.EditorMenuCommand">
+     	</handler>  
+  	</extension>
+<!-- ==================== Context Menu Entry "BW-CPS - Generate Code" ==================== -->
+<extension point="org.eclipse.ui.menus">
+    	<menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+         <menu
+               label="BW-CPS">
+            <!-- Wizard... Command --> 
+            <command
+                  commandId="bw_cps_code_generator.language.ui.handler.ContextMenuCommand"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <or>
+                        	<test
+                            	  property="org.eclipse.core.resources.name"
+                              	  value="*.xmi">
+                        	</test>
+                        	<test
+                            	  property="org.eclipse.core.resources.name"
+                            	  value="*.entity">
+                        	</test>
+                        	<test
+                            	  property="org.eclipse.core.resources.name"
+                            	  value="*.operations">
+                        	</test>
+                        	<test
+                            	  property="org.eclipse.core.resources.name"
+                            	  value="*.commons">
+                        	</test>
+                        </or>
+                     </adapt>
+                  </iterate>
+               </visibleWhen>
+            </command>
+            <!-- Generate now... Command --> 
+            <command
+                  commandId="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <or>
+                        	<test
+                            	  property="org.eclipse.core.resources.name"
+                              	  value="*.xmi">
+                        	</test>
+                        	<test
+                            	  property="org.eclipse.core.resources.name"
+                            	  value="*.entity">
+                        	</test>
+                        	<test
+                            	  property="org.eclipse.core.resources.name"
+                            	  value="*.operations">
+                        	</test>
+                        	<test
+                            	  property="org.eclipse.core.resources.name"
+                            	  value="*.commons">
+                        	</test>
+                        </or>
+                     </adapt>
+                  </iterate>
+               </visibleWhen>
+            </command>
+            
+         </menu>
+    	</menuContribution>
+    </extension>
+ <!-- ==================== Editor Menu Entry "SensIDL - Generate Code" ==================== -->
+   	<extension point="org.eclipse.ui.menus">
+    	<menuContribution locationURI="popup:#TextEditorContext?after=additions">
+          <menu
+                label="SensIDL">
+             <!-- Wizard... Command --> 
+             <command
+                   commandId="bw_cps_code_generator.language.ui.handler.EditorMenuCommand"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                      <or>
+                	  	 <reference
+                      	   definitionId="de.fzi.bwcps.stream.metamodel.editor.commonsEditor.opened">
+                   		 </reference>
+                   		 <reference
+                      	   definitionId="de.fzi.bwcps.stream.metamodel.editor.operationsEditor.opened">
+                   		 </reference>
+                   		 <reference
+                      	   definitionId="de.fzi.bwcps.stream.metamodel.editor.entityEditor.opened">
+                   		 </reference>
+                   	  </or>	 
+                </visibleWhen>
+             </command>
+             <!-- Generate now... Command --> 
+            <command
+                   commandId="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <or>
+                	  	 <reference
+                      	   definitionId="de.fzi.bwcps.stream.metamodel.editor.commonsEditor.opened">
+                   		 </reference>
+                   		 <reference
+                      	   definitionId="de.fzi.bwcps.stream.metamodel.editor.operationsEditor.opened">
+                   		 </reference>
+                   		 <reference
+                      	   definitionId="de.fzi.bwcps.stream.metamodel.editor.entityEditor.opened">
+                   		 </reference>
+                   	  </or>	
+                </visibleWhen>
+             </command>
+ 
+          </menu>
+    	</menuContribution>
+	</extension>
+
+</plugin>
