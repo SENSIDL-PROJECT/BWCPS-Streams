@@ -21,3 +21,7 @@
 /JavaEntityGenerator.java
 /JavaNodeContainerGenerator.java
 /JavaStreamGenerator.java
+/.JavaNodeGenerator.java._trace
+/.JavaNodeTypeGenerator.java._trace
+/.JavaDataRepresentaionGenerationUtil.java._trace
+/.JavaDataRepresentaionGenerator.java._trace

@@ -24,9 +24,9 @@ class JavaNodeContainerGenerator extends JavaEntityGenerator {
 		logger.info("File: NodeContainer.java was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		for (container : containers) {
-			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityName(container)),
-			generateClassBody(GenerationUtil.getEntityName(container), container))
-			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityName(container)) + " was generated in " +
+			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(container)),
+			generateClassBody(GenerationUtil.getEntityUpperName(container), container))
+			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(container)) + " was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		}
 

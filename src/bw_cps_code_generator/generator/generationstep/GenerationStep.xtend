@@ -32,7 +32,7 @@ abstract class GenerationStep {
 		
 	}
 	
-	private def static resetFilesToGenerate() {
+	public def static resetFilesToGenerate() {
 		
 		if (filesToGenerate == null) {
 			filesToGenerate = new HashMap

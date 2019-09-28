@@ -20,7 +20,6 @@ import bw_cps_code_generator.generator.BwCPSExtentions;
 import bw_cps_code_generator.generator.BwcpsGenerator;
 import bw_cps_code_generator.generator.BwcpsStandaloneSetup;
 import bw_cps_code_generator.language.ui.exception.NoBwcpsFileException;
-
 public class GenerationHandler {
 	private static BwCPSConstants.GenerationLanguage generationLanguage = BwCPSConstants.GenerationLanguage.NONE;
 	private static BwcpsGenerator generator;
@@ -103,8 +102,8 @@ public class GenerationHandler {
 		case "Java":
 			generationLanguage = BwCPSConstants.GenerationLanguage.JAVA;
 			break;
-		case "Maven Project":
-			generationLanguage = BwCPSConstants.GenerationLanguage.MAVEN_PROJECT;
+		case "Kura Project":
+			generationLanguage = BwCPSConstants.GenerationLanguage.KURA_PROJECT;
 			break;
 		case "All":
 			generationLanguage = BwCPSConstants.GenerationLanguage.ALL;

@@ -1,10 +1,8 @@
 package bw_cps_code_generator.generator.factory
 
-import de.fzi.sensidl.design.sensidl.dataRepresentation.DataSet
-import java.util.HashMap
-import java.util.List
-import org.eclipse.emf.ecore.EObject
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
+import java.util.HashMap
+import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 
 /**
  * Main interface to create a new generation family
@@ -19,7 +17,7 @@ interface ICodeGenerator {
  	* @return a HashMap which maps the filename to generation-code 
  	* 		  represented as CharSequence.
  	*/
-	def HashMap<String, CharSequence> generateDTO(StreamRepository streamRepo); 
+	def HashMap<String, CharSequence> generateDTO(NamedElement element); 
 	
 	
 }

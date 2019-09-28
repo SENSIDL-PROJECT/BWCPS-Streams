@@ -24,9 +24,9 @@ class JavaStreamGenerator extends JavaEntityGenerator {
 		logger.info("File: Stream.java was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		for (stream : streams) {
-			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityName(stream)),
-			generateClassBody(GenerationUtil.getEntityName(stream), stream))
-			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityName(stream)) + " was generated in " +
+			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(stream)),
+			generateClassBody(GenerationUtil.getEntityUpperName(stream), stream))
+			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(stream)) + " was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		}
 

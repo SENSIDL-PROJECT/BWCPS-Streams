@@ -19,10 +19,10 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 		logger.info("Start with code-generation of the Stream Repository.")
 		val filesToGenerate = new HashMap
 
-		filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityName(streamRepo)),
-			generateClassBody(GenerationUtil.getEntityName(streamRepo), streamRepo))
+		filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(streamRepo)),
+			generateClassBody(GenerationUtil.getEntityUpperName(streamRepo), streamRepo))
 			
-		logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityName(streamRepo)) + " was generated in " +
+		logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(streamRepo)) + " was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 
 		filesToGenerate
@@ -34,7 +34,7 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 			package streamrepository;
 			
 			/**
-			* «GenerationUtil.getClassName(repo)»: «repoName»
+			* «GenerationUtil.getEntityUpperName(repo)»: «repoName»
 			*
 			* @generated
 			*/
@@ -69,7 +69,7 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 					this.streams = new java.util.ArrayList<streams.Stream>();
 						
 				«FOR s: streamRepo.streams »
-					this.streams.put(new streams.«GenerationUtil.toNameUpper(s)»());
+					this.streams.put(new streams.«GenerationUtil.getEntityUpperName(s)»());
 						
 				«ENDFOR»
 			«ENDIF» 
@@ -77,7 +77,7 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 					this.containers = new java.util.ArrayList<nodes.NodeContainer>();
 						
 				«FOR n: streamRepo.container »
-					this.containers.put(new nodes.«GenerationUtil.toNameUpper(n)»());
+					this.containers.put(new nodes.«GenerationUtil.getEntityUpperName(n)»());
 						
 				«ENDFOR»
 			«ENDIF» 
@@ -85,7 +85,7 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 					this.nodes = new java.util.ArrayList<nodes.Node>();
 						
 				«FOR n: streamRepo.nodes »
-					this.streams.put(new «GenerationUtil.toNameUpper(n)»());
+					this.streams.put(new «GenerationUtil.getEntityUpperName(n)»());
 						
 				«ENDFOR»
 			«ENDIF» 

@@ -8,49 +8,48 @@ import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
+import de.fzi.bwcps.stream.bwcps_streams.entity.Node
 
-class JavaNodeLinkGenerator extends JavaEntityGenerator {
-	static val Logger logger = Logger.getLogger(JavaNodeLinkGenerator)
-	val List<NodeLink> nodelinks
+class JavaNodeGenerator extends JavaEntityGenerator {
+	static val Logger logger = Logger.getLogger(JavaNodeGenerator)
+	val List<Node> nodes
 
-	new(List<NodeLink> nodelinks) {
-		this.nodelinks = nodelinks
+	new(List<Node> nodes) {
+		this.nodes = nodes
 	}
 
 	override generate() {
-		logger.info("Generate node links.")
+		logger.info("Generate node.")
 		val filesToGenerate = new HashMap
-		filesToGenerate.put("NodeLink.java", generateInterfaceBody(nodelinks))
-		logger.info("File: NodeLink.java was generated in " +
+		filesToGenerate.put("Node.java", generateInterfaceBody(nodes))
+		logger.info("File: Node.java was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
-		for (nodelink : nodelinks) {
-			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(nodelink)),
-			generateClassBody(GenerationUtil.getEntityUpperName(nodelink), nodelink))
-			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(nodelink)) + " was generated in " +
+		for (node : nodes) {
+			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(node)),
+			generateClassBody(GenerationUtil.getEntityUpperName(node), node))
+			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(node)) + " was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		}
 		filesToGenerate
 	}
 	
-	def generateInterfaceBody(List nodelink) {
+	def generateInterfaceBody(List nodes) {
 		'''
 			package nodes;
 			import nodes.Node;
 						
 			/**
-			* NodeLink Iterface
+			* NodeLink Interface
 			*
 			* @generated
 			*/
-			public interface NodeLink {
+			public interface Node {
 				
-				public Node getSource();
+				public Node getNodetype();
 				
-				public Node getTarget();
+				public Node getOperation();
 				
-				public void setSource();
-				
-				public void setTarget();
+
 			}
 		'''
 	}
@@ -59,14 +58,14 @@ class JavaNodeLinkGenerator extends JavaEntityGenerator {
 		'''
 			package nodes;
 			
-			import nodes.NodeLink;
+			import nodes.Node;
 			/**
 			* NodeLink: «entityName»
 			*
 			* @generated
 			*/
 				
-			public class «entityName» implements Stream {
+			public class «entityName» implements Node {
 										
 				private static final long serialVersionUID = 1L;
 				
@@ -89,9 +88,9 @@ class JavaNodeLinkGenerator extends JavaEntityGenerator {
 	override generateConstructor(NamedElement entity, String className) {
 		'''
 				
-			public «className»(Node source, Node target) {
-				this.source = source;
-				this.target = target;
+			public «className»(NodeType nodeType, Operation operational) {
+				this.nodeType = nodeType;
+				this.operational = operational;
 			}
 		'''
 	}

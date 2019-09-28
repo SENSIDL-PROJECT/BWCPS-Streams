@@ -3,54 +3,56 @@ package bw_cps_code_generator.generator.factory.java
 import bw_cps_code_generator.generator.BwcpsOutputConfigurationProvider
 import bw_cps_code_generator.generator.GenerationUtil
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
+import dataRepresentation.Data
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
-import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
+import de.fzi.bwcps.stream.bwcps_streams.entity.NodeType
 
-class JavaNodeLinkGenerator extends JavaEntityGenerator {
-	static val Logger logger = Logger.getLogger(JavaNodeLinkGenerator)
-	val List<NodeLink> nodelinks
+class JavaNodeTypeGenerator extends JavaEntityGenerator {
+	static val Logger logger = Logger.getLogger(JavaNodeTypeGenerator)
+	val List<NodeType> nodetypes
 
-	new(List<NodeLink> nodelinks) {
-		this.nodelinks = nodelinks
+		String projectName
+		
+	private val String packagePrefix 
+	
+	new(String projectName, List<NodeType> nodetypes, String packagePrefix) {
+		this.projectName = projectName
+		this.nodetypes = nodetypes
+		this.packagePrefix = packagePrefix
 	}
 
 	override generate() {
-		logger.info("Generate node links.")
+		logger.info("Generate node types.")
+		val c = Data;
 		val filesToGenerate = new HashMap
-		filesToGenerate.put("NodeLink.java", generateInterfaceBody(nodelinks))
-		logger.info("File: NodeLink.java was generated in " +
+		filesToGenerate.put("NodeType.java", generateInterfaceBody())
+		logger.info("File: NodeType.java was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
-		for (nodelink : nodelinks) {
-			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(nodelink)),
-			generateClassBody(GenerationUtil.getEntityUpperName(nodelink), nodelink))
-			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(nodelink)) + " was generated in " +
+		for (nodetype : nodetypes) { 
+			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(nodetype)),
+			generateClassBody(GenerationUtil.getEntityUpperName(nodetype), nodetype))
+			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(nodetype)) + " was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		}
+
 		filesToGenerate
 	}
 	
-	def generateInterfaceBody(List nodelink) {
+	def generateInterfaceBody() {
 		'''
-			package nodes;
-			import nodes.Node;
-						
+			package «packagePrefix»«projectName.toLowerCase»;
+			
 			/**
-			* NodeLink Iterface
+			* NodeType Iterface
 			*
 			* @generated
 			*/
-			public interface NodeLink {
+			public interface NodeType {
 				
-				public Node getSource();
 				
-				public Node getTarget();
-				
-				public void setSource();
-				
-				public void setTarget();
 			}
 		'''
 	}
@@ -59,9 +61,9 @@ class JavaNodeLinkGenerator extends JavaEntityGenerator {
 		'''
 			package nodes;
 			
-			import nodes.NodeLink;
+			import nodes.NodeType;
 			/**
-			* NodeLink: «entityName»
+			* NodeType: «entityName»
 			*
 			* @generated
 			*/
@@ -103,16 +105,19 @@ class JavaNodeLinkGenerator extends JavaEntityGenerator {
 	def generateMethods(StreamRepository repo) {
 	}
 	
+// ------------------------------ Data Fields ------------------------------
+	
 	override generateDataFields(NamedElement entity) {
 		'''
-			private Node source;
-			
-			private Node target;
+			«(new JavaDataRepresentaionGenerator).generateDataFields(entity)»
+
 		'''
 	}
+	
 	
 	override generateMethods(NamedElement entity) {
 	//	throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
+	
 
 }
