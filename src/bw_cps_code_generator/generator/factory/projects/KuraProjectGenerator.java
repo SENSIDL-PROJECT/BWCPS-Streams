@@ -160,7 +160,8 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		content.append("Bundle-Version: 1.0.0.qualifier\n");
 		content.append("Bundle-RequiredExecutionEnvironment: JavaSE-1.8\n");
 		content.append("Require-Bundle: org.eclipse.osgi.services;bundle-version=\"3.8.0\",\n" + 
-				" org.slf4j.api;bundle-version=\"1.7.2\"\n");
+				" org.slf4j.api;bundle-version=\"1.7.2\",\n" +
+				" org.junit\n");
 
 		IFolder metaInf = project.getFolder("META-INF");
 		metaInf.create(false, true, null);

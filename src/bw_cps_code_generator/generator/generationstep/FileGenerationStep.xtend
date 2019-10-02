@@ -1,9 +1,6 @@
 package bw_cps_code_generator.generator.generationstep
 
-import com.google.common.io.Files
-import java.text.SimpleDateFormat
 import java.util.ArrayList
-import java.util.Date
 import java.util.HashMap
 import org.apache.commons.io.FilenameUtils
 import org.apache.log4j.Logger
@@ -11,6 +8,9 @@ import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.core.resources.IResource
 import bw_cps_code_generator.generator.generationstep.GenerationStep
+import bw_cps_code_generator.generator.factory.sidl.SensIDLInvoker
+import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
+import bw_cps_code_generator.generator.GenerationUtil
 
 /**
  * The FileGenerationStep is a concrete subclass of the GenerationStep class. 
@@ -23,8 +23,11 @@ class FileGenerationStep extends GenerationStep {
 //	private val static UNIFIED_TAB_DISTANCE = "\t\t\t\t\t\t\t\t"
 //	private val static START_SYMBOL = "*"
 	private val static DEFAUL_FILE_PATH = ""
-	private val static TEXT_FILE_EXTENSION = "txt"
-//	
+	private val static TEXT_FILE_EXTENSION = "txt"	
+	private val static SIDL_FILE_EXTENSION = "sidl"
+
+
+	private String projectName = ""
 	val IFileSystemAccess fsa;
 	
 	public static var String filePath;
@@ -40,6 +43,14 @@ class FileGenerationStep extends GenerationStep {
 		fileCache = new HashMap
 		filePath = DEFAUL_FILE_PATH
 	}
+	
+		new(NamedElement element, IFileSystemAccess newFsa) {
+		this.projectName = GenerationUtil.getEntityUpperName(element)
+		this.fsa = newFsa
+		fileCache = new HashMap
+		filePath = DEFAUL_FILE_PATH
+	}
+	
 //	
 //	public static def setFilePath(String newFilePath) {
 //		
@@ -57,8 +68,17 @@ class FileGenerationStep extends GenerationStep {
 //			insertVersioningCommentTo(file)
 //			
 			fsa.generateFile(getFilePathOf(file), getContentOf(file))
-//			
 			logger.info("File " + file + " was successfully generated")
+			if(file.isSidlFile) {
+				//SensIDL Call TODO checks
+				logger.info("Invoke SensIDL GenerationHandler")
+				SensIDLInvoker.generate(ResourcesPlugin.workspace.root.location  
+					+ "/" + projectName + "/src/" + file.substring(0, file.length - (SIDL_FILE_EXTENSION.length + 1)).toLowerCase, 
+					ResourcesPlugin.workspace.root.location  
+					+ "/" + projectName + "/" + getFilePathOf(file)
+				)
+			}
+
 		}
 		
 		refreshWorkspace
@@ -89,6 +109,10 @@ class FileGenerationStep extends GenerationStep {
 			return file
 			
 		}
+		//TODO check
+		else if (isSidlFile(file)) {
+			return "resource/" + file
+		}
 		
 		filePath + file
 		
@@ -99,7 +123,11 @@ class FileGenerationStep extends GenerationStep {
 		FilenameUtils.getExtension(file).equals(TEXT_FILE_EXTENSION)
 		
 	}
-	
+		def isSidlFile(String file) {
+		
+		FilenameUtils.getExtension(file).equals(SIDL_FILE_EXTENSION)
+		
+	}
 //	def insertVersioningCommentTo(String file) {
 //		val fileExtensions = createExtensions(Files.getFileExtension(file))
 //		

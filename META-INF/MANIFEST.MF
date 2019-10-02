@@ -13,7 +13,11 @@ Require-Bundle: org.eclipse.xtend.lib,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching,
  org.eclipse.m2e.core,
- org.eclipse.m2e.maven.runtime
+ org.eclipse.m2e.maven.runtime,
+ SensIDL;bundle-version="1.0.0",
+ org.jscience;bundle-version="4.3.1",
+ de.fzi.sensidl.language.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: bw-cps-code-generator
 Bundle-ActivationPolicy: lazy
+Import-Package: de.fzi.sensidl.language.ui.handler

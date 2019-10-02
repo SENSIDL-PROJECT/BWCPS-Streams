@@ -38,7 +38,7 @@ class GenerationJobFactory {
 					add(new ProjectGenerationStep(c, parameter.fileSystemAccess))
 					add(new DTOGenerationStep(c))
 //					add(new UtilityGenerationStep(new UtilityDataFilter()))
-					add(new FileGenerationStep(parameter.fileSystemAccess))
+					add(new FileGenerationStep(c, parameter.fileSystemAccess))
 					add(new DeploymentPackageGenerationStep(new StreamRepositoryFilter(), parameter.fileSystemAccess))
 				]
 			}

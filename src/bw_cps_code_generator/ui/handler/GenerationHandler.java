@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.handler;
+package bw_cps_code_generator.ui.handler;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,11 +15,11 @@ import org.eclipse.xtext.service.AbstractGenericModule;
 
 import com.google.inject.Guice;
 
+import bw_cps_code_generator.exception.NoBwcpsFileException;
 import bw_cps_code_generator.generator.BwCPSConstants;
 import bw_cps_code_generator.generator.BwCPSExtentions;
 import bw_cps_code_generator.generator.BwcpsGenerator;
 import bw_cps_code_generator.generator.BwcpsStandaloneSetup;
-import bw_cps_code_generator.language.ui.exception.NoBwcpsFileException;
 public class GenerationHandler {
 	private static BwCPSConstants.GenerationLanguage generationLanguage = BwCPSConstants.GenerationLanguage.NONE;
 	private static BwcpsGenerator generator;

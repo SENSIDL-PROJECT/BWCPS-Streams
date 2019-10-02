@@ -1,4 +1,4 @@
-package bw_cps_code_generator.generator;
+package bw_cps_code_generator.exception;
 
 public class NamedElementException extends Exception {
 	

@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.handler;
+package bw_cps_code_generator.ui.handler;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -9,9 +9,9 @@ import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import bw_cps_code_generator.language.ui.handler.SettingsHandler;
-import bw_cps_code_generator.language.ui.wizard.BwcpsWizard;
-import bw_cps_code_generator.language.ui.wizard.BwcpsWizardDialog;
+import bw_cps_code_generator.ui.handler.SettingsHandler;
+import bw_cps_code_generator.ui.wizard.BwcpsWizard;
+import bw_cps_code_generator.ui.wizard.BwcpsWizardDialog;
 
 
 public class ContextMenuHandler extends AbstractHandler implements IHandler {

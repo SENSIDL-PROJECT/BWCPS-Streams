@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.wizard;
+package bw_cps_code_generator.ui.wizard;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.wizard.WizardDialog;

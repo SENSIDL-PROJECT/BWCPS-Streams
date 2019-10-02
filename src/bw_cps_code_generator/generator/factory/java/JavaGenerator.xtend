@@ -21,7 +21,7 @@ class JavaGenerator implements ICodeGenerator {
 	GenerationLanguage generationlanguage
 	private var String packagePrefix
 	
-	new (GenerationLanguage generationLanguage) {
+	new (GenerationLanguage generationLanguage, String packagePrefix) {
 		this.packagePrefix = packagePrefix
 		this.generationlanguage = generationLanguage	
 	}

@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.handler;
+package bw_cps_code_generator.ui.handler;
 
 import java.util.ArrayList;
 import java.util.List;

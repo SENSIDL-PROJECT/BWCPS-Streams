@@ -16,9 +16,11 @@ import bw_cps_code_generator.generator.BwCPSConstants
 class NodeComponentGenerator implements IDTOGenerator{
 	static val Logger logger = Logger.getLogger(NodeComponentGenerator)
 	val List<Node> nodes
-	String projectName
-		
-	private val String packagePrefix 
+	val String projectName
+	
+	int count = 0
+	
+	private val String packagePrefix
 	
 	new(String projectName, List<Node> nodes, String newPackagePrefix) {
 		this.projectName = projectName
@@ -81,7 +83,7 @@ class NodeComponentGenerator implements IDTOGenerator{
 			
 			private static final long serialVersionUID = 1L;
 			
-			private static final String NODE_TYPE = "«GenerationUtil.getEntityUpperName(node.nodetype)»";	
+			private static final NodeType nodeType = new «GenerationUtil.getEntityUpperName(node.nodetype)»();	
 		'''	
 	}
 	/** 
@@ -96,15 +98,31 @@ class NodeComponentGenerator implements IDTOGenerator{
 			s_logger.info("Bundle " + APP_ID + " has started!");
 
 			s_logger.debug(APP_ID + ": This is a debug message.");
-
+			
+			//TODO This is an auto-generated method 
+			
 			}
 
 			@Deactivate
 			protected void deactivate(ComponentContext componentContext) {
 
 			s_logger.info("Bundle " + APP_ID + " has stopped!");
-
+			
+			//TODO This is an auto-generated method 
+			
 			}
+			
+			«FOR o: node.operational»
+				public void «GenerationUtil.getEntityLowerName(o)» (
+				«IF !(o.domain == null)»
+						«FOR d: o.domain.dimensions»
+								«d.valueSpace.getName.toTypeName»param«count++» 
+						«ENDFOR»«count = 0» 
+					«ENDIF»
+				) {
+					//TODO This is an auto-generated method 
+				}
+			«ENDFOR»
 		'''	
 	}
 	
@@ -113,6 +131,24 @@ class NodeComponentGenerator implements IDTOGenerator{
 	override addFileExtensionTo(String className) {
 		return className + BwCPSConstants.JAVA_EXTENSION
 	}
+	def toTypeName(String name){
+		return switch (name) {
+			case "INT8": "byte"
+			case "UINT8": "byte"
+			case "INT16": "short"
+			case "UINT16": "short"
+			case "INT32": "int"
+			case "UINT32": "int"
+			case "INT64": "long"
+			case "UINT64": "long"
+			case "FLOAT": "float"
+			case "DOUBLE": "double"
+			case "BOOLEAN": "boolean"
+			case "STRING": "String"
+			default: ""
+		}
+	}
+	
 	override toTypeName(Data data) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}

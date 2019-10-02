@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.exception;
+package bw_cps_code_generator.exception;
 
 /**
  * Exception class for the case that the given file is not a bwcps file

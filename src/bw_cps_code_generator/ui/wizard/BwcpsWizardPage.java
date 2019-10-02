@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.wizard;
+package bw_cps_code_generator.ui.wizard;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;

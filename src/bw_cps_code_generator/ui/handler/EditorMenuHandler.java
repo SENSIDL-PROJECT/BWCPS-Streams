@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.handler;
+package bw_cps_code_generator.ui.handler;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -8,8 +8,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import bw_cps_code_generator.language.ui.wizard.BwcpsWizard;
-import bw_cps_code_generator.language.ui.wizard.BwcpsWizardDialog;
+import bw_cps_code_generator.ui.wizard.BwcpsWizard;
+import bw_cps_code_generator.ui.wizard.BwcpsWizardDialog;
 
 public class EditorMenuHandler extends AbstractHandler implements IHandler {
 	private String path;

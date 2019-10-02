@@ -12,6 +12,7 @@ import bw_cps_code_generator.generator.factory.java.JavaGenerator
 import bw_cps_code_generator.generator.factory.kuracomponents.JavaComponentGenerator
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
+import bw_cps_code_generator.generator.factory.sidl.SidlGenerator
 
 class DTOGenerationStep extends GenerationStep {
 
@@ -47,7 +48,7 @@ class DTOGenerationStep extends GenerationStep {
 	private def getResourcesToGenerateMapping() {
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			put(GenerationLanguage.ALL, [
-				val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.ALL)
+				val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.ALL, javaPackagePrefix)
 				val JavaComponentGenerator kgenerator = new JavaComponentGenerator(javaPackagePrefix)
 
 				filesToGenerate => [
@@ -57,15 +58,20 @@ class DTOGenerationStep extends GenerationStep {
 				]
 			])
 			put(GenerationLanguage.KURA_PROJECT, [
-				val JavaComponentGenerator generator = new JavaComponentGenerator(javaPackagePrefix)
+				val JavaComponentGenerator kgenerator = new JavaComponentGenerator(javaPackagePrefix)
+				val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.KURA_PROJECT, javaPackagePrefix)
+				val SidlGenerator sgenerator = new SidlGenerator(javaPackagePrefix)
+
 				resetFilesToGenerate
 				filesToGenerate => [
-					putAll(generator.generateDTO(this.element as NodeContainer))
+					putAll(kgenerator.generateDTO(this.element as NodeContainer))
+					putAll(jgenerator.generateDTO(this.element as NodeContainer))
+					putAll(sgenerator.generateDTO(this.element as NodeContainer))
 				]
 				
 			])
 			put(GenerationLanguage.JAVA, [
-				val JavaGenerator generator = new JavaGenerator(GenerationLanguage.JAVA)
+				val JavaGenerator generator = new JavaGenerator(GenerationLanguage.JAVA, javaPackagePrefix)
 				filesToGenerate => [
 					putAll(generator.generateDTO(this.element as StreamRepository))
 				]

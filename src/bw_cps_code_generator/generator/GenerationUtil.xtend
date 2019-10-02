@@ -1,8 +1,8 @@
 package bw_cps_code_generator.generator
 
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
-import de.fzi.bwcps.stream.bwcps_streams.entity.Node
 import org.eclipse.emf.ecore.EObject
+import bw_cps_code_generator.exception.NamedElementException
 
 /**
  * The GenerationUtil-class is used to implement common methods, which are 

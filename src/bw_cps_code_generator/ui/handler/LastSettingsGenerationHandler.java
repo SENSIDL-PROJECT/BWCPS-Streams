@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.handler;
+package bw_cps_code_generator.ui.handler;
 
 import java.io.FileNotFoundException;
 
@@ -10,7 +10,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import bw_cps_code_generator.language.ui.exception.NoBwcpsFileException;
+import bw_cps_code_generator.exception.NoBwcpsFileException;
 
 public class LastSettingsGenerationHandler extends AbstractHandler implements IHandler {
 

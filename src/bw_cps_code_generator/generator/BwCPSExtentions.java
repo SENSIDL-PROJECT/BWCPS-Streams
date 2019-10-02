@@ -2,14 +2,13 @@ package bw_cps_code_generator.generator;
 
 
 import java.util.Arrays;
-
+//TODO DELETE
 public enum BwCPSExtentions {
 	
 
 		XMI("xmi"), 
 		ENTITY("entity"), 
 		OPERATIONS("operations");
-//		COMMONS("commons");
 		
 		private String extension;
 		

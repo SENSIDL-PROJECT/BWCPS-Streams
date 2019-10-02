@@ -1,4 +1,4 @@
-package bw_cps_code_generator.language.ui.wizard;
+package bw_cps_code_generator.ui.wizard;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -13,10 +13,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.internal.util.BundleUtility;
 import org.osgi.framework.Bundle;
 
-import bw_cps_code_generator.language.ui.exception.NoBwcpsFileException;
-import bw_cps_code_generator.language.ui.handler.ErrorDialogHandler;
-import bw_cps_code_generator.language.ui.handler.GenerationHandler;
-import bw_cps_code_generator.language.ui.handler.SettingsHandler;
+import bw_cps_code_generator.exception.NoBwcpsFileException;
+import bw_cps_code_generator.ui.handler.ErrorDialogHandler;
+import bw_cps_code_generator.ui.handler.GenerationHandler;
+import bw_cps_code_generator.ui.handler.SettingsHandler;
 
 
 @SuppressWarnings("restriction")

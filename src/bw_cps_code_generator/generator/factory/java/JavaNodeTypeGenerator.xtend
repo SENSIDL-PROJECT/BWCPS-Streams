@@ -14,7 +14,7 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 	static val Logger logger = Logger.getLogger(JavaNodeTypeGenerator)
 	val List<NodeType> nodetypes
 
-		String projectName
+	String projectName
 		
 	private val String packagePrefix 
 	
@@ -26,7 +26,6 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 
 	override generate() {
 		logger.info("Generate node types.")
-		val c = Data;
 		val filesToGenerate = new HashMap
 		filesToGenerate.put("NodeType.java", generateInterfaceBody())
 		logger.info("File: NodeType.java was generated in " +
@@ -57,60 +56,52 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 		'''
 	}
 	
-	override generateClassBody(String entityName, NamedElement stream) {
+	override generateClassBody(String entityName, NamedElement nodeType) {
 		'''
-			package nodes;
-			
-			import nodes.NodeType;
+			package «packagePrefix»«projectName.toLowerCase»;
+
 			/**
 			* NodeType: «entityName»
 			*
 			* @generated
 			*/
+			
+			«generateImports(nodeType)»
+			
+			public class «entityName» implements NodeType {
+									
+				«generateDataFields(nodeType)»
 				
-			public class «entityName» implements Stream {
-										
-				private static final long serialVersionUID = 1L;
+				«generateConstructor(nodeType, entityName)»
 				
-				«generateDataFields(stream)»
+				«nodeType.generateMethods»
 				
-				«generateConstructor(stream, entityName)»
-				
-				
-				«stream.generateMethods»
-				
-				«generateDataMethods(stream)»
+				«generateDataMethods(nodeType)»
 				
 			}
 		'''
 	}
 
-	override generateDataMethods(NamedElement entity) {
+	override generateDataMethods(NamedElement nodetype) {
 		//
 	}
-	override generateConstructor(NamedElement entity, String className) {
-		'''
-				
-			public «className»(Node source, Node target) {
-				this.source = source;
-				this.target = target;
-			}
-		'''
-	}
+	override generateConstructor(NamedElement nodetype, String className) {
 
-	/** 
-	 * Generates Methods
-	 * 
-	 */
-	def generateMethods(StreamRepository repo) {
 	}
 	
 // ------------------------------ Data Fields ------------------------------
 	
-	override generateDataFields(NamedElement entity) {
+	override generateDataFields(NamedElement nodetype) {
 		'''
-			«(new JavaDataRepresentaionGenerator).generateDataFields(entity)»
-
+			«GenerationUtil.getEntityUpperName(nodetype)»InputDataSet input = new «GenerationUtil.getEntityUpperName(nodetype)»InputDataSet();
+			«GenerationUtil.getEntityUpperName(nodetype)»OutputDataSet output = new «GenerationUtil.getEntityUpperName(nodetype)»OutputDataSet();
+		'''
+	}
+	
+	def generateImports(NamedElement nodetype) {
+		'''
+			import «GenerationUtil.getEntityLowerName(nodetype).toLowerCase»inputdataset.«GenerationUtil.getEntityUpperName(nodetype)»InputDataSet;
+			import «GenerationUtil.getEntityLowerName(nodetype).toLowerCase»outputdataset.«GenerationUtil.getEntityUpperName(nodetype)»OutputDataSet;
 		'''
 	}
 	
