@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operations:OperationDefinition xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:operations="http://www.fzi.de/bwcps/stream/operations/1.0">
+  <operations xsi:type="operations:CompositionellOperation" name="TemperatureMapping" domain="//@domains.1" range="//@domains.3" operation="//@operations.1">
+    <type xsi:type="operations:Mapping"/>
+  </operations>
+  <operations xsi:type="operations:AtomicOperation" name="Encode" domain="//@domains.0" range="//@domains.1"/>
+  <operations xsi:type="operations:AtomicOperation" name="ReadTemp" domain="//@domains.1" range="//@domains.3"/>
+  <domains subDomain="//@domains.3">
+    <dimensions valueSpace="DOUBLE"/>
+    <dimensions/>
+    <dimensions valueSpace="BOOLEAN"/>
+  </domains>
+  <domains>
+    <dimensions valueSpace="STRING"/>
+  </domains>
+  <domains>
+    <dimensions valueSpace="BOOLEAN"/>
+  </domains>
+  <domains>
+    <dimensions valueSpace="UINT32"/>
+  </domains>
+</operations:OperationDefinition>

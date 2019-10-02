@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:StreamRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" xmlns:entity="http://www.fzi.de/bwcps/stream/entity/1.0" xmlns:operations="http://www.fzi.de/bwcps/stream/operations/1.0">
+  <streams/>
+  <container xsi:type="entity:EdgeDevice" nodes="//@nodes.1 //@nodes.0"/>
+  <container xsi:type="entity:EdgeGateway" nodes="//@nodes.0"/>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sidl#_TZwMMOOXEemh6euBNhFn2w"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sidl#_TZyocOOXEemh6euBNhFn2w"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sidl#_TZwMMOOXEemh6euBNhFn2w"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SinkNodeType" name="Sink">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sidl#_TZyocOOXEemh6euBNhFn2w"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sidl#_TZyocOOXEemh6euBNhFn2w"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sidl#_TZyocOOXEemh6euBNhFn2w"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sidl#_TZyocOOXEemh6euBNhFn2w"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sidl#_TZwMMOOXEemh6euBNhFn2w"/>
+  </nodeTypes>
+  <nodes name="Sensor" nodetype="//@nodeTypes.0">
+    <operational xsi:type="operations:AtomicOperation" href="My.operations#/"/>
+  </nodes>
+  <nodes nodetype="//@nodeTypes.1">
+    <operational xsi:type="operations:CompositionellOperation" href="My1.operations#//@operations.0"/>
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.2"/>
+  </nodes>
+  <nodes name="Not in Container"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink"/>
+</entity:StreamRepository>
