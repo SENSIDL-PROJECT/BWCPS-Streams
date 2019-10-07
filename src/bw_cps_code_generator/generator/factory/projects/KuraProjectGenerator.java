@@ -35,37 +35,37 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
  * @author Sven Eckhardt
  */
 public class KuraProjectGenerator extends ProjectGenerator {
-	
+
 	private String projectName;
 	private String projectPath;
-	
+
 	/**
 	 * The Constructor.
+	 * 
 	 * @param projectName - Specifies the name of the generated project.
 	 */
 	public KuraProjectGenerator(String projectName) {
-		
+
 		this.projectName = projectName;
 		this.projectPath = "";
 	}
-	
+
 	public String getProjectPath() {
-		
+
 		return this.projectPath;
-		
+
 	}
-	
+
 	private void setProjectPath(String projectPath) {
-		
+
 		this.projectPath = projectPath;
-		
+
 	}
-	
+
 	/**
 	 * Create a Java Plug-in Project with the given name.
 	 * 
-	 * @param projectName
-	 *            The name for the java plug-in project
+	 * @param projectName The name for the java plug-in project
 	 * @return the plug-in project
 	 * @throws CoreException
 	 * @throws IOException
@@ -80,13 +80,13 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		// Remove old project if there is one with the same name. Show a Message
 		// Dialog if the old project will be deleted
 		if (project.exists()) {
-			
+
 			if (this.deleteExistingProjectWith(projectName)) {
 				project.delete(true, true, null);
 			} else {
 				throw new Exception("Project already exist.");
 			}
-				
+
 		}
 
 		// create Java project
@@ -101,7 +101,7 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		project.setDescription(projectDescription, null);
 
 		setProjectPath(project.getLocation().toOSString());
-		
+
 		// create src folder
 		IFolder srcFolder = project.getFolder("src");
 		if (!srcFolder.exists()) {
@@ -122,6 +122,20 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		java.nio.file.Files.copy(gsonSource, gsonDestination.resolve(gsonSource.getFileName()),
 				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
+		// copy crypto
+		bundle = Platform.getBundle("bw-cps-code-generator");
+		path = new Path("commons-crypto-1.0.0.jar");
+		absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
+
+		java.nio.file.Path cryptoSource = java.nio.file.Paths
+				.get(absoluteFileURL.toURI());
+
+		java.nio.file.Path cryptoDestination = java.nio.file.Paths
+				.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
+
+		java.nio.file.Files.copy(cryptoSource, cryptoDestination.resolve(cryptoSource.getFileName()),
+				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
 		// add classpath entries
 		List<IClasspathEntry> classpathEntries = new ArrayList<IClasspathEntry>();
 		IClasspathEntry srcClasspathEntry = JavaCore.newSourceEntry(srcFolder.getFullPath());
@@ -135,6 +149,10 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		File file = new File(gsonDestination.resolve(gsonSource.getFileName()).toString());
 		classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
 
+		// add crypto to classpathEntries
+		file = new File(cryptoDestination.resolve(cryptoSource.getFileName()).toString());
+		classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
+
 		// set classpath entries
 		javaProject.setRawClasspath(classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), null);
 
@@ -144,10 +162,9 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		createManifest(projectName, project);
 		// create build.properties
 		createBuildProperties(project, "src");
-		
+
 		return project;
 	}
-
 
 	/*
 	 * creates the MANIFEST.MF
@@ -159,9 +176,8 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		content.append("Bundle-SymbolicName: " + projectName.replaceAll(" ", "") + "; singleton:=true\n");
 		content.append("Bundle-Version: 1.0.0.qualifier\n");
 		content.append("Bundle-RequiredExecutionEnvironment: JavaSE-1.8\n");
-		content.append("Require-Bundle: org.eclipse.osgi.services;bundle-version=\"3.8.0\",\n" + 
-				" org.slf4j.api;bundle-version=\"1.7.2\",\n" +
-				" org.junit\n");
+		content.append("Require-Bundle: org.eclipse.osgi.services;bundle-version=\"3.8.0\",\n"
+				+ " org.slf4j.api;bundle-version=\"1.7.2\",\n" + " org.junit\n");
 
 		IFolder metaInf = project.getFolder("META-INF");
 		metaInf.create(false, true, null);
@@ -181,8 +197,7 @@ public class KuraProjectGenerator extends ProjectGenerator {
 	/*
 	 * creates a file from the given parameters
 	 */
-	private IFile createFile(String name, IContainer container, String content)
-			throws CoreException, IOException {
+	private IFile createFile(String name, IContainer container, String content) throws CoreException, IOException {
 		IFile file = container.getFile(new Path(name));
 		createDirectory(file.getParent());
 
@@ -210,8 +225,9 @@ public class KuraProjectGenerator extends ProjectGenerator {
 			}
 		}
 	}
+
 	protected boolean deleteExistingProjectWith(final String name) {
-		
+
 		final boolean[] result = new boolean[1];
 		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 			public void run() {
@@ -219,8 +235,8 @@ public class KuraProjectGenerator extends ProjectGenerator {
 						"Warning: " + "'" + name + "' already exists. Should this project be deleted?");
 			}
 		});
-			
+
 		return result[0];
-		
+
 	}
 }

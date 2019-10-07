@@ -118,8 +118,7 @@ class NodeComponentGenerator implements IDTOGenerator{
 						«FOR d: o.domain.dimensions»
 								«d.valueSpace.getName.toTypeName»param«count++» 
 						«ENDFOR»«count = 0» 
-					«ENDIF»
-				) {
+					«ENDIF») {
 					//TODO This is an auto-generated method 
 				}
 			«ENDFOR»

@@ -5,7 +5,6 @@ import bw_cps_code_generator.generator.factory.IDTOGenerator
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.sensidl.design.sensidl.dataRepresentation.Data
 import java.util.List
-import bw_cps_code_generator.generator.GenerationUtil
 
 abstract class JavaEntityGenerator implements IDTOGenerator {
 	

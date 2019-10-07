@@ -10,14 +10,14 @@ import bw_cps_code_generator.exception.NamedElementException
  */
 class GenerationUtil {
 
-	static private def getEntityName(NamedElement e) {
+	static private def getResourceName(NamedElement e) {
 			e.class.simpleName.substring(0, e.class.simpleName.length - 4)
 
 	}
 	
 	static def getEntityUpperName(NamedElement e) {
 		if(e.name == "" || e.name == null) {
-			e.entityName
+			e.resourceName
 		} else {
 			e.name.toFirstUpper
 		}
@@ -25,7 +25,7 @@ class GenerationUtil {
 	
 	static def getEntityLowerName(NamedElement e) {
 		if(e.name == "" || e.name == null) {
-			e.entityName
+			e.resourceName
 		} else {
 			e.name.toFirstLower
 		}

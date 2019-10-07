@@ -207,10 +207,11 @@ public class NodeComponentGenerator implements IDTOGenerator {
             _builder.append(this.count = 0);
             _builder.append(" ");
             _builder.newLineIfNotEmpty();
+            _builder.append("\t\t\t\t\t");
           }
         }
         _builder.append(") {");
-        _builder.newLine();
+        _builder.newLineIfNotEmpty();
         _builder.append("\t");
         _builder.append("//TODO This is an auto-generated method ");
         _builder.newLine();

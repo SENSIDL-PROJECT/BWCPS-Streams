@@ -78,6 +78,7 @@ class SidlDTOGenerator implements IDTOGenerator {
 	 */
 	def generateClass(String name, List<Data> data) {
 		'''
+«««		TODO sensorInterface «packagePrefix»«name.toLowerCase» {
 		sensorInterface «name.toLowerCase» {
 			encoding: SENSIDL_BINARY, endianness: BIG_ENDIAN, alignment: 1 BIT
 			sensorData {

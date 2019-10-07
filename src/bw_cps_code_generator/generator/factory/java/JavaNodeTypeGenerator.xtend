@@ -3,8 +3,6 @@ package bw_cps_code_generator.generator.factory.java
 import bw_cps_code_generator.generator.BwcpsOutputConfigurationProvider
 import bw_cps_code_generator.generator.GenerationUtil
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
-import dataRepresentation.Data
-import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
@@ -83,8 +81,9 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 	}
 
 	override generateDataMethods(NamedElement nodetype) {
-		//
+		
 	}
+	
 	override generateConstructor(NamedElement nodetype, String className) {
 
 	}
@@ -107,7 +106,6 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 	
 	
 	override generateMethods(NamedElement entity) {
-	//	throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 
