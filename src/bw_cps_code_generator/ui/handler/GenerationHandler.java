@@ -46,7 +46,6 @@ public class GenerationHandler {
 		
 		setGenerationLanguage(language);
 		new BwcpsStandaloneSetup().register();
-//		Injector injector = new BwcpsStandaloneSetup().createInjectorAndDoEMFRegistration();
 		
 		// get resource
 		Resource resource = null;
@@ -68,7 +67,7 @@ public class GenerationHandler {
 			resource = rs.getResource(URI.createURI(file.toURI().toString()), true);
 		}
 
-		
+
 		// Use the JavaIoFileSystemAccess and set the path
 //		JavaIoFileSystemAccess fsa = injector.getInstance(JavaIoFileSystemAccess.class);
 		final JavaIoFileSystemAccess fsa = new JavaIoFileSystemAccess();

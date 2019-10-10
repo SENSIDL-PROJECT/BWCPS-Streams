@@ -4,16 +4,12 @@ import bw_cps_code_generator.generator.BwCPSConstants;
 import bw_cps_code_generator.generator.BwcpsOutputConfigurationProvider;
 import bw_cps_code_generator.generator.GenerationUtil;
 import bw_cps_code_generator.generator.factory.IDTOGenerator;
-import com.google.common.base.Objects;
+import bw_cps_code_generator.generator.factory.kuracomponents.MethodGenerator;
 import de.fzi.bwcps.stream.bwcps_streams.entity.Node;
-import de.fzi.bwcps.stream.bwcps_streams.operations.Dimension;
-import de.fzi.bwcps.stream.bwcps_streams.operations.Domain;
-import de.fzi.bwcps.stream.bwcps_streams.operations.Operation;
 import de.fzi.sensidl.design.sensidl.dataRepresentation.Data;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 
 @SuppressWarnings("all")
@@ -177,48 +173,10 @@ public class NodeComponentGenerator implements IDTOGenerator {
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
+    CharSequence _generateMethods = MethodGenerator.generateMethods(node.getOperational());
+    _builder.append(_generateMethods);
+    _builder.newLineIfNotEmpty();
     _builder.newLine();
-    {
-      EList<Operation> _operational = node.getOperational();
-      for(final Operation o : _operational) {
-        _builder.append("public void ");
-        String _entityLowerName = GenerationUtil.getEntityLowerName(o);
-        _builder.append(_entityLowerName);
-        _builder.append(" (");
-        _builder.newLineIfNotEmpty();
-        {
-          Domain _domain = o.getDomain();
-          boolean _equals = Objects.equal(_domain, null);
-          boolean _not = (!_equals);
-          if (_not) {
-            {
-              EList<Dimension> _dimensions = o.getDomain().getDimensions();
-              for(final Dimension d : _dimensions) {
-                String _typeName = this.toTypeName(d.getValueSpace().getName());
-                _builder.append(_typeName);
-                _builder.append("param");
-                int _plusPlus = this.count++;
-                _builder.append(_plusPlus);
-                _builder.append(" ");
-                _builder.newLineIfNotEmpty();
-                _builder.append("\t\t\t\t\t\t");
-              }
-            }
-            _builder.append(this.count = 0);
-            _builder.append(" ");
-            _builder.newLineIfNotEmpty();
-            _builder.append("\t\t\t\t\t");
-          }
-        }
-        _builder.append(") {");
-        _builder.newLineIfNotEmpty();
-        _builder.append("\t");
-        _builder.append("//TODO This is an auto-generated method ");
-        _builder.newLine();
-        _builder.append("}");
-        _builder.newLine();
-      }
-    }
     return _builder;
   }
   

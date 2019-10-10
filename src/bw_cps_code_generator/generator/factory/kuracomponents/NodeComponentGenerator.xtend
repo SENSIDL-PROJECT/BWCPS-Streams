@@ -12,6 +12,7 @@ import bw_cps_code_generator.generator.factory.ICodeGenerator
 import bw_cps_code_generator.generator.factory.IDTOGenerator
 import de.fzi.sensidl.design.sensidl.dataRepresentation.Data
 import bw_cps_code_generator.generator.BwCPSConstants
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class NodeComponentGenerator implements IDTOGenerator{
 	static val Logger logger = Logger.getLogger(NodeComponentGenerator)
@@ -111,17 +112,8 @@ class NodeComponentGenerator implements IDTOGenerator{
 			//TODO This is an auto-generated method 
 			
 			}
-			
-			«FOR o: node.operational»
-				public void «GenerationUtil.getEntityLowerName(o)» (
-				«IF !(o.domain == null)»
-						«FOR d: o.domain.dimensions»
-								«d.valueSpace.getName.toTypeName»param«count++» 
-						«ENDFOR»«count = 0» 
-					«ENDIF») {
-					//TODO This is an auto-generated method 
-				}
-			«ENDFOR»
+			«MethodGenerator.generateMethods(node.operational)»
+
 		'''	
 	}
 	

@@ -1,10 +1,11 @@
 package bw_cps_code_generator.generator.elementfilter
 
-import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
+import java.util.List
+import de.fzi.sensidl.design.sensidl.dataRepresentation.Data
 import org.eclipse.emf.ecore.resource.Resource
 
-class StreamRepositoryFilter extends ElementFilter {
-	
+class DataFilter extends ElementFilter {
+
 	/**
  	* Implements the abstract method of the base-class and filters the SensorInterface-elements.
 	* @see ElementFilter#filterData()
@@ -14,8 +15,8 @@ class StreamRepositoryFilter extends ElementFilter {
 		super(input)
 	}
 	
-	override StreamRepository filterData() {
+	override List<Data> filterData() {
 		//Exception
-		input.contents.filter(StreamRepository).get(0)		  	
+		input.contents.filter(Data).toList		  	
 	}
 }

@@ -16,13 +16,6 @@ import de.fzi.bwcps.stream.bwcps_streams.operations.impl.operationsFactoryImpl;
 
 public class BwcpsStandaloneSetup {
 	
-	public Injector createInjectorAndDoEMFRegistration() {
-		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
-		Injector injector = Guice.createInjector(new BwcpsRuntimeModule());;
-		register();
-		return injector;
-	}
-
 	public void register() {
 		//TODO why necessary
 //		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
@@ -30,6 +23,6 @@ public class BwcpsStandaloneSetup {
 		operationsPackage.eINSTANCE.eClass();
 		Map<String, Object> m = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
 		m.put("entity", new XMIResourceFactoryImpl());
-		m.put("operations", new operationsFactoryImpl());
+		m.put("operations", new XMIResourceFactoryImpl());
 	}
 }

@@ -2,11 +2,11 @@ package bw_cps_code_generator.generator;
 
 
 import java.util.Arrays;
-//TODO DELETE
+
 public enum BwCPSExtentions {
 	
 
-		XMI("xmi"), 
+		SIDL("sidl"), 
 		ENTITY("entity"), 
 		OPERATIONS("operations");
 		
