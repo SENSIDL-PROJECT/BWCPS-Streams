@@ -6,7 +6,6 @@ import bw_cps_code_generator.generator.GenerationUtil;
 import bw_cps_code_generator.generator.factory.IDTOGenerator;
 import bw_cps_code_generator.generator.factory.kuracomponents.MethodGenerator;
 import de.fzi.bwcps.stream.bwcps_streams.entity.Node;
-import de.fzi.sensidl.design.sensidl.dataRepresentation.Data;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -233,10 +232,5 @@ public class NodeComponentGenerator implements IDTOGenerator {
       _switchResult = "";
     }
     return _switchResult;
-  }
-  
-  @Override
-  public String toTypeName(final Data data) {
-    throw new UnsupportedOperationException("TODO: auto-generated method stub");
   }
 }

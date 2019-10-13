@@ -1,6 +1,6 @@
 package bw_cps_code_generator.generator.factory
 
-import de.fzi.sensidl.design.sensidl.dataRepresentation.Data
+
 import java.util.HashMap
 
 /**
@@ -21,11 +21,5 @@ interface IDTOGenerator {
 	 * @return the filename with extension
 	 */
 	abstract def String addFileExtensionTo(String ClassName);
-	
-	/**
-	 * Returns the name of the datatype in the generated language.
-	 * @param data Represents the Data-element.
-	 * @return the corresponding data type.
-	 */
-	abstract def String toTypeName(Data data); 	
+
 }

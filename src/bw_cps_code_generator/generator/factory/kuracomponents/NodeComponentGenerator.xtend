@@ -10,7 +10,7 @@ import org.apache.log4j.Logger
 import de.fzi.bwcps.stream.bwcps_streams.entity.Node
 import bw_cps_code_generator.generator.factory.ICodeGenerator
 import bw_cps_code_generator.generator.factory.IDTOGenerator
-import de.fzi.sensidl.design.sensidl.dataRepresentation.Data
+import sensidl.dataRepresentation.Data
 import bw_cps_code_generator.generator.BwCPSConstants
 import org.eclipse.emf.ecore.util.EcoreUtil
 
@@ -139,10 +139,5 @@ class NodeComponentGenerator implements IDTOGenerator{
 			default: ""
 		}
 	}
-	
-	override toTypeName(Data data) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
 
 }

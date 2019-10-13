@@ -3,7 +3,7 @@ package bw_cps_code_generator.generator.factory.java
 import bw_cps_code_generator.generator.BwCPSConstants
 import bw_cps_code_generator.generator.factory.IDTOGenerator
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
-import de.fzi.sensidl.design.sensidl.dataRepresentation.Data
+import sensidl.dataRepresentation.Data
 import java.util.List
 
 abstract class JavaEntityGenerator implements IDTOGenerator {
@@ -37,9 +37,6 @@ abstract class JavaEntityGenerator implements IDTOGenerator {
 	}
 	override addFileExtensionTo(String className) {
 		return className + BwCPSConstants.JAVA_EXTENSION
-	}
-	override toTypeName(Data data) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 
 //	/**
