@@ -1,31 +1,29 @@
 package bw_cps_code_generator.generator.factory.kuracomponents
 
+import bw_cps_code_generator.generator.BwCPSConstants
 import bw_cps_code_generator.generator.BwcpsOutputConfigurationProvider
 import bw_cps_code_generator.generator.GenerationUtil
-import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
-import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
+import bw_cps_code_generator.generator.factory.IDTOGenerator
+import de.fzi.bwcps.stream.bwcps_streams.entity.Node
+import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
 import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
-import de.fzi.bwcps.stream.bwcps_streams.entity.Node
-import bw_cps_code_generator.generator.factory.ICodeGenerator
-import bw_cps_code_generator.generator.factory.IDTOGenerator
-import sensidl.dataRepresentation.Data
-import bw_cps_code_generator.generator.BwCPSConstants
-import org.eclipse.emf.ecore.util.EcoreUtil
 
-class NodeComponentGenerator implements IDTOGenerator{
-	static val Logger logger = Logger.getLogger(NodeComponentGenerator)
+class NodeComponentsGenerator implements IDTOGenerator{
+	static val Logger logger = Logger.getLogger(NodeComponentsGenerator)
 	val List<Node> nodes
+	val List<NodeLink> nodelinks
 	val String projectName
 	
 	int count = 0
 	
 	private val String packagePrefix
 	
-	new(String projectName, List<Node> nodes, String newPackagePrefix) {
+	new(String projectName, List<Node> nodes, List<NodeLink> nodelinks, String newPackagePrefix) {
 		this.projectName = projectName
 		this.nodes = nodes
+		this.nodelinks = nodelinks
 		packagePrefix = newPackagePrefix
 	}
 
@@ -60,6 +58,7 @@ class NodeComponentGenerator implements IDTOGenerator{
 			* @generated
 			*/
 			
+			@Service
 			@Component	
 			public class «entityName» {
 
@@ -77,6 +76,8 @@ class NodeComponentGenerator implements IDTOGenerator{
 	 * 
 	 */
 	def generateDataFields(String entityName, Node node) {
+		val sourceReferences = nodelinks.filter[n|n.target.equals(node)]
+		val targetReferences = nodelinks.filter[n|n.source.equals(node)]
 		'''		
 			private static final Logger s_logger = LoggerFactory.getLogger(«entityName».class);
 			

@@ -13,19 +13,22 @@ import bw_cps_code_generator.generator.factory.kuracomponents.JavaComponentGener
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import bw_cps_code_generator.generator.factory.sidl.SidlGenerator
+import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
 
 class DTOGenerationStep extends GenerationStep {
 
 	private NamedElement element
-
+	private List<NodeLink> nodelinks
+	
 	/**
 	 * The constructor calls the needed data filtered by a
 	 * concrete element-filter.
 	 * @param filter - represents a base filter which can be substituted by a specific
 	 * 				   subclass that filters a particular set of elements.	
 	 */
-	new(NamedElement element) {
+	new(NodeContainer element, List<NodeLink> nodelinks) {
 		this.element = element
+		this.nodelinks = nodelinks
 	}
 
 	new(ElementFilter filter) {
@@ -53,7 +56,7 @@ class DTOGenerationStep extends GenerationStep {
 
 				filesToGenerate => [
 					putAll(jgenerator.generateDTO(this.element as StreamRepository))
-					putAll(kgenerator.generateDTO(this.element as NodeContainer))
+					putAll(kgenerator.generateDTO(this.element as NodeContainer, nodelinks))
 				
 				]
 			])
@@ -64,7 +67,7 @@ class DTOGenerationStep extends GenerationStep {
 
 				resetFilesToGenerate
 				filesToGenerate => [
-					putAll(kgenerator.generateDTO(this.element as NodeContainer))
+					putAll(kgenerator.generateDTO(this.element as NodeContainer, nodelinks))
 					putAll(jgenerator.generateDTO(this.element as NodeContainer))
 					putAll(sgenerator.generateDTO(this.element as NodeContainer))
 				]

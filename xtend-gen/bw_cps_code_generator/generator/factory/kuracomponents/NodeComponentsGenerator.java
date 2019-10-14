@@ -6,16 +6,21 @@ import bw_cps_code_generator.generator.GenerationUtil;
 import bw_cps_code_generator.generator.factory.IDTOGenerator;
 import bw_cps_code_generator.generator.factory.kuracomponents.MethodGenerator;
 import de.fzi.bwcps.stream.bwcps_streams.entity.Node;
+import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
-public class NodeComponentGenerator implements IDTOGenerator {
-  private static final Logger logger = Logger.getLogger(NodeComponentGenerator.class);
+public class NodeComponentsGenerator implements IDTOGenerator {
+  private static final Logger logger = Logger.getLogger(NodeComponentsGenerator.class);
   
   private final List<Node> nodes;
+  
+  private final List<NodeLink> nodelinks;
   
   private final String projectName;
   
@@ -23,9 +28,10 @@ public class NodeComponentGenerator implements IDTOGenerator {
   
   private final String packagePrefix;
   
-  public NodeComponentGenerator(final String projectName, final List<Node> nodes, final String newPackagePrefix) {
+  public NodeComponentsGenerator(final String projectName, final List<Node> nodes, final List<NodeLink> nodelinks, final String newPackagePrefix) {
     this.projectName = projectName;
     this.nodes = nodes;
+    this.nodelinks = nodelinks;
     this.packagePrefix = newPackagePrefix;
   }
   
@@ -33,7 +39,7 @@ public class NodeComponentGenerator implements IDTOGenerator {
   public HashMap<String, CharSequence> generate() {
     HashMap<String, CharSequence> _xblockexpression = null;
     {
-      NodeComponentGenerator.logger.info("Generate node.");
+      NodeComponentsGenerator.logger.info("Generate node.");
       final HashMap<String, CharSequence> filesToGenerate = new HashMap<String, CharSequence>();
       for (final Node node : this.nodes) {
         {
@@ -44,7 +50,7 @@ public class NodeComponentGenerator implements IDTOGenerator {
           String _plus_1 = (_plus + " was generated in ");
           String _plus_2 = (_plus_1 + 
             BwcpsOutputConfigurationProvider.BWCPS_GEN);
-          NodeComponentGenerator.logger.info(_plus_2);
+          NodeComponentsGenerator.logger.info(_plus_2);
         }
       }
       _xblockexpression = filesToGenerate;
@@ -85,6 +91,8 @@ public class NodeComponentGenerator implements IDTOGenerator {
     _builder.append("*/");
     _builder.newLine();
     _builder.newLine();
+    _builder.append("@Service");
+    _builder.newLine();
     _builder.append("@Component\t");
     _builder.newLine();
     _builder.append("public class ");
@@ -115,26 +123,38 @@ public class NodeComponentGenerator implements IDTOGenerator {
    * Generates DataFields
    */
   public CharSequence generateDataFields(final String entityName, final Node node) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("private static final Logger s_logger = LoggerFactory.getLogger(");
-    _builder.append(entityName);
-    _builder.append(".class);");
-    _builder.newLineIfNotEmpty();
-    _builder.newLine();
-    _builder.append("private static final String APP_ID = \"");
-    _builder.append(this.projectName);
-    _builder.append("\";");
-    _builder.newLineIfNotEmpty();
-    _builder.newLine();
-    _builder.append("private static final long serialVersionUID = 1L;");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("private static final NodeType nodeType = new ");
-    String _entityUpperName = GenerationUtil.getEntityUpperName(node.getNodetype());
-    _builder.append(_entityUpperName);
-    _builder.append("();\t");
-    _builder.newLineIfNotEmpty();
-    return _builder;
+    CharSequence _xblockexpression = null;
+    {
+      final Function1<NodeLink, Boolean> _function = (NodeLink n) -> {
+        return Boolean.valueOf(n.getTarget().equals(node));
+      };
+      final Iterable<NodeLink> sourceReferences = IterableExtensions.<NodeLink>filter(this.nodelinks, _function);
+      final Function1<NodeLink, Boolean> _function_1 = (NodeLink n) -> {
+        return Boolean.valueOf(n.getSource().equals(node));
+      };
+      final Iterable<NodeLink> targetReferences = IterableExtensions.<NodeLink>filter(this.nodelinks, _function_1);
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("private static final Logger s_logger = LoggerFactory.getLogger(");
+      _builder.append(entityName);
+      _builder.append(".class);");
+      _builder.newLineIfNotEmpty();
+      _builder.newLine();
+      _builder.append("private static final String APP_ID = \"");
+      _builder.append(this.projectName);
+      _builder.append("\";");
+      _builder.newLineIfNotEmpty();
+      _builder.newLine();
+      _builder.append("private static final long serialVersionUID = 1L;");
+      _builder.newLine();
+      _builder.newLine();
+      _builder.append("private static final NodeType nodeType = new ");
+      String _entityUpperName = GenerationUtil.getEntityUpperName(node.getNodetype());
+      _builder.append(_entityUpperName);
+      _builder.append("();\t");
+      _builder.newLineIfNotEmpty();
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
   }
   
   /**

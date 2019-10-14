@@ -9,14 +9,15 @@ import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage
 import bw_cps_code_generator.generator.GenerationUtil
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
+import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
 
 /**
  * The JavaGenerator represents a concrete implementation of The ICodeGenerator and implements the 
  * code-generator for the language Java.
  * 
  */
-class JavaComponentGenerator implements ICodeGenerator {
-	
+class JavaComponentGenerator  {
+	//implements ICodeGenerator
 	private var String packagePrefix
 
 	
@@ -26,9 +27,10 @@ class JavaComponentGenerator implements ICodeGenerator {
 		
 	} 
 	
-	override generateDTO(NamedElement element) {
-		val container = element as NodeContainer
-		new NodeComponentGenerator(GenerationUtil.getEntityUpperName(container), container.nodes, packagePrefix).generate
+//	override generateDTO(NamedElement nodeContainer) {
+//		val container = nodeContainer as NodeContainer
+	def generateDTO(NodeContainer container, List<NodeLink> nodelinks) {
+		new NodeComponentsGenerator(GenerationUtil.getEntityUpperName(container), container.nodes, nodelinks, packagePrefix).generate
 	}
 
 }

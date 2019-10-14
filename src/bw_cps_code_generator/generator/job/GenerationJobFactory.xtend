@@ -13,6 +13,11 @@ import bw_cps_code_generator.generator.elementfilter.StreamRepositoryFilter
 import bw_cps_code_generator.generator.elementfilter.ElementFilter
 import bw_cps_code_generator.generator.generationstep.ProjectGenerationStep
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
+import java.util.Collection
+import java.util.stream.Collector
+import java.util.stream.Collectors
+import java.util.List
+import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 
 class GenerationJobFactory {
 	
@@ -28,11 +33,13 @@ class GenerationJobFactory {
 		
 		makeGlobalSettings(parameter)
 		val generationChain = new LinkedHashSet<GenerationStep>()
-		(new StreamRepositoryFilter(parameter.resource).filterData() as StreamRepository).container.forEach[c | 
+		val streamRepo = new StreamRepositoryFilter(parameter.resource).filterData()
+		
+		streamRepo.container.forEach[c | 
 			{
 				generationChain => [
 					add(new ProjectGenerationStep(c, parameter.fileSystemAccess))
-					add(new DTOGenerationStep(c))
+					add(new DTOGenerationStep(c, StreamRepositoryFilter.filterNodelinks(streamRepo, c)))
 					add(new FileGenerationStep(c, parameter.fileSystemAccess))
 //					add(new DeploymentPackageGenerationStep(new StreamRepositoryFilter(), parameter.fileSystemAccess))
 				]
@@ -61,5 +68,5 @@ class GenerationJobFactory {
 		
 		GenerationStep.globalSettings = parameter.generationLanguage		
 	}
-	
+
 }
