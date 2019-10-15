@@ -46,7 +46,6 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			package «packagePrefix»«projectName.toLowerCase»;
 «««			package «packagePrefix»«GenerationUtil.getEntityLowerName(GenerationUtil.getNamedElement(nodes.get(0).eContainer))»;
 			import org.osgi.service.component.ComponentContext;
-			import org.osgi.service.component.annotations.Service;
 			import org.osgi.service.component.annotations.Component;
 			import org.osgi.service.component.annotations.Activate;
 			import org.osgi.service.component.annotations.Deactivate;
@@ -59,7 +58,6 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			* @generated
 			*/
 			
-			@Service
 			@Component	
 			public class «entityName» {
 

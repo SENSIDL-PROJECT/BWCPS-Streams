@@ -68,8 +68,6 @@ public class NodeComponentsGenerator implements IDTOGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("import org.osgi.service.component.ComponentContext;");
     _builder.newLine();
-    _builder.append("import org.osgi.service.component.annotations.Service;");
-    _builder.newLine();
     _builder.append("import org.osgi.service.component.annotations.Component;");
     _builder.newLine();
     _builder.append("import org.osgi.service.component.annotations.Activate;");
@@ -92,8 +90,6 @@ public class NodeComponentsGenerator implements IDTOGenerator {
     _builder.newLine();
     _builder.append("*/");
     _builder.newLine();
-    _builder.newLine();
-    _builder.append("@Service");
     _builder.newLine();
     _builder.append("@Component\t");
     _builder.newLine();
