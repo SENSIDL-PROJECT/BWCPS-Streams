@@ -3,6 +3,7 @@ package bw_cps_code_generator.ui.wizard;
 import java.io.FileNotFoundException;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -26,6 +27,7 @@ public class BwcpsWizard extends Wizard {
 	private String path;
 	private String language;
 	private Resource bwcpsmodel;
+	private static Logger logger = Logger.getLogger(BwcpsWizard.class);
 	/**
 	 * Constructor
 	 * 
@@ -86,6 +88,7 @@ public class BwcpsWizard extends Wizard {
 			errorHandler.execute(new Shell(), ex);
 			return false;
 		} catch (Exception ex) {
+			logger.info(ex.getStackTrace());
 			errorHandler.execute(new Shell(), ex);
 			return false;
 		}

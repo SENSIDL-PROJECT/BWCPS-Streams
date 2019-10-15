@@ -39,6 +39,7 @@ class MethodGenerator {
 			val uri = EcoreUtil.getURI(o)
 			opDef = loadedOps.get(uri)
 			if (opDef == null) {
+				//TODO Exception: Metamodel
 				opDef = (new OperationDefinitionFilter(GenerationUtil.loadResource(uri.devicePath))).filterData
 				loadedOps.put(uri, opDef)
 			}
