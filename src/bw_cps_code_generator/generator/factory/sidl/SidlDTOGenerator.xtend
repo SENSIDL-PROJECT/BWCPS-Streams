@@ -3,14 +3,14 @@ package bw_cps_code_generator.generator.factory.sidl
 import bw_cps_code_generator.generator.BwcpsOutputConfigurationProvider
 import bw_cps_code_generator.generator.factory.IDTOGenerator
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeType
-import sensidl.dataRepresentation.MeasurementData
+import de.fzi.sensidl.design.sensidl.dataRepresentation.MeasurementData
 import java.util.HashMap
 import java.util.List
 import java.util.stream.Collectors
 import org.apache.log4j.Logger
 import javax.measure.unit.Unit;
 import bw_cps_code_generator.generator.GenerationUtil
-import dataRepresentation.Data
+import de.fzi.sensidl.design.sensidl.dataRepresentation.Data
 
 /**
  * The sild file generator for the SensIDL Model. 

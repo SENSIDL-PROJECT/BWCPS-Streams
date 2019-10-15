@@ -4,15 +4,15 @@ import bw_cps_code_generator.generator.BwcpsOutputConfigurationProvider;
 import bw_cps_code_generator.generator.GenerationUtil;
 import bw_cps_code_generator.generator.factory.IDTOGenerator;
 import com.google.common.base.Objects;
-import dataRepresentation.Data;
-import dataRepresentation.DataType;
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeType;
+import de.fzi.sensidl.design.sensidl.dataRepresentation.Data;
+import de.fzi.sensidl.design.sensidl.dataRepresentation.DataType;
+import de.fzi.sensidl.design.sensidl.dataRepresentation.MeasurementData;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
-import sensidl.dataRepresentation.MeasurementData;
 
 /**
  * The sild file generator for the SensIDL Model.
