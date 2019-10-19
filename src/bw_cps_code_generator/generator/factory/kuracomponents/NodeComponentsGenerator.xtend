@@ -9,6 +9,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
 import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
+import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 
 class NodeComponentsGenerator implements IDTOGenerator{
 	static val Logger logger = Logger.getLogger(NodeComponentsGenerator)
@@ -17,7 +18,7 @@ class NodeComponentsGenerator implements IDTOGenerator{
 	val String projectName
 	
 	int count = 0
-	
+
 	private val String packagePrefix
 	
 	new(String projectName, List<Node> nodes, List<NodeLink> nodelinks, String newPackagePrefix) {
@@ -32,25 +33,42 @@ class NodeComponentsGenerator implements IDTOGenerator{
 
 		val filesToGenerate = new HashMap
 		for (node : nodes) {
+			val inputNodelinks = nodelinks.filter[n|n.target.equals(node)].toList
+			val outputNodelinks = nodelinks.filter[n|n.source.equals(node)].toList
 			//TODO if no name + number
 			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(node)),
-			generateClassBody(GenerationUtil.getEntityUpperName(node), node))
+			generateClassBody(GenerationUtil.getEntityUpperName(node), node, inputNodelinks, outputNodelinks))
 			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(node)) + " was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		}
 		filesToGenerate
 	}
 	
-	def generateClassBody(String entityName, Node node) {
+	def generateClassBody(String entityName, Node node, List<NodeLink> inputNodelinks, List<NodeLink> outputNodelinks) {
+		val securable = !inputNodelinks.empty || !outputNodelinks.empty 
 		'''	
 			package «packagePrefix»«projectName.toLowerCase»;
 «««			package «packagePrefix»«GenerationUtil.getEntityLowerName(GenerationUtil.getNamedElement(nodes.get(0).eContainer))»;
+			«IF securable »
+				import java.security.PublicKey;
+				import javax.crypto.SecretKey;
+				
+				import de.fzi.bwcps.generator.nodeconfiguration.Node;
+				import de.fzi.bwcps.generator.nodeconfiguration.SecurableNode;
+				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityManager;
+			«ENDIF»
 			import org.osgi.service.component.ComponentContext;
 			import org.osgi.service.component.annotations.Component;
 			import org.osgi.service.component.annotations.Activate;
 			import org.osgi.service.component.annotations.Deactivate;
+			import org.osgi.service.component.annotations.Reference;
+			import org.osgi.service.component.annotations.ReferenceCardinality;
+			
 			import org.slf4j.Logger;
 			import org.slf4j.LoggerFactory;
+			import java.util.List;
+			import java.util.ArrayList;
+			import java.util.HashMap;
 			
 			/**
 			* Node: «entityName»
@@ -59,11 +77,17 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			*/
 			
 			@Component	
-			public class «entityName» {
-
-				«generateDataFields(entityName, node)»
+			public class «entityName» «IF securable »implements SecurableNode «ENDIF»{
 				
-				«node.generateMethods»
+				«generateDataFields(entityName, node, inputNodelinks, outputNodelinks)»
+				
+				protected «entityName»() {
+					«IF securable »
+						securityManager = new SecurityManager();
+					«ENDIF»
+				}
+				
+				«generateMethods(node, inputNodelinks, outputNodelinks)»
 				
 				
 			}
@@ -74,31 +98,39 @@ class NodeComponentsGenerator implements IDTOGenerator{
 	 * Generates DataFields
 	 * 
 	 */
-	def generateDataFields(String entityName, Node node) {
-		val sourceReferences = nodelinks.filter[n|n.target.equals(node)]
-		val targetReferences = nodelinks.filter[n|n.source.equals(node)]
+	def generateDataFields(String entityName, Node node, List<NodeLink> inputNodelinks, List<NodeLink> outputNodelinks) {
 		'''		
 			private static final Logger s_logger = LoggerFactory.getLogger(«entityName».class);
 			
-			private static final String APP_ID = "«projectName»";
+			private static final String NAME = «entityName».class.getSimpleName();
 			
 			private static final long serialVersionUID = 1L;
 			
+«««			TODO NEXT
 			private static final NodeType nodeType = new «GenerationUtil.getEntityUpperName(node.nodetype)»();	
+			
+			List<Node> connectedNodes = new ArrayList<Node>();
+			
+			«IF !inputNodelinks.empty || !outputNodelinks.empty »
+				private SecurityManager securityManager;
+			«ENDIF»
+			
+			
 		'''	
 	}
+	
 	/** 
 	 * Generates Methods
 	 * 
 	 */
-	def generateMethods(Node node) {
+	def generateMethods(Node node, List<NodeLink> inputNodelinks, List<NodeLink> outputNodelinks) {
 		'''		
 			@Activate
 			protected void activate(ComponentContext componentContext) {
 
-			s_logger.info("Bundle " + APP_ID + " has started!");
+			s_logger.info("Component " + NAME + " has started!");
 
-			s_logger.debug(APP_ID + ": This is a debug message.");
+			s_logger.debug(NAME + ": This is a debug message.");
 			
 			//TODO This is an auto-generated method 
 			
@@ -107,21 +139,44 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			@Deactivate
 			protected void deactivate(ComponentContext componentContext) {
 
-			s_logger.info("Bundle " + APP_ID + " has stopped!");
+			s_logger.info("Component " + NAME + " has stopped!");
 			
 			//TODO This is an auto-generated method 
 			
 			}
-			«MethodGenerator.generateMethods(node.operational)»
-
+			@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+			public void establishConnectionTo(Node sourceNode) {
+				connectedNodes.add(sourceNode);
+			}
+			«IF !inputNodelinks.empty || !outputNodelinks.empty »
+				@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+				public void establishSecureConnectionTo(SecurableNode sourceNode) {
+					securityManager.exchangeKey(this, sourceNode);
+					connectedNodes.add((Node)sourceNode);
+				}
+				
+				public void receiveEncryptedKey(SecurableNode node, byte[] key) {
+					securityManager.getAesKeys().put(node, securityManager.decryptKey(key));
+				}
+				
+				public PublicKey getPublicKey() {
+					return securityManager.getPublicKey();
+				}
+				
+				public SecurityManager getSecurityManager() {
+					return this.securityManager;
+				}
+				
+			«ENDIF»
+			«OperationsGenerator.generateDataOperations(node.operational)»
+			
 		'''	
 	}
-	
-	
 	
 	override addFileExtensionTo(String className) {
 		return className + BwCPSConstants.JAVA_EXTENSION
 	}
+	
 	def toTypeName(String name){
 		return switch (name) {
 			case "INT8": "byte"

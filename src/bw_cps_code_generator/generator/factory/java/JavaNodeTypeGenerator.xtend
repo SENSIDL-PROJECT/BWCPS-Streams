@@ -7,7 +7,7 @@ import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeType
-
+//TODO in Nodeconfiguration
 class JavaNodeTypeGenerator extends JavaEntityGenerator {
 	static val Logger logger = Logger.getLogger(JavaNodeTypeGenerator)
 	val List<NodeType> nodetypes

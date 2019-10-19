@@ -12,26 +12,23 @@ import bw_cps_code_generator.generator.elementfilter.OperationDefinitionFilter
 import java.util.ArrayList
 import java.util.List
 
-class MethodGenerator {
+class OperationsGenerator {
 	static HashMap<URI,OperationDefinition> loadedOps = new HashMap
 	
-	def public static generateMethods(List<Operation> operational) {
+	def public static generateDataOperations(List<Operation> operational) {
 		var count = 0 as int
 
 		'''
 					«FOR o: getOperations(operational)»
-						public void «GenerationUtil.getEntityLowerName(o)» (
-						«IF ! (o.domain === null) »
-								«FOR d: o.domain.dimensions SEPARATOR ', '»
-									«d.valueSpace.getName.toTypeName» param«count++»
-								«ENDFOR»
-						«ENDIF»
-						«{count = 0; "" }») {
+						public void «GenerationUtil.getEntityLowerName(o)» («IF ! (o.domain === null) »«FOR d: o.domain.dimensions SEPARATOR ', '»
+									«d.valueSpace.getName.toTypeName» param«count++»«ENDFOR»«ENDIF»«{count = 0; "" }») {
 							//TODO This is an auto-generated method 
 						}
 					«ENDFOR»
 		'''
 	}
+
+	
 	def private static getOperations(List<Operation> operational) {
 		var opDef = null as OperationDefinition
 		var ops = new ArrayList<Operation>()

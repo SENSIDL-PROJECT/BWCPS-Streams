@@ -17,23 +17,7 @@ abstract class JavaEntityGenerator implements IDTOGenerator {
 	
 	def CharSequence generateMethods(NamedElement entity);
 
-	def generateInterfaceBody(List entities, String packageName) {
-		'''
-			package «packageName»;
-			import streamrepository.NodeLink;
-						
-						/**
-						* Stream Interface
-						*
-						* @generated
-						*/
-			public interface Stream {
-				
-				java.util.List<NodeLink> getNodelinks;
-				
-			}
-		'''
-	}
+
 	override addFileExtensionTo(String className) {
 		return className + BwCPSConstants.JAVA_EXTENSION
 	}

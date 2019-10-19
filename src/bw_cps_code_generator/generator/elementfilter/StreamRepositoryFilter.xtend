@@ -4,6 +4,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import org.eclipse.emf.ecore.resource.Resource
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import java.util.stream.Collectors
+import de.fzi.bwcps.stream.bwcps_streams.entity.SecurityMeasure
 
 class StreamRepositoryFilter extends ElementFilter {
 	
@@ -21,11 +22,16 @@ class StreamRepositoryFilter extends ElementFilter {
 		input.contents.filter(StreamRepository).get(0)		  	
 	}
 	//TODO method gehört nicht hier
-	public static def filterNodelinks(StreamRepository streamRepo, NodeContainer nodeContainer) {
+	public static def filterNodelinksOnNodeContainer(StreamRepository streamRepo, NodeContainer nodeContainer) {
 		streamRepo.streams.stream
 							.map(stream|stream.nodelinks
 								.filter[nodelink|nodeContainer.nodes.contains(nodelink.source) || nodeContainer.nodes.contains(nodelink.target)])
 								.flatMap(l| l.toList.stream)
        							.collect(Collectors.toList());
+	}
+	
+	public static def needsSecurityService(StreamRepository streamRepo) {
+		streamRepo.streams.stream
+							.anyMatch(stream|stream.nodelinks.exists[nodelink|!nodelink.securityMeasure.empty])
 	}
 }

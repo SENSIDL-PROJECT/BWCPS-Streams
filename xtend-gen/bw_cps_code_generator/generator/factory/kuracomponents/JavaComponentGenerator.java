@@ -2,6 +2,7 @@ package bw_cps_code_generator.generator.factory.kuracomponents;
 
 import bw_cps_code_generator.generator.GenerationUtil;
 import bw_cps_code_generator.generator.factory.kuracomponents.NodeComponentsGenerator;
+import bw_cps_code_generator.generator.factory.kuracomponents.SecurityUtilityGenerator;
 import de.fzi.bwcps.stream.bwcps_streams.entity.Node;
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer;
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink;
@@ -25,5 +26,10 @@ public class JavaComponentGenerator {
     String _entityUpperName = GenerationUtil.getEntityUpperName(container);
     EList<Node> _nodes = container.getNodes();
     return new NodeComponentsGenerator(_entityUpperName, _nodes, nodelinks, this.packagePrefix).generate();
+  }
+  
+  public HashMap<String, CharSequence> generateSecurityClasses(final NodeContainer container, final List<NodeLink> nodelinks) {
+    String _entityUpperName = GenerationUtil.getEntityUpperName(container);
+    return new SecurityUtilityGenerator(_entityUpperName, this.packagePrefix).generate(nodelinks);
   }
 }

@@ -123,7 +123,8 @@ class FileGenerationStep extends GenerationStep {
 		FilenameUtils.getExtension(file).equals(TEXT_FILE_EXTENSION)
 		
 	}
-		def isSidlFile(String file) {
+	
+	def isSidlFile(String file) {
 		
 		FilenameUtils.getExtension(file).equals(SIDL_FILE_EXTENSION)
 		

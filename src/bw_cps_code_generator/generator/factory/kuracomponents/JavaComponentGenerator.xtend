@@ -10,6 +10,7 @@ import bw_cps_code_generator.generator.GenerationUtil
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
+import de.fzi.bwcps.stream.bwcps_streams.entity.SecurityMeasure
 
 /**
  * The JavaGenerator represents a concrete implementation of The ICodeGenerator and implements the 
@@ -33,4 +34,7 @@ class JavaComponentGenerator  {
 		new NodeComponentsGenerator(GenerationUtil.getEntityUpperName(container), container.nodes, nodelinks, packagePrefix).generate
 	}
 
+	def generateSecurityClasses(NodeContainer container, List<NodeLink> nodelinks) {
+		new SecurityUtilityGenerator(GenerationUtil.getEntityUpperName(container), packagePrefix).generate(nodelinks)
+	}
 }

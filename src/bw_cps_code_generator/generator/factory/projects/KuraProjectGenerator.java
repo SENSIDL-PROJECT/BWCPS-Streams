@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
+import bw_cps_code_generator.generator.BwCPSConstants;
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
 
 /**
@@ -121,7 +122,7 @@ public class KuraProjectGenerator extends ProjectGenerator {
 
 		java.nio.file.Files.copy(gsonSource, gsonDestination.resolve(gsonSource.getFileName()),
 				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-
+//TODO necessary?
 		// copy crypto
 		bundle = Platform.getBundle("bw-cps-code-generator");
 		path = new Path("commons-crypto-1.0.0.jar");
@@ -173,12 +174,12 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		StringBuilder content = new StringBuilder("Manifest-Version: 1.0\n");
 		content.append("Bundle-ManifestVersion: 2\n");
 		content.append("Bundle-Name: " + projectName + "\n");
-		content.append("Bundle-SymbolicName: " + projectName.replaceAll(" ", "") + "; singleton:=true\n");
+		content.append("Bundle-SymbolicName: " + BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX + projectName.replaceAll(" ", "").toLowerCase() + "; singleton:=true\n");
 		content.append("Bundle-Version: 1.0.0.qualifier\n");
 		content.append("Bundle-RequiredExecutionEnvironment: JavaSE-1.8\n");
 		content.append("Require-Bundle: org.eclipse.osgi.services;bundle-version=\"3.8.0\",\n"
-				+ " org.slf4j.api;bundle-version=\"1.7.2\",\n" + " org.junit\n");
-
+				+ " org.slf4j.api;bundle-version=\"1.7.2\",\n" + " org.junit,\n" + " " + BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX +"nodeconfiguration\n");
+		content.append("Export-Package: " + BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX + projectName.replaceAll(" ", "").toLowerCase() + "\n");
 		IFolder metaInf = project.getFolder("META-INF");
 		metaInf.create(false, true, null);
 		createFile("MANIFEST.MF", metaInf, content.toString());

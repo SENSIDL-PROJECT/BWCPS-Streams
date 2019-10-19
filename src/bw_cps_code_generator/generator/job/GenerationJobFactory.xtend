@@ -1,23 +1,17 @@
 package bw_cps_code_generator.generator.job
 
+import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage
+import bw_cps_code_generator.generator.GenerationParameter
+import bw_cps_code_generator.generator.elementfilter.StreamRepositoryFilter
+import bw_cps_code_generator.generator.generationstep.DTOGenerationStep
+import bw_cps_code_generator.generator.generationstep.FileGenerationStep
+import bw_cps_code_generator.generator.generationstep.GenerationStep
+import bw_cps_code_generator.generator.generationstep.SecurityServiceGenerationStep
 import java.util.LinkedHashSet
 
 import static bw_cps_code_generator.generator.generationstep.GenerationStep.*
-import bw_cps_code_generator.generator.GenerationParameter
-import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage
-import bw_cps_code_generator.generator.generationstep.GenerationStep
-import bw_cps_code_generator.generator.generationstep.DTOGenerationStep
-import bw_cps_code_generator.generator.generationstep.DeploymentPackageGenerationStep
-import bw_cps_code_generator.generator.generationstep.FileGenerationStep
-import bw_cps_code_generator.generator.elementfilter.StreamRepositoryFilter
-import bw_cps_code_generator.generator.elementfilter.ElementFilter
 import bw_cps_code_generator.generator.generationstep.ProjectGenerationStep
-import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
-import java.util.Collection
-import java.util.stream.Collector
-import java.util.stream.Collectors
-import java.util.List
-import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
+import bw_cps_code_generator.generator.generationstep.UtilityGenerationStep
 
 class GenerationJobFactory {
 	
@@ -34,12 +28,16 @@ class GenerationJobFactory {
 		makeGlobalSettings(parameter)
 		val generationChain = new LinkedHashSet<GenerationStep>()
 		val streamRepo = new StreamRepositoryFilter(parameter.resource).filterData()
-		
+		//TODO NOT SECURITY
+		if(StreamRepositoryFilter.needsSecurityService(streamRepo)) {
+			generationChain.add(new SecurityServiceGenerationStep(parameter.fileSystemAccess))
+		}
 		streamRepo.container.forEach[c | 
 			{
 				generationChain => [
 					add(new ProjectGenerationStep(c, parameter.fileSystemAccess))
-					add(new DTOGenerationStep(c, StreamRepositoryFilter.filterNodelinks(streamRepo, c)))
+					add(new DTOGenerationStep(c, StreamRepositoryFilter.filterNodelinksOnNodeContainer(streamRepo, c)))
+					//add(new UtilityGenerationStep(c, StreamRepositoryFilter.filterNodelinksOnNodeContainer(streamRepo, c)))
 					add(new FileGenerationStep(c, parameter.fileSystemAccess))
 //					add(new DeploymentPackageGenerationStep(new StreamRepositoryFilter(), parameter.fileSystemAccess))
 				]
