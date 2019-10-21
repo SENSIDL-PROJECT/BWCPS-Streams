@@ -59,7 +59,7 @@ class ProjectGenerationStep extends GenerationStep {
 		
 		val builder = new StringBuilder(path)
 		builder.append(PATH_SEPERATOR)
-		builder.append(projectName.toLowerCase)
+		builder.append(projectName.replaceAll(" ", "").toLowerCase)
 		builder.append(PATH_SEPERATOR)
 		
 		builder.toString

@@ -47,7 +47,7 @@ class NodeComponentsGenerator implements IDTOGenerator{
 	def generateClassBody(String entityName, Node node, List<NodeLink> inputNodelinks, List<NodeLink> outputNodelinks) {
 		val securable = !inputNodelinks.empty || !outputNodelinks.empty 
 		'''	
-			package «packagePrefix»«projectName.toLowerCase»;
+			package «packagePrefix»«projectName.replaceAll(" ", "").toLowerCase»;
 «««			package «packagePrefix»«GenerationUtil.getEntityLowerName(GenerationUtil.getNamedElement(nodes.get(0).eContainer))»;
 
 			import org.osgi.service.component.ComponentContext;

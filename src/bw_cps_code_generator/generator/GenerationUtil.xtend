@@ -9,31 +9,27 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import java.io.File
 import java.io.FileNotFoundException
 import org.apache.commons.io.FilenameUtils
+import bw_cps_code_generator.exception.MetamodelException
 
 /**
  * The GenerationUtil-class is used to implement common methods, which are 
  * used in different generation-classes.
  */
 class GenerationUtil {
-
-	static private def getResourceName(NamedElement e) {
-			e.class.simpleName.substring(0, e.class.simpleName.length - 4)
-
-	}
 	
 	static def getEntityUpperName(NamedElement e) {
 		if(e.name == "" || e.name === null) {
-			e.resourceName
+			throw new MetamodelException("NamedElement's name field shouldn't be empty.");
 		} else {
-			e.name.toFirstUpper
+			e.name.replaceAll(" ", "").toFirstUpper
 		}
 	}
 	
 	static def getEntityLowerName(NamedElement e) {
 		if(e.name == "" || e.name === null) {
-			e.resourceName
+			throw new MetamodelException("NamedElement's name field shouldn't be empty.");
 		} else {
-			e.name.toFirstLower
+			e.name.replaceAll(" ", "").toFirstLower
 		}
 	}
 	
