@@ -5,9 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -25,6 +28,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.osgi.framework.Bundle;
 
 import bw_cps_code_generator.generator.BwCPSConstants;
@@ -35,33 +39,13 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
  * 
  * @author Sven Eckhardt
  */
-public class KuraProjectGenerator extends ProjectGenerator {
+//TODO NOT SECURITY
+public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 
-	private String projectName;
-	private String projectPath;
+	private String projectName = "NodeConfiguration";
 
-	/**
-	 * The Constructor.
-	 * 
-	 * @param projectName - Specifies the name of the generated project.
-	 */
-	public KuraProjectGenerator(String projectName) {
-
-		this.projectName = projectName;
-		this.projectPath = "";
-	}
-
-	public String getProjectPath() {
-
-		return this.projectPath;
-
-	}
-
-	private void setProjectPath(String projectPath) {
-
-		this.projectPath = projectPath;
-
-	}
+	private final static String JAVA_FILES_PATH = "platform:/plugin/bw-cps-code-generator/resource/nodeconfig/";
+	private final static String JAVA_PACKAGE_ID_IDENTIFIER_TOKEN = "$_1";
 
 	/**
 	 * Create a Java Plug-in Project with the given name.
@@ -101,26 +85,36 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		project.open(null);
 		project.setDescription(projectDescription, null);
 
-		setProjectPath(project.getLocation().toOSString());
-
 		// create src folder
 		IFolder srcFolder = project.getFolder("src");
 		if (!srcFolder.exists()) {
 			srcFolder.create(false, true, null);
 		}
 
-		// copy gson
-		Bundle bundle = Platform.getBundle("com.google.gson");
-		Path path = new Path("");
+		// copy crypto
+		Bundle bundle = Platform.getBundle("bw-cps-code-generator");
+		Path path = new Path("commons-crypto-1.0.0.jar");
 		URL absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
 
-		java.nio.file.Path gsonSource = java.nio.file.Paths
-				.get(absoluteFileURL.toString().replaceFirst("jar:file:/", "").replace("!/", ""));
+		java.nio.file.Path cryptoSource = java.nio.file.Paths.get(absoluteFileURL.toURI());
 
-		java.nio.file.Path gsonDestination = java.nio.file.Paths
+		java.nio.file.Path cryptoDestination = java.nio.file.Paths
 				.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
 
-		java.nio.file.Files.copy(gsonSource, gsonDestination.resolve(gsonSource.getFileName()),
+		java.nio.file.Files.copy(cryptoSource, cryptoDestination.resolve(cryptoSource.getFileName()),
+				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+		// copy HKDF
+		bundle = Platform.getBundle("bw-cps-code-generator");
+		path = new Path("hkdf-1.1.0.jar");
+		absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
+
+		java.nio.file.Path hkdfSource = java.nio.file.Paths.get(absoluteFileURL.toURI());
+
+		java.nio.file.Path hkdfDestination = java.nio.file.Paths
+				.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
+
+		java.nio.file.Files.copy(hkdfSource, hkdfDestination.resolve(hkdfSource.getFileName()),
 				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
 		// add classpath entries
@@ -132,8 +126,12 @@ public class KuraProjectGenerator extends ProjectGenerator {
 				"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5")));
 		classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins")));
 
-		// add gson to classpathEntries
-		File file = new File(gsonDestination.resolve(gsonSource.getFileName()).toString());
+		// add crypto to classpathEntries
+		File file = new File(cryptoDestination.resolve(cryptoSource.getFileName()).toString());
+		classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
+
+		// add crypto to classpathEntries
+		file = new File(hkdfDestination.resolve(hkdfSource.getFileName()).toString());
 		classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
 
 		// set classpath entries
@@ -146,6 +144,14 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		// create build.properties
 		createBuildProperties(project, "src");
 
+		createJavaFile("Node.java", getPackagePath(), project);
+		createJavaFile("SecurableNode.java", getPackagePath() + "security/", project);
+		createJavaFile("SecurableNode.java", getPackagePath() + "security/", project);
+		createJavaFile("SecurityManager.java", getPackagePath() + "security/", project);
+		createJavaFile("SecurityManager.java", getPackagePath() + "security/", project);
+		createJavaFile("SecurityMeasure.java", getPackagePath() + "security/", project);
+		createJavaFile("NotConnectedException.java", getPackagePath() + "security/", project);
+
 		return project;
 	}
 
@@ -156,12 +162,13 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		StringBuilder content = new StringBuilder("Manifest-Version: 1.0\n");
 		content.append("Bundle-ManifestVersion: 2\n");
 		content.append("Bundle-Name: " + projectName + "\n");
-		content.append("Bundle-SymbolicName: " + BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX + projectName.replaceAll(" ", "").toLowerCase() + "; singleton:=true\n");
+		content.append("Bundle-SymbolicName: " + getPackage() + "; singleton:=true\n");
 		content.append("Bundle-Version: 1.0.0.qualifier\n");
 		content.append("Bundle-RequiredExecutionEnvironment: JavaSE-1.8\n");
 		content.append("Require-Bundle: org.eclipse.osgi.services;bundle-version=\"3.8.0\",\n"
-				+ " org.slf4j.api;bundle-version=\"1.7.2\",\n" + " org.junit,\n" + " " + BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX +"nodeconfiguration\n");
-		content.append("Export-Package: " + BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX + projectName.replaceAll(" ", "").toLowerCase() + "\n");
+				+ " org.slf4j.api;bundle-version=\"1.7.2\",\n" + " org.junit,\n"
+				+ " org.apache.commons.lang;bundle-version=\"2.6.0\"\n");
+		content.append("Export-Package: " + getPackage() + "," + getPackage() + ".security\n");
 		IFolder metaInf = project.getFolder("META-INF");
 		metaInf.create(false, true, null);
 		createFile("MANIFEST.MF", metaInf, content.toString());
@@ -175,6 +182,29 @@ public class KuraProjectGenerator extends ProjectGenerator {
 		content.append("\n");
 		content.append("bin.includes = META-INF/,\\\n.");
 		createFile("build.properties", project, content.toString());
+	}
+
+	private String getPackage() {
+
+		return BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX + this.projectName.replaceAll(" ", "").toLowerCase();
+
+	}
+
+	private String getPackagePath() {
+
+		return BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH + projectName.replaceAll(" ", "").toLowerCase() + "/";
+
+	}
+
+	private void createJavaFile(String fileName, String packagePath, IProject project)
+			throws IOException, CoreException {
+		URL url = new URL(JAVA_FILES_PATH + fileName);
+		String content = IOUtils.toString(url.openConnection().getInputStream());
+
+		content = content.replace(JAVA_PACKAGE_ID_IDENTIFIER_TOKEN, getPackage());
+		IFolder packageFolder = project.getFolder(packagePath);
+		prepare(packageFolder);
+		createFile(fileName, packageFolder, content.toString());
 	}
 
 	/*
@@ -221,5 +251,12 @@ public class KuraProjectGenerator extends ProjectGenerator {
 
 		return result[0];
 
+	}
+
+	public void prepare(IFolder folder) throws CoreException {
+		if (!folder.exists()) {
+			prepare((IFolder) folder.getParent());
+			folder.create(false, false, null);
+		}
 	}
 }

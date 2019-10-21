@@ -11,7 +11,6 @@ import java.util.LinkedHashSet
 
 import static bw_cps_code_generator.generator.generationstep.GenerationStep.*
 import bw_cps_code_generator.generator.generationstep.ProjectGenerationStep
-import bw_cps_code_generator.generator.generationstep.UtilityGenerationStep
 
 class GenerationJobFactory {
 	
@@ -37,7 +36,6 @@ class GenerationJobFactory {
 				generationChain => [
 					add(new ProjectGenerationStep(c, parameter.fileSystemAccess))
 					add(new DTOGenerationStep(c, StreamRepositoryFilter.filterNodelinksOnNodeContainer(streamRepo, c)))
-					//add(new UtilityGenerationStep(c, StreamRepositoryFilter.filterNodelinksOnNodeContainer(streamRepo, c)))
 					add(new FileGenerationStep(c, parameter.fileSystemAccess))
 //					add(new DeploymentPackageGenerationStep(new StreamRepositoryFilter(), parameter.fileSystemAccess))
 				]

@@ -49,14 +49,7 @@ class NodeComponentsGenerator implements IDTOGenerator{
 		'''	
 			package «packagePrefix»«projectName.toLowerCase»;
 «««			package «packagePrefix»«GenerationUtil.getEntityLowerName(GenerationUtil.getNamedElement(nodes.get(0).eContainer))»;
-			«IF securable »
-				import java.security.PublicKey;
-				import javax.crypto.SecretKey;
-				
-				import de.fzi.bwcps.generator.nodeconfiguration.Node;
-				import de.fzi.bwcps.generator.nodeconfiguration.SecurableNode;
-				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityManager;
-			«ENDIF»
+
 			import org.osgi.service.component.ComponentContext;
 			import org.osgi.service.component.annotations.Component;
 			import org.osgi.service.component.annotations.Activate;
@@ -66,9 +59,15 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			
 			import org.slf4j.Logger;
 			import org.slf4j.LoggerFactory;
-			import java.util.List;
-			import java.util.ArrayList;
-			import java.util.HashMap;
+			
+			«IF securable »
+				import java.security.PublicKey;
+				
+				import de.fzi.bwcps.generator.nodeconfiguration.security.NotConnectedException;
+				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurableNode;
+				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityManager;
+				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityMeasure;
+			«ENDIF»
 			
 			/**
 			* Node: «entityName»
@@ -109,8 +108,6 @@ class NodeComponentsGenerator implements IDTOGenerator{
 «««			TODO NEXT
 			private static final NodeType nodeType = new «GenerationUtil.getEntityUpperName(node.nodetype)»();	
 			
-			List<Node> connectedNodes = new ArrayList<Node>();
-			
 			«IF !inputNodelinks.empty || !outputNodelinks.empty »
 				private SecurityManager securityManager;
 			«ENDIF»
@@ -144,32 +141,29 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			//TODO This is an auto-generated method 
 			
 			}
-			@Reference(cardinality = ReferenceCardinality.MULTIPLE)
-			public void establishConnectionTo(Node sourceNode) {
-				connectedNodes.add(sourceNode);
+			public String getName() {
+				return NAME;
 			}
-			«IF !inputNodelinks.empty || !outputNodelinks.empty »
-				@Reference(cardinality = ReferenceCardinality.MULTIPLE)
-				public void establishSecureConnectionTo(SecurableNode sourceNode) {
-					securityManager.exchangeKey(this, sourceNode);
-					connectedNodes.add((Node)sourceNode);
-				}
-				
-				public void receiveEncryptedKey(SecurableNode node, byte[] key) {
-					securityManager.getAesKeys().put(node, securityManager.decryptKey(key));
-				}
-				
+			
+			«IF !inputNodelinks.empty || !outputNodelinks.empty »	
 				public PublicKey getPublicKey() {
 					return securityManager.getPublicKey();
 				}
 				
-				public SecurityManager getSecurityManager() {
-					return this.securityManager;
+				@Reference(cardinality = ReferenceCardinality.MULTIPLE)
+				public void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester) {
+					securityManager.addConnection(securityMeasure, serviceRequester, this);
+					
 				}
 				
+				public void receiveEncryptedKey(SecurityMeasure securityMeasure, SecurableNode node, byte[] key) {
+					securityManager.decryptAndStoreKey(securityMeasure, node, key);
+				}
+				
+				«OperationsGenerator.generateSecureDataOperations(node.operational)»
 			«ENDIF»
-			«OperationsGenerator.generateDataOperations(node.operational)»
 			
+			«OperationsGenerator.generateDataOperations(node.operational)»
 		'''	
 	}
 	

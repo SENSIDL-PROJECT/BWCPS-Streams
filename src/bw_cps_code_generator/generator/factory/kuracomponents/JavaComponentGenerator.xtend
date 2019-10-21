@@ -34,7 +34,4 @@ class JavaComponentGenerator  {
 		new NodeComponentsGenerator(GenerationUtil.getEntityUpperName(container), container.nodes, nodelinks, packagePrefix).generate
 	}
 
-	def generateSecurityClasses(NodeContainer container, List<NodeLink> nodelinks) {
-		new SecurityUtilityGenerator(GenerationUtil.getEntityUpperName(container), packagePrefix).generate(nodelinks)
-	}
 }

@@ -16,7 +16,7 @@ import java.util.List
 import java.util.ArrayList
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
-import bw_cps_code_generator.generator.factory.projects.SecurityProjectGenerator
+import bw_cps_code_generator.generator.factory.projects.NodeConfigurationProjectGenerator
 
 class SecurityServiceGenerationStep extends GenerationStep {
 	
@@ -63,7 +63,7 @@ class SecurityServiceGenerationStep extends GenerationStep {
 	 */
 	private def getResourcesToGenerateMapping() {
 		
-		val secGenerator = new SecurityProjectGenerator() 
+		val secGenerator = new NodeConfigurationProjectGenerator() 
 		
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			

@@ -28,6 +28,23 @@ class OperationsGenerator {
 		'''
 	}
 
+	def public static generateSecureDataOperations(List<Operation> operational) {
+		var count = 0 as int
+
+		'''
+					«FOR o: getOperations(operational)»
+						public String «GenerationUtil.getEntityLowerName(o)» (SecurableNode serviceRequester, «IF ! (o.domain === null) »«FOR d: o.domain
+						.dimensions SEPARATOR ', '»«d.valueSpace.getName.toTypeName» param«count++»«ENDFOR»«ENDIF»«{count = 0; "" }») throws NotConnectedException {
+«««							data should be from type the output dataset
+							Object data = null;
+							
+							//TODO This is an auto-generated method
+						
+							return securityManager.secureData(data, serviceRequester);
+						}
+					«ENDFOR»
+		'''
+	}
 	
 	def private static getOperations(List<Operation> operational) {
 		var opDef = null as OperationDefinition
