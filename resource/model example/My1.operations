@@ -5,6 +5,10 @@
   </operations>
   <operations xsi:type="operations:AtomicOperation" name="Encode" domain="//@domains.0" range="//@domains.1"/>
   <operations xsi:type="operations:AtomicOperation" name="ReadTemp" domain="//@domains.1" range="//@domains.3"/>
+  <operations xsi:type="operations:AtomicOperation" name="Read Light" domain="//@domains.1" range="//@domains.2"/>
+  <operations xsi:type="operations:AtomicOperation" name="Mean value filter" domain="//@domains.2" range="//@domains.1"/>
+  <operations xsi:type="operations:AtomicOperation" name="Decode" domain="//@domains.1" range="//@domains.0"/>
+  <operations xsi:type="operations:AtomicOperation" name="Anomaly detection" domain="//@domains.1" range="//@domains.2"/>
   <domains subDomain="//@domains.3">
     <dimensions valueSpace="DOUBLE"/>
     <dimensions/>

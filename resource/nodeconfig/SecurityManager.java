@@ -1,5 +1,6 @@
 package $_1.security;
 
+
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -33,8 +34,8 @@ import org.slf4j.LoggerFactory;
 
 import at.favre.lib.crypto.HKDF;
 
-import $_1.security.SecurableNode;
-import $_1.security.SecurityMeasure;
+import de.fzi.bwcps.generator.nodeconfiguration.security.SecurableNode;
+import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityMeasure;
 
 /**
  * Node: Sensor
@@ -268,6 +269,7 @@ public class SecurityManager {
 
 			return SerializationUtils.deserialize(decrypted);
 		} catch (InvalidKeyException e) {
+			s_logger.error("The key used to decrypt is invalid.");
 			e.printStackTrace();
 		} catch (InvalidAlgorithmParameterException e) {
 			e.printStackTrace();
@@ -417,6 +419,7 @@ public class SecurityManager {
 			byte[] decrypted = cipherAES.doFinal(cipherText);
 			return SerializationUtils.deserialize(decrypted);
 		} catch (InvalidKeyException e) {
+			s_logger.error("The key used to decrypt is invalid.");
 			e.printStackTrace();
 		} catch (InvalidAlgorithmParameterException e) {
 			e.printStackTrace();
