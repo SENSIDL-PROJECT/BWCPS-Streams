@@ -59,7 +59,9 @@
         disposableProviderFactory="true" ecorePackage="metamodel.ecore#//entity">
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="metamodel.ecore#//entity/SecurityMeasure">
         <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/ENCRYPT"/>
-        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/SIGN"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/AUTHENTICATE"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/ENC-THEN-AUTH"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/NONE"/>
       </genEnums>
       <genClasses ecoreClass="metamodel.ecore#//entity/EdgeDevice"/>
       <genClasses ecoreClass="metamodel.ecore#//entity/AggregatedNodeLink">

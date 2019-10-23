@@ -87,8 +87,8 @@
           eType="#//entity/Node"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
           eType="#//entity/Node"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="securityMeasure" upperBound="2"
-          eType="#//entity/SecurityMeasure"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="securityMeasure" eType="#//entity/SecurityMeasure"
+          defaultValueLiteral="NONE"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="EdgeGateway" eSuperTypes="#//entity/NodeContainer"/>
     <eClassifiers xsi:type="ecore:EClass" name="DataSink" eSuperTypes="#//entity/NodeContainer"/>
@@ -108,7 +108,9 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="SecurityMeasure">
       <eLiterals name="ENCRYPT"/>
-      <eLiterals name="SIGN" value="1"/>
+      <eLiterals name="AUTHENTICATE" value="1" literal="AUTHENTICATE"/>
+      <eLiterals name="ENC-THEN-AUTH" value="2"/>
+      <eLiterals name="NONE" value="3"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="commons" nsURI="http://www.fzi.de/bwcps/stream/commons/1.0"
