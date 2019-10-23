@@ -41,13 +41,8 @@
     <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.1"/>
   </nodes>
   <nodes name="AzureNode" nodetype="//@nodeTypes.1"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EncThenAuth" source="//@nodes.7" target="//@nodes.8">
-    <securityMeasure>ENCRYPT</securityMeasure>
-    <securityMeasure>SIGN</securityMeasure>
-  </nodelinks>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="WithSign" source="//@nodes.4" target="//@nodes.5">
-    <securityMeasure>SIGN</securityMeasure>
-  </nodelinks>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EncThenAuth" source="//@nodes.7" target="//@nodes.8" securityMeasure="ENCRYPT"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="WithSign" source="//@nodes.4" target="//@nodes.5" securityMeasure="AUTHENTICATE"/>
   <nodelinks xsi:type="entity:PrimitiveNodeLink" name="S1Pre" source="//@nodes.3" target="//@nodes.0"/>
   <nodelinks xsi:type="entity:PrimitiveNodeLink" source="//@nodes.3" target="//@nodes.1"/>
   <nodelinks xsi:type="entity:PrimitiveNodeLink" source="//@nodes.4" target="//@nodes.3"/>
