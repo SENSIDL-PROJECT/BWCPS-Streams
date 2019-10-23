@@ -18,16 +18,17 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import bw_cps_code_generator.generator.factory.projects.NodeConfigurationProjectGenerator
 
-class SecurityServiceGenerationStep extends GenerationStep {
+class NodeConfigurationGenerationStep extends GenerationStep {
 	
 
 	
 
 	private val IFileSystemAccess fsa;
+	private boolean needsSecurityPackage;
 	
-	
-	new( IFileSystemAccess newFsa) {
+	new(IFileSystemAccess newFsa, boolean needsSecurityPackage) {
 		this.fsa = newFsa
+		this.needsSecurityPackage = needsSecurityPackage
 	}
 	
 	override startGenerationTask() {
@@ -36,26 +37,6 @@ class SecurityServiceGenerationStep extends GenerationStep {
 		
 	}
 	
-	// This have to be done because a java-plugin-project requires java sources.
-//	private def resetGenerationSettings(String projectPath, String path, String projectName) {
-//		
-//		javaPackagePrefix = BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX;
-//		FileGenerationStep.filePath = getFilePathOf(path, projectName)
-//		(fsa as JavaIoFileSystemAccess).outputPath = projectPath
-//		
-//	}
-//	
-//	private def getFilePathOf(String path, String projectName) {
-//		
-//		val builder = new StringBuilder(path)
-//		builder.append(PATH_SEPERATOR)
-//		builder.append(projectName.toLowerCase)
-//		builder.append(PATH_SEPERATOR)
-//		
-//		builder.toString
-//		
-//	}
-	
 	/**
 	 * Initializes a HashMap that maps each {@link GenerationLanguage} to a
 	 * {@link IExecuter} object.
@@ -63,14 +44,13 @@ class SecurityServiceGenerationStep extends GenerationStep {
 	 */
 	private def getResourcesToGenerateMapping() {
 		
-		val secGenerator = new NodeConfigurationProjectGenerator() 
+		val secGenerator = new NodeConfigurationProjectGenerator(needsSecurityPackage) 
 		
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			
 			put(GenerationLanguage.KURA_PROJECT, [
 				
-				secGenerator.createProject
-//				resetGenerationSettings(secGenerator.getProjectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, "")
+				secGenerator.createProject()
 				
 			])
 			

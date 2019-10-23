@@ -30,8 +30,8 @@ class StreamRepositoryFilter extends ElementFilter {
        							.collect(Collectors.toList());
 	}
 	
-	public static def needsSecurityService(StreamRepository streamRepo) {
+	public static def needsSecurityPackage(StreamRepository streamRepo) {
 		streamRepo.streams.stream
-							.anyMatch(stream|stream.nodelinks.exists[nodelink|!nodelink.securityMeasure.empty])
+							.anyMatch(stream|stream.nodelinks.exists[nodelink|nodelink.securityMeasure != SecurityMeasure.NONE])
 	}
 }

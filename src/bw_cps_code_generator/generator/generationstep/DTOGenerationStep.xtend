@@ -9,11 +9,11 @@ import bw_cps_code_generator.generator.elementfilter.ElementFilter
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import bw_cps_code_generator.generator.IExecuter
 import bw_cps_code_generator.generator.factory.java.JavaGenerator
-import bw_cps_code_generator.generator.factory.kuracomponents.JavaComponentGenerator
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import bw_cps_code_generator.generator.factory.sidl.SidlGenerator
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
+import bw_cps_code_generator.generator.factory.components.JavaComponentGenerator
 
 class DTOGenerationStep extends GenerationStep {
 

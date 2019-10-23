@@ -43,10 +43,13 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
 public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 
 	private String projectName = "NodeConfiguration";
-
+	private boolean needsSecurityPackage;
 	private final static String JAVA_FILES_PATH = "platform:/plugin/bw-cps-code-generator/resource/nodeconfig/";
 	private final static String JAVA_PACKAGE_ID_IDENTIFIER_TOKEN = "$_1";
 
+	public NodeConfigurationProjectGenerator (boolean needsSecurityPackage) {
+		this.needsSecurityPackage = needsSecurityPackage;
+	}
 	/**
 	 * Create a Java Plug-in Project with the given name.
 	 * 
@@ -91,32 +94,6 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 			srcFolder.create(false, true, null);
 		}
 
-		// copy crypto
-		Bundle bundle = Platform.getBundle("bw-cps-code-generator");
-		Path path = new Path("commons-crypto-1.0.0.jar");
-		URL absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
-
-		java.nio.file.Path cryptoSource = java.nio.file.Paths.get(absoluteFileURL.toURI());
-
-		java.nio.file.Path cryptoDestination = java.nio.file.Paths
-				.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
-
-		java.nio.file.Files.copy(cryptoSource, cryptoDestination.resolve(cryptoSource.getFileName()),
-				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-
-		// copy HKDF
-		bundle = Platform.getBundle("bw-cps-code-generator");
-		path = new Path("hkdf-1.1.0.jar");
-		absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
-
-		java.nio.file.Path hkdfSource = java.nio.file.Paths.get(absoluteFileURL.toURI());
-
-		java.nio.file.Path hkdfDestination = java.nio.file.Paths
-				.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
-
-		java.nio.file.Files.copy(hkdfSource, hkdfDestination.resolve(hkdfSource.getFileName()),
-				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-
 		// add classpath entries
 		List<IClasspathEntry> classpathEntries = new ArrayList<IClasspathEntry>();
 		IClasspathEntry srcClasspathEntry = JavaCore.newSourceEntry(srcFolder.getFullPath());
@@ -126,14 +103,42 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 				"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5")));
 		classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins")));
 
-		// add crypto to classpathEntries
-		File file = new File(cryptoDestination.resolve(cryptoSource.getFileName()).toString());
-		classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
+		if (needsSecurityPackage) {
+			// copy crypto
+			Bundle bundle = Platform.getBundle("bw-cps-code-generator");
+			Path path = new Path("commons-crypto-1.0.0.jar");
+			URL absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
 
-		// add crypto to classpathEntries
-		file = new File(hkdfDestination.resolve(hkdfSource.getFileName()).toString());
-		classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
+			java.nio.file.Path cryptoSource = java.nio.file.Paths.get(absoluteFileURL.toURI());
 
+			java.nio.file.Path cryptoDestination = java.nio.file.Paths
+					.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
+
+			java.nio.file.Files.copy(cryptoSource, cryptoDestination.resolve(cryptoSource.getFileName()),
+					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+			// copy HKDF
+			bundle = Platform.getBundle("bw-cps-code-generator");
+			path = new Path("hkdf-1.1.0.jar");
+			absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
+
+			java.nio.file.Path hkdfSource = java.nio.file.Paths.get(absoluteFileURL.toURI());
+
+			java.nio.file.Path hkdfDestination = java.nio.file.Paths
+					.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
+
+			java.nio.file.Files.copy(hkdfSource, hkdfDestination.resolve(hkdfSource.getFileName()),
+					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+			// add crypto to classpathEntries
+			File file = new File(cryptoDestination.resolve(cryptoSource.getFileName()).toString());
+			classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
+
+			// add HKDF to classpathEntries
+			file = new File(hkdfDestination.resolve(hkdfSource.getFileName()).toString());
+			classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
+
+		}
 		// set classpath entries
 		javaProject.setRawClasspath(classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), null);
 

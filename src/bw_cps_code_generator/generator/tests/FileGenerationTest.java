@@ -24,7 +24,7 @@ import bw_cps_code_generator.ui.handler.GenerationHandler;
 public class FileGenerationTest {
 	private static File generationDirectory;
 	private static Map<String, Boolean> map;
-	private static String[] nodes = {"FirstGateway", "SecondGateway" };
+	private static String[] nodes = {"SensorCOM1", "Preprocessing" };
 
 	/**
 	 * Creates or empties the test generation directory.
@@ -57,9 +57,8 @@ public class FileGenerationTest {
 	 */
 	@Test
 	public void javaFilesGenerationTest() throws IOException, NoBwcpsFileException {
-		for (int i = 0; i < dataSets.length; i++) {
-			map.put(dataSets[i] + ".java", false);
-			map.put(dataSets[i] + "Test.java", false);
+		for (int i = 0; i < nodes.length; i++) {
+			map.put(nodes[i] + ".java", false);
 		}
 		map.put("eMeterUtility.java", false);
 		GenerationHandler.generate(generationDirectory.getPath(), "resource/generator/sidlTestCode.sidl", "Java", null);

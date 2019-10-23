@@ -1,5 +1,4 @@
-package $_1.security;
-
+package de.fzi.bwcps.generator.nodeconfiguration.security;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -44,21 +43,21 @@ import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityMeasure;
  */
 
 public class SecurityManager {
-	
+
 	private static final Logger s_logger = LoggerFactory.getLogger(SecurityManager.class);
-	
+
 	private static final String HMAC_ALGO = "HmacSHA256";
 	private final static String AES_CIPHER_ALGO = "AES/CBC/PKCS5Padding";
 	private final static String RSA_CIPHER_ALGO = "RSA/ECB/PKCS1Padding";
 	private final static String AES_KEY_ALGO = "AES";
 	private final static String RSA_KEY_ALGO = "RSA";
-	
+
 	private final static int AES_KEY_LENGTH = 128;
 	private final static int IV_LENGTH = AES_KEY_LENGTH / 8;
 	private static final int RSA_KEY_LENGTH = 2048;
 	private static final int HMAC_ENCKEY_LENGTH = 16;
 	private static final int HMAC_AUTHKEY_LENGTH = 32;
-	
+
 	private PrivateKey privateKey;
 
 	private PublicKey publicKey;
@@ -69,7 +68,7 @@ public class SecurityManager {
 	private byte[] IVBytes = new byte[IV_LENGTH];
 
 	private HashMap<SecurableNode, SimpleEntry<SecurityMeasure, SecretKey>> connections = new HashMap<SecurableNode, SimpleEntry<SecurityMeasure, SecretKey>>();
-	
+
 	private byte[] encryptKey(PublicKey publicKey, SecretKey skey) {
 		try {
 			// init cipher
@@ -91,10 +90,9 @@ public class SecurityManager {
 		}
 		return null;
 	}
-	
-	
-	
-	private void exchangeKey(SecurityMeasure securityMeasure,SecurableNode serviceRequester, SecurableNode serviceProvider) {
+
+	private void exchangeKey(SecurityMeasure securityMeasure, SecurableNode serviceRequester,
+			SecurableNode serviceProvider, PublicKey requestersPK) {
 		// create and save AESkey in TextFile Node.id + AESKey
 		KeyGenerator kgen = null;
 		try {
@@ -107,11 +105,11 @@ public class SecurityManager {
 
 		// send encrypted key to source node
 
-		serviceRequester.receiveEncryptedKey(securityMeasure, serviceProvider, encryptKey(serviceRequester.getPublicKey(), skey));
+		serviceRequester.receiveEncryptedKey(securityMeasure, serviceProvider, encryptKey(requestersPK, skey));
 
-		connections.put(serviceRequester, new SimpleEntry<SecurityMeasure, SecretKey>(securityMeasure,skey));
+		connections.put(serviceRequester, new SimpleEntry<SecurityMeasure, SecretKey>(securityMeasure, skey));
 	}
-	
+
 	private byte[] calculateMac(byte[] data, byte[] skey) {
 		byte[] mac = null;
 		try {
@@ -132,7 +130,7 @@ public class SecurityManager {
 
 		return mac;
 	}
-	
+
 	private boolean verifyMac(byte[] data, byte[] key, byte[] mac) {
 		byte[] refMac = calculateMac(data, key);
 
@@ -144,11 +142,11 @@ public class SecurityManager {
 
 		return true;
 	}
-	
+
 	private SecretKey getKey(SecurableNode connectedNode) {
 		return connections.get(connectedNode).getValue();
 	}
-	
+
 	private static String encodeB64(byte[] data) {
 		return Base64.getEncoder().encodeToString(data);
 	}
@@ -156,7 +154,7 @@ public class SecurityManager {
 	private static byte[] decodeB64(String cipher) {
 		return Base64.getDecoder().decode(cipher);
 	}
-	
+
 	public SecurityManager() {
 		try {
 			// generate key pair
@@ -188,7 +186,7 @@ public class SecurityManager {
 	public HashMap<SecurableNode, SimpleEntry<SecurityMeasure, SecretKey>> getConnections() {
 		return connections;
 	}
-	
+
 	public SecretKey decryptKey(byte[] key) {
 		try {
 			// init cipher
@@ -196,7 +194,7 @@ public class SecurityManager {
 			cipher = Cipher.getInstance(RSA_CIPHER_ALGO);
 			cipher.init(Cipher.DECRYPT_MODE, privateKey);
 
-			// decrypt 
+			// decrypt
 			byte[] input = cipher.doFinal(key);
 
 			return new SecretKeySpec(input, AES_KEY_ALGO);
@@ -216,7 +214,7 @@ public class SecurityManager {
 	}
 
 	private String encrypt(Object data, SecurableNode connectedNode) {
-		SecretKey skey = getKey(connectedNode); 
+		SecretKey skey = getKey(connectedNode);
 		// convert object to byte array
 		byte[] serializedData = SerializationUtils.serialize((Serializable) data);
 		random.nextBytes(IVBytes);
@@ -229,9 +227,9 @@ public class SecurityManager {
 			byteBuffer.put(IVBytes);
 			byteBuffer.put(cipherText);
 			byte[] cipherMessage = byteBuffer.array();
-			
+
 			return encodeB64(cipherMessage);
-			
+
 		} catch (InvalidKeyException e) {
 			e.printStackTrace();
 		} catch (InvalidAlgorithmParameterException e) {
@@ -245,7 +243,7 @@ public class SecurityManager {
 	}
 
 	private Object decrypt(String data, SecurableNode connectedNode) {
-		SecretKey skey = getKey(connectedNode); 
+		SecretKey skey = getKey(connectedNode);
 		// retrieve cipher and iv
 		byte[] encrypted = decodeB64(data);
 
@@ -282,7 +280,7 @@ public class SecurityManager {
 	}
 
 	private String sign(Object data, SecurableNode connectedNode) {
-		SecretKey skey = getKey(connectedNode); 
+		SecretKey skey = getKey(connectedNode);
 		// convert object to byte array
 		byte[] serializedData = SerializationUtils.serialize((Serializable) data);
 
@@ -302,7 +300,7 @@ public class SecurityManager {
 	}
 
 	private Object verify(String data, SecurableNode connectedNode) {
-		SecretKey skey = getKey(connectedNode); 
+		SecretKey skey = getKey(connectedNode);
 		// retrieve cipher and iv
 		byte[] signed = decodeB64(data);
 
@@ -338,17 +336,19 @@ public class SecurityManager {
 	}
 
 	private String encryptThenSign(Object data, SecurableNode connectedNode) {
-		SecretKey skey = getKey(connectedNode); 
+		SecretKey skey = getKey(connectedNode);
 		// convert object to byte array
 		byte[] serializedData = SerializationUtils.serialize((Serializable) data);
 
 		random.nextBytes(IVBytes);
 
-		byte[] encKey = HKDF.fromHmacSha256().expand(skey, "encKey".getBytes(StandardCharsets.UTF_8), HMAC_ENCKEY_LENGTH);
-		byte[] authKey = HKDF.fromHmacSha256().expand(skey, "authKey".getBytes(StandardCharsets.UTF_8), HMAC_AUTHKEY_LENGTH); // HMAC-SHA256
-																												// key
-																												// is 32
-																												// byte
+		byte[] encKey = HKDF.fromHmacSha256().expand(skey, "encKey".getBytes(StandardCharsets.UTF_8),
+				HMAC_ENCKEY_LENGTH);
+		byte[] authKey = HKDF.fromHmacSha256().expand(skey, "authKey".getBytes(StandardCharsets.UTF_8),
+				HMAC_AUTHKEY_LENGTH); // HMAC-SHA256
+		// key
+		// is 32
+		// byte
 
 		iv = new IvParameterSpec(IVBytes);
 		try {
@@ -382,7 +382,7 @@ public class SecurityManager {
 	}
 
 	private Object verifyThenDecrypt(String data, SecurableNode connectedNode) {
-		SecretKey skey = getKey(connectedNode); 
+		SecretKey skey = getKey(connectedNode);
 		// decode message
 		byte[] encrypted = decodeB64(data);
 
@@ -407,8 +407,10 @@ public class SecurityManager {
 		byte[] cipherText = new byte[byteBuffer.remaining()];
 		byteBuffer.get(cipherText);
 
-		byte[] encKey = HKDF.fromHmacSha256().expand(skey, "encKey".getBytes(StandardCharsets.UTF_8), HMAC_ENCKEY_LENGTH);
-		byte[] authKey = HKDF.fromHmacSha256().expand(skey, "authKey".getBytes(StandardCharsets.UTF_8), HMAC_AUTHKEY_LENGTH);
+		byte[] encKey = HKDF.fromHmacSha256().expand(skey, "encKey".getBytes(StandardCharsets.UTF_8),
+				HMAC_ENCKEY_LENGTH);
+		byte[] authKey = HKDF.fromHmacSha256().expand(skey, "authKey".getBytes(StandardCharsets.UTF_8),
+				HMAC_AUTHKEY_LENGTH);
 
 		if (!verifyMac(cipherText, authKey, mac)) {
 			return null;
@@ -430,39 +432,48 @@ public class SecurityManager {
 		}
 		return null;
 	}
-	
+
 	public String secureData(Object data, SecurableNode connectedNode) throws NotConnectedException {
 		SecurityMeasure securityMeasure = connections.get(connectedNode).getKey();
-		if(securityMeasure == null) {
+		if (securityMeasure == null) {
 			throw new NotConnectedException();
 		}
-		switch(securityMeasure) {
-		case ENCRYPT: return encrypt(data, connectedNode); 
-		case AUTHENTICATE: return sign(data, connectedNode);
-		case ENCRYPT_THEN_AUTHENTICATE: return encryptThenSign(data, connectedNode);
-		default : return null;
+		switch (securityMeasure) {
+		case ENCRYPT:
+			return encrypt(data, connectedNode);
+		case AUTHENTICATE:
+			return sign(data, connectedNode);
+		case ENCRYPT_THEN_AUTHENTICATE:
+			return encryptThenSign(data, connectedNode);
+		default:
+			return null;
 		}
 	}
-	
-	public Object processData(String data,SecurableNode connectedNode) throws NotConnectedException {
+
+	public Object processData(String data, SecurableNode connectedNode) throws NotConnectedException {
 		SecurityMeasure securityMeasure = connections.get(connectedNode).getKey();
-		if(securityMeasure == null) {
+		if (securityMeasure == null) {
 			throw new NotConnectedException();
 		}
-		switch(securityMeasure) {
-		case ENCRYPT: return decrypt(data, connectedNode); 
-		case AUTHENTICATE: return verify(data, connectedNode);
-		case ENCRYPT_THEN_AUTHENTICATE: return verifyThenDecrypt(data, connectedNode);
-		default : return null;
+		switch (securityMeasure) {
+		case ENCRYPT:
+			return decrypt(data, connectedNode);
+		case AUTHENTICATE:
+			return verify(data, connectedNode);
+		case ENCRYPT_THEN_AUTHENTICATE:
+			return verifyThenDecrypt(data, connectedNode);
+		default:
+			return null;
 		}
 	}
-	
-	public void addConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester, SecurableNode serviceProvider) {
-		if(getKey(serviceRequester) == null) {
-			exchangeKey(securityMeasure, serviceRequester, serviceProvider);
+
+	public void addConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester,
+			SecurableNode serviceProvider, PublicKey requestersPK) {
+		if (getKey(serviceRequester) == null) {
+			exchangeKey(securityMeasure, serviceRequester, serviceProvider, requestersPK);
 		}
 	}
-	
+
 	public void decryptAndStoreKey(SecurityMeasure securityMeasure, SecurableNode node, byte[] key) {
 		connections.put(node, new SimpleEntry<SecurityMeasure, SecretKey>(securityMeasure, decryptKey(key)));
 	}

@@ -1,4 +1,4 @@
-package bw_cps_code_generator.generator.factory.kuracomponents
+package bw_cps_code_generator.generator.factory.components
 
 import bw_cps_code_generator.generator.BwCPSConstants
 import bw_cps_code_generator.generator.BwcpsOutputConfigurationProvider
@@ -151,9 +151,8 @@ class NodeComponentsGenerator implements IDTOGenerator{
 				}
 				
 				@Reference(cardinality = ReferenceCardinality.MULTIPLE)
-				public void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester) {
-					securityManager.addConnection(securityMeasure, serviceRequester, this);
-					
+				public void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester, PublicKey requestersPK) {
+					securityManager.addConnection(securityMeasure, serviceRequester, this, requestersPK);
 				}
 				
 				public void receiveEncryptedKey(SecurityMeasure securityMeasure, SecurableNode node, byte[] key) {
@@ -169,24 +168,6 @@ class NodeComponentsGenerator implements IDTOGenerator{
 	
 	override addFileExtensionTo(String className) {
 		return className + BwCPSConstants.JAVA_EXTENSION
-	}
-	
-	def toTypeName(String name){
-		return switch (name) {
-			case "INT8": "byte"
-			case "UINT8": "byte"
-			case "INT16": "short"
-			case "UINT16": "short"
-			case "INT32": "int"
-			case "UINT32": "int"
-			case "INT64": "long"
-			case "UINT64": "long"
-			case "FLOAT": "float"
-			case "DOUBLE": "double"
-			case "BOOLEAN": "boolean"
-			case "STRING": "String"
-			default: ""
-		}
 	}
 
 }

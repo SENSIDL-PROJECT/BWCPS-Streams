@@ -1,4 +1,4 @@
-package bw_cps_code_generator.generator.factory.kuracomponents
+package bw_cps_code_generator.generator.factory.components
 
 import bw_cps_code_generator.generator.GenerationUtil
 import org.eclipse.emf.ecore.util.EcoreUtil

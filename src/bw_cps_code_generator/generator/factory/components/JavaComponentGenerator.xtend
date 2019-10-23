@@ -1,4 +1,4 @@
-package bw_cps_code_generator.generator.factory.kuracomponents
+package bw_cps_code_generator.generator.factory.components
 
 import java.util.List
 import org.eclipse.emf.ecore.EObject
