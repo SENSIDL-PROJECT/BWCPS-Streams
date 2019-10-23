@@ -109,7 +109,7 @@
     <eClassifiers xsi:type="ecore:EEnum" name="SecurityMeasure">
       <eLiterals name="ENCRYPT"/>
       <eLiterals name="AUTHENTICATE" value="1" literal="AUTHENTICATE"/>
-      <eLiterals name="ENC-THEN-AUTH" value="2"/>
+      <eLiterals name="ENC_THEN_AUTH" value="2"/>
       <eLiterals name="NONE" value="3"/>
     </eClassifiers>
   </eSubpackages>

@@ -1114,9 +1114,9 @@
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_HCCMEPVzEemUypd5O8teqQ" name="ENC-THEN-AUTH" tooltipText="">
-          <target xmi:type="ecore:EEnumLiteral" href="metamodel.ecore#//entity/SecurityMeasure/ENC-THEN-AUTH"/>
-          <semanticElements xmi:type="ecore:EEnumLiteral" href="metamodel.ecore#//entity/SecurityMeasure/ENC-THEN-AUTH"/>
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_HCCMEPVzEemUypd5O8teqQ" name="ENC_THEN_AUTH" tooltipText="">
+          <target xmi:type="ecore:EEnumLiteral" href="metamodel.ecore#//entity/SecurityMeasure/ENC_THEN_AUTH"/>
+          <semanticElements xmi:type="ecore:EEnumLiteral" href="metamodel.ecore#//entity/SecurityMeasure/ENC_THEN_AUTH"/>
           <ownedStyle xmi:type="diagram:BundledImage" uid="_HCCzIPVzEemUypd5O8teqQ" labelAlignment="LEFT">
             <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EEnum']/@subNodeMappings[name='EC%20EEnumLiteral']/@style"/>
           </ownedStyle>
