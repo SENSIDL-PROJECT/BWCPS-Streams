@@ -8,9 +8,9 @@ import org.eclipse.emf.ecore.resource.Resource
 import java.util.HashMap
 import org.eclipse.emf.common.util.URI
 import de.fzi.bwcps.stream.bwcps_streams.operations.OperationDefinition
-import bw_cps_code_generator.generator.elementfilter.OperationDefinitionFilter
 import java.util.ArrayList
 import java.util.List
+import bw_cps_code_generator.generator.metamodelmanager.OperationDefinitionManager
 
 class OperationsGenerator {
 	static HashMap<URI,OperationDefinition> loadedOps = new HashMap
@@ -53,8 +53,7 @@ class OperationsGenerator {
 			val uri = EcoreUtil.getURI(o)
 			opDef = loadedOps.get(uri)
 			if (opDef == null) {
-				//TODO Exception: Metamodel
-				opDef = (new OperationDefinitionFilter(GenerationUtil.loadResource(uri.devicePath))).filterData
+				opDef = (new OperationDefinitionManager(GenerationUtil.loadResource(uri.devicePath))).filterData
 				loadedOps.put(uri, opDef)
 			}
 			ops.add(opDef.operations

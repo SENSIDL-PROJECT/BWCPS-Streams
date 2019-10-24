@@ -58,7 +58,7 @@ public class SettingsHandler {
 	 */
 	public static String loadPathSettings() {
 		Preferences prefs = ConfigurationScope.INSTANCE.getNode("bw_cps_code_generator.language.ui");
-		return prefs.get("path", "platform:/resource/sidl-gen/");
+		return prefs.get("path", "platform:/resource/");
 	}
 
 	/**

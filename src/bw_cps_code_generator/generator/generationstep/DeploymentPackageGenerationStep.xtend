@@ -5,14 +5,14 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 
 import static bw_cps_code_generator.generator.generationstep.FileGenerationStep.*
-import bw_cps_code_generator.generator.elementfilter.ElementFilter
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import bw_cps_code_generator.generator.BwCPSConstants
 import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage
 import bw_cps_code_generator.generator.IExecuter
 import bw_cps_code_generator.generator.factory.projects.MavenProjectGenerator
 import bw_cps_code_generator.generator.GenerationUtil
-import bw_cps_code_generator.generator.factory.projects.KuraProjectGenerator
+import bw_cps_code_generator.generator.factory.projects.OsgiBundleGenerator
+import bw_cps_code_generator.generator.metamodelmanager.ElementManager
 
 class DeploymentPackageGenerationStep extends GenerationStep {
 	
@@ -28,7 +28,7 @@ class DeploymentPackageGenerationStep extends GenerationStep {
 	 * @param filter - represents a base filter which can be substituted by a specific
 	 * 				   subclass that filters a particular set of elements.	
 	 */
-	new(ElementFilter filter, IFileSystemAccess newFsa) {
+	new(ElementManager filter, IFileSystemAccess newFsa) {
 		this.streamRepo = filter.filterData()
 		this.projectName = GenerationUtil.getEntityUpperName(streamRepo)
 		this.fsa = newFsa

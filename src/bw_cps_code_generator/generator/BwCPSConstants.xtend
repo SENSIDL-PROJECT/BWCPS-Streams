@@ -9,8 +9,7 @@ class BwCPSConstants {
 	public enum GenerationLanguage {
 		NONE,
 		ALL,
-//		MAVEN_PROJECT,
-		KURA_PROJECT,
+		OSGI_BUNDLES,
 		JAVA
 	}
 }

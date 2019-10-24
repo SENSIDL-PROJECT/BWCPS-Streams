@@ -15,6 +15,7 @@ import org.eclipse.xtext.service.AbstractGenericModule;
 
 import com.google.inject.Guice;
 
+import bw_cps_code_generator.exception.MetamodelException;
 import bw_cps_code_generator.exception.NoBwcpsFileException;
 import bw_cps_code_generator.generator.BwCPSConstants;
 import bw_cps_code_generator.generator.BwCPSExtentions;
@@ -41,7 +42,7 @@ public class GenerationHandler {
 	 * 
 	 */
 	public static boolean generate(String path, String modelPath, String language, Resource bwcpsmodel)
-			throws NoBwcpsFileException, FileNotFoundException {
+			throws NoBwcpsFileException, FileNotFoundException, MetamodelException {
 		
 		
 		setGenerationLanguage(language);
@@ -101,8 +102,8 @@ public class GenerationHandler {
 		case "Java":
 			generationLanguage = BwCPSConstants.GenerationLanguage.JAVA;
 			break;
-		case "Kura Project":
-			generationLanguage = BwCPSConstants.GenerationLanguage.KURA_PROJECT;
+		case "Osgi Bundles":
+			generationLanguage = BwCPSConstants.GenerationLanguage.OSGI_BUNDLES;
 			break;
 		case "All":
 			generationLanguage = BwCPSConstants.GenerationLanguage.ALL;

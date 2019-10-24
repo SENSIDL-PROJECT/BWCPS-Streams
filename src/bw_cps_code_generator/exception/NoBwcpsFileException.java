@@ -13,12 +13,6 @@ public class NoBwcpsFileException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Empty constructor
-	 */
-	public NoBwcpsFileException() {
-	}
-
-	/**
 	 * Constructor
 	 * 
 	 * @param message

@@ -28,7 +28,7 @@ class JavaGenerator implements ICodeGenerator {
 	override generateDTO(NamedElement element) {
 		val filesToGenerate = new HashMap
 		switch generationlanguage {
-			case GenerationLanguage.KURA_PROJECT:
+			case GenerationLanguage.OSGI_BUNDLES:
 			{
 				val container = element as NodeContainer
 				val nodeTypes = container.nodes.map(node| node.nodetype)

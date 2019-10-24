@@ -35,7 +35,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
  * 
  * @author Sven Eckhardt
  */
-public class KuraProjectGenerator extends ProjectGenerator {
+public class OsgiBundleGenerator extends ProjectGenerator {
 
 	private String projectName;
 	private String projectPath;
@@ -45,7 +45,7 @@ public class KuraProjectGenerator extends ProjectGenerator {
 	 * 
 	 * @param projectName - Specifies the name of the generated project.
 	 */
-	public KuraProjectGenerator(String projectName) {
+	public OsgiBundleGenerator(String projectName) {
 
 		this.projectName = projectName;
 		this.projectPath = "";

@@ -44,7 +44,7 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 
 	private String projectName = "NodeConfiguration";
 	private boolean needsSecurityPackage;
-	private final static String JAVA_FILES_PATH = "platform:/plugin/bw-cps-code-generator/resource/nodeconfig/";
+	private final static String JAVA_FILES_PATH = "platform:/plugin/bw-cps-code-generator/resources/nodeconfig/";
 	private final static String JAVA_PACKAGE_ID_IDENTIFIER_TOKEN = "$_1";
 
 	public NodeConfigurationProjectGenerator (boolean needsSecurityPackage) {

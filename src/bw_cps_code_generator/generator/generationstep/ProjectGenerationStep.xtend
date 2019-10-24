@@ -5,17 +5,17 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 
 import static bw_cps_code_generator.generator.generationstep.FileGenerationStep.*
-import bw_cps_code_generator.generator.elementfilter.ElementFilter
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import bw_cps_code_generator.generator.BwCPSConstants
 import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage
 import bw_cps_code_generator.generator.IExecuter
 import bw_cps_code_generator.generator.GenerationUtil
-import bw_cps_code_generator.generator.factory.projects.KuraProjectGenerator
 import java.util.List
 import java.util.ArrayList
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
+import bw_cps_code_generator.generator.factory.projects.OsgiBundleGenerator
+import bw_cps_code_generator.generator.metamodelmanager.ElementManager
 
 class ProjectGenerationStep extends GenerationStep {
 	
@@ -30,7 +30,7 @@ class ProjectGenerationStep extends GenerationStep {
 	 * @param filter - represents a base filter which can be substituted by a specific
 	 * 				   subclass that filters a particular set of elements.	
 	 */
-	new(ElementFilter filter, IFileSystemAccess newFsa) {
+	new(ElementManager filter, IFileSystemAccess newFsa) {
 		this.projectName = (filter.filterData() as StreamRepository).name
 		this.fsa = newFsa
 	}
@@ -73,11 +73,11 @@ class ProjectGenerationStep extends GenerationStep {
 	 */
 	private def getResourcesToGenerateMapping() {
 		
-		val kuraGenerator = new KuraProjectGenerator(projectName) 
+		val kuraGenerator = new OsgiBundleGenerator(projectName) 
 		
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			
-			put(GenerationLanguage.KURA_PROJECT, [
+			put(GenerationLanguage.OSGI_BUNDLES, [
 				
 				kuraGenerator.createProject
 				resetGenerationSettings(kuraGenerator.getProjectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, projectName)

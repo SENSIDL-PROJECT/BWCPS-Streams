@@ -4,9 +4,9 @@ import bw_cps_code_generator.generator.BwCPSConstants;
 import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage;
 import bw_cps_code_generator.generator.GenerationUtil;
 import bw_cps_code_generator.generator.IExecuter;
-import bw_cps_code_generator.generator.elementfilter.ElementFilter;
 import bw_cps_code_generator.generator.generationstep.FileGenerationStep;
 import bw_cps_code_generator.generator.generationstep.GenerationStep;
+import bw_cps_code_generator.generator.metamodelmanager.ElementManager;
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
@@ -27,7 +27,7 @@ public class DeploymentPackageGenerationStep extends GenerationStep {
    * @param filter - represents a base filter which can be substituted by a specific
    * 				   subclass that filters a particular set of elements.
    */
-  public DeploymentPackageGenerationStep(final ElementFilter filter, final IFileSystemAccess newFsa) {
+  public DeploymentPackageGenerationStep(final ElementManager filter, final IFileSystemAccess newFsa) {
     this.streamRepo = filter.<StreamRepository>filterData();
     this.projectName = GenerationUtil.getEntityUpperName(this.streamRepo);
     this.fsa = newFsa;

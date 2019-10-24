@@ -5,7 +5,6 @@ import bw_cps_code_generator.generator.generationstep.GenerationStep
 import java.util.HashMap
 import java.util.List
 import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage
-import bw_cps_code_generator.generator.elementfilter.ElementFilter
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import bw_cps_code_generator.generator.IExecuter
 import bw_cps_code_generator.generator.factory.java.JavaGenerator
@@ -14,6 +13,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import bw_cps_code_generator.generator.factory.sidl.SidlGenerator
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
 import bw_cps_code_generator.generator.factory.components.JavaComponentGenerator
+import bw_cps_code_generator.generator.metamodelmanager.ElementManager
 
 class DTOGenerationStep extends GenerationStep {
 
@@ -31,7 +31,7 @@ class DTOGenerationStep extends GenerationStep {
 		this.nodelinks = nodelinks
 	}
 
-	new(ElementFilter filter) {
+	new(ElementManager filter) {
 		this.element = filter.filterData()
 	}
 	/**
@@ -60,9 +60,9 @@ class DTOGenerationStep extends GenerationStep {
 				
 				]
 			])
-			put(GenerationLanguage.KURA_PROJECT, [
+			put(GenerationLanguage.OSGI_BUNDLES, [
 				val JavaComponentGenerator kgenerator = new JavaComponentGenerator(javaPackagePrefix)
-				val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.KURA_PROJECT, javaPackagePrefix)
+				val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.OSGI_BUNDLES, javaPackagePrefix)
 				val SidlGenerator sgenerator = new SidlGenerator(javaPackagePrefix)
 
 				resetFilesToGenerate

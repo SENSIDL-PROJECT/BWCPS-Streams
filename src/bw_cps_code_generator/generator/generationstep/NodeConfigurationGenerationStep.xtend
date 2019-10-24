@@ -5,18 +5,17 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 
 import static bw_cps_code_generator.generator.generationstep.FileGenerationStep.*
-import bw_cps_code_generator.generator.elementfilter.ElementFilter
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import bw_cps_code_generator.generator.BwCPSConstants
 import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage
 import bw_cps_code_generator.generator.IExecuter
 import bw_cps_code_generator.generator.GenerationUtil
-import bw_cps_code_generator.generator.factory.projects.KuraProjectGenerator
 import java.util.List
 import java.util.ArrayList
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import bw_cps_code_generator.generator.factory.projects.NodeConfigurationProjectGenerator
+import bw_cps_code_generator.generator.factory.projects.OsgiBundleGenerator
 
 class NodeConfigurationGenerationStep extends GenerationStep {
 	
@@ -48,7 +47,7 @@ class NodeConfigurationGenerationStep extends GenerationStep {
 		
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			
-			put(GenerationLanguage.KURA_PROJECT, [
+			put(GenerationLanguage.OSGI_BUNDLES, [
 				
 				secGenerator.createProject()
 				

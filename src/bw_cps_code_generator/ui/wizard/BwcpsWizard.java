@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.internal.util.BundleUtility;
 import org.osgi.framework.Bundle;
 
+import bw_cps_code_generator.exception.MetamodelException;
 import bw_cps_code_generator.exception.NoBwcpsFileException;
 import bw_cps_code_generator.ui.handler.ErrorDialogHandler;
 import bw_cps_code_generator.ui.handler.GenerationHandler;
@@ -87,7 +88,10 @@ public class BwcpsWizard extends Wizard {
 		} catch (NoBwcpsFileException ex) {
 			errorHandler.execute(new Shell(), ex);
 			return false;
-		} catch (Exception ex) {
+		} catch (MetamodelException ex) {
+			errorHandler.execute(new Shell(), ex);
+			return false;
+		}catch (Exception ex) {
 			logger.info(ex.getStackTrace());
 			errorHandler.execute(new Shell(), ex);
 			return false;

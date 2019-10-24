@@ -34,7 +34,7 @@ public class BwcpsWizardPage  extends WizardPage {
 	 * contains all generation languages that are shown in the generation
 	 * wizard. The languages are: <code>Java</code>
 	 */
-	public static final String[] GENERATION_LANGUAGES_STRINGS = new String[] { "Java", "Kura Project", "All" };
+	public static final String[] GENERATION_LANGUAGES_STRINGS = new String[] { "Java", "Osgi Bundles", "All" };
 
 	// first row Elements
 	private Label label_ModelPath;
