@@ -7,14 +7,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.apache.commons.io.FileDeleteStrategy;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
+import org.eclipse.xtext.parser.IEncodingProvider;
+import org.eclipse.xtext.service.AbstractGenericModule;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import com.google.inject.Guice;
+
 import de.fzi.bwcps.stream.bwcps_streams.entity.impl.entityPackageImpl;
 import bw_cps_code_generator.exception.MetamodelException;
 import bw_cps_code_generator.exception.NoBwcpsFileException;
+import bw_cps_code_generator.generator.BwcpsGenerator;
+import bw_cps_code_generator.generator.generationstep.FileGenerationStep;
 import bw_cps_code_generator.ui.handler.GenerationHandler;
 
 /**
@@ -25,9 +37,12 @@ import bw_cps_code_generator.ui.handler.GenerationHandler;
  */
 public class FileGenerationTest {
 	private static File generationDirectory;
-	private static Map<String, Boolean> map;
-	private static String[] nodes = {"SensorCOM1", "Preprocessing" };
-
+	private static Map<String, Boolean> fileIsGenerated;
+	private HashMap<String, String> filesToGenerate;
+	private static String[] nodes = { "SensorCOM1", "Preprocessing" };
+	private static String PATH = "test-gen/generator/";
+	
+	static FileGenerationStep fileGenerationStep;
 	/**
 	 * Creates or empties the test generation directory.
 	 * 
@@ -42,56 +57,74 @@ public class FileGenerationTest {
 		} else {
 			deleteGen();
 		}
-		map = new HashMap<String, Boolean>();
+
+		final JavaIoFileSystemAccess fsa = new JavaIoFileSystemAccess();
+		
+		fsa.setOutputPath(System.getProperty("user.dir"));
+		
+		
+		// inject fsa
+		Guice.createInjector(new AbstractGenericModule() {
+			@SuppressWarnings("unused")
+			public Class<? extends IEncodingProvider> bindIEncodingProvider() {
+				return IEncodingProvider.Runtime.class;
+			}
+		}).injectMembers(fsa);
+		
+		fileGenerationStep = new FileGenerationStep(fsa);
 	}
 
 	@Before
 	public void addFiles() {
-		map.put("sidlTestCode.sensidl", false);
-		map.put("EMeter.txt", false);
+		fileIsGenerated = new HashMap<String, Boolean>();
+		filesToGenerate = new HashMap<String, String>();
+		resetGenerationSettings();
+
 	}
 
 	/**
 	 * test class for java generator
 	 * 
 	 * @throws IOException
-	 * @throws MetamodelException 
+	 * @throws MetamodelException
 	 * @throws NoSidlFileException
 	 */
 	@Test
-	public void javaFilesGenerationTest(){
+	public void javaFilesGenerationTest() {
 		for (int i = 0; i < nodes.length; i++) {
-			map.put(nodes[i] + ".java", false);
-		}
-		map.put("eMeterUtility.java", false);
-		try {
-			GenerationHandler.generate(generationDirectory.getPath(), "resources/test example/sidlTestCode.sidl", "Java", null);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoBwcpsFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MetamodelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			filesToGenerate.put(nodes[i] + ".java", nodes[i] + ".java");
+			fileIsGenerated.put(nodes[i] + ".java", false);
+		}		
+
+		FileGenerationStep.setFilesToGenerate(filesToGenerate);
+		fileGenerationStep.startGenerationTask();
 		checkGeneratedFiles();
 	}
 
-
+	@After
+	public void tearDown() throws IOException {
+		deleteGen();
+		fileIsGenerated.clear();
+		filesToGenerate.clear();
+	}
+	@AfterClass
+	static public void deleteDir() throws IOException {
+		File file = generationDirectory.getParentFile();
+		FileDeleteStrategy.FORCE.delete(generationDirectory);
+		FileDeleteStrategy.FORCE.delete(file);
+	}	
 	/**
 	 * Checks if the generators generated just the desired files.
 	 */
 	private void checkGeneratedFiles() {
 		for (String file : generationDirectory.list()) {
-			if (map.containsKey(file)) {
-				map.put(file, true);
+			if (fileIsGenerated.containsKey(file)) {
+				fileIsGenerated.put(file, true);
 			} else {
 				throw new AssertionError(file + " should not get generated");
 			}
 		}
-		for (Entry<String, Boolean> entry : map.entrySet()) {
+		for (Entry<String, Boolean> entry : fileIsGenerated.entrySet()) {
 			if (!entry.getValue()) {
 				throw new AssertionError(entry.getKey() + " is missing");
 			}
@@ -107,5 +140,10 @@ public class FileGenerationTest {
 		for (File file : generationDirectory.listFiles()) {
 			FileDeleteStrategy.FORCE.delete(file);
 		}
+	}
+
+	private void resetGenerationSettings() {
+		FileGenerationStep.filePath = PATH;
+		FileGenerationStep.resetFilesToGenerate();
 	}
 }

@@ -11,6 +11,8 @@ import bw_cps_code_generator.generator.generationstep.GenerationStep
 import bw_cps_code_generator.generator.factory.sidl.SensIDLInvoker
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import bw_cps_code_generator.generator.GenerationUtil
+import java.util.List
+import java.util.Arrays
 
 /**
  * The FileGenerationStep is a concrete subclass of the GenerationStep class. 
@@ -23,17 +25,16 @@ class FileGenerationStep extends GenerationStep {
 //	private val static UNIFIED_TAB_DISTANCE = "\t\t\t\t\t\t\t\t"
 //	private val static START_SYMBOL = "*"
 	private val static DEFAUL_FILE_PATH = ""
-	private val static TEXT_FILE_EXTENSION = "txt"	
+	private val static TEXT_FILE_EXTENSION = "txt"
 	private val static SIDL_FILE_EXTENSION = "sidl"
-
 
 	private String projectName = ""
 	val IFileSystemAccess fsa;
-	
+
 	public static var String filePath;
-	
+
 	private var HashMap<String, ArrayList<String>> fileCache;
-	
+
 	/**
 	 * The constructor is used to initialize a new IFileSystemAccess-object.
 	 * @param newFsa Corresponds to the IFileSystemAccess-object which is needed to generate the different files.
@@ -43,14 +44,14 @@ class FileGenerationStep extends GenerationStep {
 		fileCache = new HashMap
 		filePath = DEFAUL_FILE_PATH
 	}
-	
-		new(NamedElement element, IFileSystemAccess newFsa) {
+
+	new(NamedElement element, IFileSystemAccess newFsa) {
 		this.projectName = GenerationUtil.getEntityUpperName(element)
 		this.fsa = newFsa
 		fileCache = new HashMap
 		filePath = DEFAUL_FILE_PATH
 	}
-	
+
 //	
 //	public static def setFilePath(String newFilePath) {
 //		
@@ -69,162 +70,79 @@ class FileGenerationStep extends GenerationStep {
 //			
 			fsa.generateFile(getFilePathOf(file), getContentOf(file))
 			logger.info("File " + file + " was successfully generated")
-			if(file.isSidlFile) {
-				//SensIDL Call TODO checks
+			if (file.isSidlFile) {
+				// SensIDL Call TODO checks
 				logger.info("Invoke SensIDL GenerationHandler")
-				SensIDLInvoker.generate(ResourcesPlugin.workspace.root.location  
-					+ "/" + projectName + "/src/" + file.substring(0, file.length - (SIDL_FILE_EXTENSION.length + 1)).toLowerCase, 
-					ResourcesPlugin.workspace.root.location  
-					+ "/" + projectName + "/" + getFilePathOf(file)
+				SensIDLInvoker.generate(
+					ResourcesPlugin.workspace.root.location + "/" + projectName + "/src/" +
+						file.substring(0, file.length - (SIDL_FILE_EXTENSION.length + 1)).toLowerCase,
+					ResourcesPlugin.workspace.root.location + "/" + projectName + "/" + getFilePathOf(file)
 				)
 			}
 
 		}
-		
+
 		refreshWorkspace
 	}
-	
+
 	private def refreshWorkspace() {
-		//Don't refresh the workspace if not executed in an Eclipse Environment
-        try {
-            Class.forName("org.eclipse.core.resources.ResourcesPlugin")    
-        } catch(Exception e) {
-            return
-        }
-        
-		ResourcesPlugin.getWorkspace().getRoot().getProjects().forEach[eachProject | eachProject.refreshLocal(IResource.DEPTH_INFINITE, null)]
+		// Don't refresh the workspace if not executed in an Eclipse Environment
+		try {
+			Class.forName("org.eclipse.core.resources.ResourcesPlugin")
+		} catch (Exception e) {
+			return
+		}
+		if(isJUnitTest) {
+			return
+		}
+		ResourcesPlugin.getWorkspace().getRoot().getProjects().forEach [ eachProject |
+			eachProject.refreshLocal(IResource.DEPTH_INFINITE, null)
+		]
 
 	}
-	
-	private def getContentOf(String file) {
-		
-		filesToGenerate.get(file)
-		
-	}
-	
-	private def getFilePathOf(String file) {
-		
-		if (isTextFile(file)) {
-			
-			return file
-			
+
+	private def boolean isJUnitTest() {
+		var StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace()
+		var List<StackTraceElement> list = Arrays.asList(stackTrace)
+		for (StackTraceElement element : list) {
+			if (element.getClassName().startsWith("org.junit.")) {
+				return true
+			}
 		}
-		//TODO check
+		return false
+	}
+
+	private def getContentOf(String file) {
+
+		filesToGenerate.get(file)
+
+	}
+
+	private def getFilePathOf(String file) {
+
+		if (isTextFile(file)) {
+
+			return file
+
+		} // TODO check
 		else if (isSidlFile(file)) {
 			return "resource/" + file
 		}
-		
-		filePath + file
-		
-	}
-	
-	def isTextFile(String file) {
-		
-		FilenameUtils.getExtension(file).equals(TEXT_FILE_EXTENSION)
-		
-	}
-	
-	def isSidlFile(String file) {
-		
-		FilenameUtils.getExtension(file).equals(SIDL_FILE_EXTENSION)
-		
-	}
-//	def insertVersioningCommentTo(String file) {
-//		val fileExtensions = createExtensions(Files.getFileExtension(file))
-//		
-//		if (extensionsAlreadyInCache(fileExtensions) == false) {		
-//			getAllFilesWithSameExtension(fileExtensions)
-//		}
-//		
-//		val fileToEdit = new StringBuilder(filesToGenerate.get(file))
-//		fileToEdit.insert(0, System.getProperty("line.separator"))
-//		fileToEdit.insert(0, getVersioningComment(fileExtensions, file))
-//		
-//		filesToGenerate.put(file, fileToEdit)
-//	}
-//	
-//	def extensionsAlreadyInCache(ArrayList<String> fileExtensions) {
-//		return this.fileCache.keySet.exists[
-//			cachedExtension | fileExtensions.exists[
-//				fileExtension | fileExtension.equals(cachedExtension)
-//			]
-//		]
-//	}
 
-//	def createExtensions(String fileExtension) {
-//		return new ArrayList<String>() => [
-//				add(fileExtension)
-//			]
-//	}
-//	
-//	def getUnifiedIdentifier(ArrayList<String> fileExtensions) {
-//		var unifiedIdentifier = ''''''
-//		
-//		for (ext : fileExtensions) {
-//			unifiedIdentifier += ("_" + ext)
-//		}
-//		
-//		unifiedIdentifier
-//	}
-//	
-//	def void getAllFilesWithSameExtension(ArrayList<String> fileExtensions) {	
-//		val files = new ArrayList<String>
-//		
-//		for (String filename : filesToGenerate.keySet) {
-//			if (fileExtensions.exists[fileExtension | Files.getFileExtension(filename).equals(fileExtension)]) {
-//				files += filename				
-//			}
-//		}
-//		
-//		this.fileCache.put(getUnifiedIdentifier(fileExtensions), files)
-//	}
-//	
-//	def getVersioningComment(ArrayList<String> fileExtensions, String currentFileName) {
-//		'''
-//		/*
-//		*File:							«currentFileName»
-//		*Version:						
-//		*Generate at:					«new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date())»
-//		«printFiles(currentFileName, fileExtensions)»
-//		*/
-//		'''
-//	}
-//	
-//	def printFiles(String currentEditedFile, ArrayList<String> fileExtensions) {
-//		var filesToPrint = ''''''
-//		var counter = 1
-//		val files = this.fileCache.get(getUnifiedIdentifier(fileExtensions)) 
-//		
-//		filesToPrint += "*Further generated artifacts:"	+ "\t"
-//		
-//		for (currentFile : files) {
-//			if (!currentFile.equals(currentEditedFile)) {
-//				filesToPrint += currentFile
-//				filesToPrint += SEPARATION_STRING				
-//			}
-//
-//			if (filesToPrint.length >= (LINE_LENGTH * counter)) {
-//				filesToPrint += System.getProperty("line.separator")
-//				filesToPrint += START_SYMBOL + UNIFIED_TAB_DISTANCE
-//				counter++
-//			}
-//		} 
-//		
-//		postProcessing(new StringBuilder(filesToPrint))
-//	}
-//	
-//	def postProcessing(StringBuilder filesToPrint) {
-//		val comma = ","
-//		
-//		if (!filesToPrint.toString.contains(comma)) {
-//			return filesToPrint
-//		}
-//		
-//		while (!filesToPrint.toString.endsWith(comma)) {
-//			filesToPrint.deleteCharAt((filesToPrint.length - 1))
-//		}
-//		filesToPrint.deleteCharAt((filesToPrint.length - 1))
-//		
-//		filesToPrint.toString
-//	}
+		filePath + file
+
+	}
+
+	def isTextFile(String file) {
+
+		FilenameUtils.getExtension(file).equals(TEXT_FILE_EXTENSION)
+
+	}
+
+	def isSidlFile(String file) {
+
+		FilenameUtils.getExtension(file).equals(SIDL_FILE_EXTENSION)
+
+	}
+
 }

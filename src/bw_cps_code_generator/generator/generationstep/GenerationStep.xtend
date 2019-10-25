@@ -42,6 +42,11 @@ abstract class GenerationStep {
 
 	}
 	
+	public def static setFilesToGenerate(HashMap newFilesToGenerate) {
+		
+		filesToGenerate = newFilesToGenerate
+
+	}
 	/**
 	 * Starts the generation task.
 	 */
