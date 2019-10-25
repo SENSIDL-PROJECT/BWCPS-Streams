@@ -1,6 +1,7 @@
 package bw_cps_code_generator.generator.tests;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import de.fzi.bwcps.stream.bwcps_streams.entity.impl.entityPackageImpl;
+import bw_cps_code_generator.exception.MetamodelException;
 import bw_cps_code_generator.exception.NoBwcpsFileException;
 import bw_cps_code_generator.ui.handler.GenerationHandler;
 
@@ -53,15 +55,27 @@ public class FileGenerationTest {
 	 * test class for java generator
 	 * 
 	 * @throws IOException
+	 * @throws MetamodelException 
 	 * @throws NoSidlFileException
 	 */
 	@Test
-	public void javaFilesGenerationTest() throws IOException, NoBwcpsFileException {
+	public void javaFilesGenerationTest(){
 		for (int i = 0; i < nodes.length; i++) {
 			map.put(nodes[i] + ".java", false);
 		}
 		map.put("eMeterUtility.java", false);
-		GenerationHandler.generate(generationDirectory.getPath(), "resource/generator/sidlTestCode.sidl", "Java", null);
+		try {
+			GenerationHandler.generate(generationDirectory.getPath(), "resources/test example/sidlTestCode.sidl", "Java", null);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoBwcpsFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MetamodelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		checkGeneratedFiles();
 	}
 

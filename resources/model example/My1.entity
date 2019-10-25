@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity:StreamRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" xmlns:entity="http://www.fzi.de/bwcps/stream/entity/1.0" xmlns:operations="http://www.fzi.de/bwcps/stream/operations/1.0" name="">
-  <streams name="FirstStream" nodelinks="//@nodelinks.0 //@nodelinks.1"/>
+  <streams name="FirstStream" nodelinks="//@nodelinks.0 //@nodelinks.1 //@nodelinks.5 //@nodelinks.4 //@nodelinks.6 //@nodelinks.3 //@nodelinks.2"/>
   <container xsi:type="entity:EdgeDevice" name="Intel Galileo Gen 2" nodes="//@nodes.1 //@nodes.0 //@nodes.3 //@nodes.4"/>
   <container xsi:type="entity:EdgeGateway" name="Intel NUC" nodes="//@nodes.5 //@nodes.7 //@nodes.6"/>
   <container xsi:type="entity:DataSink" name="Azure" nodes="//@nodes.8"/>
