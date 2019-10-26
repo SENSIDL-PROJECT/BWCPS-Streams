@@ -16,11 +16,12 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import bw_cps_code_generator.generator.factory.projects.NodeConfigurationProjectGenerator
 import bw_cps_code_generator.generator.factory.projects.OsgiBundleGenerator
+import bw_cps_code_generator.exception.ExistingProjectException
+import org.apache.log4j.Logger
 
 class NodeConfigurationGenerationStep extends GenerationStep {
 	
-
-	
+	private val static logger = Logger.getLogger(NodeConfigurationGenerationStep)
 
 	private val IFileSystemAccess fsa;
 	private boolean needsSecurityPackage;
@@ -43,13 +44,16 @@ class NodeConfigurationGenerationStep extends GenerationStep {
 	 */
 	private def getResourcesToGenerateMapping() {
 		
-		val secGenerator = new NodeConfigurationProjectGenerator(needsSecurityPackage) 
+		val generator = new NodeConfigurationProjectGenerator(needsSecurityPackage) 
 		
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			
 			put(GenerationLanguage.OSGI_BUNDLES, [
-				
-				secGenerator.createProject()
+				try {
+					generator.createProject
+				} catch (ExistingProjectException e) {
+					logger.info(e.message);
+				}
 				
 			])
 			

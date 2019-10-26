@@ -16,9 +16,12 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import bw_cps_code_generator.generator.factory.projects.OsgiBundleGenerator
 import bw_cps_code_generator.generator.metamodelmanager.ElementManager
+import org.apache.log4j.Logger
+import bw_cps_code_generator.exception.ExistingProjectException
 
 class ProjectGenerationStep extends GenerationStep {
 	
+	private val static logger = Logger.getLogger(ProjectGenerationStep)
 	private static val PATH_SEPERATOR = "/"
 	
 	private val String projectName
@@ -73,14 +76,18 @@ class ProjectGenerationStep extends GenerationStep {
 	 */
 	private def getResourcesToGenerateMapping() {
 		
-		val kuraGenerator = new OsgiBundleGenerator(projectName) 
+		val bundleGenerator = new OsgiBundleGenerator(projectName) 
 		
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			
 			put(GenerationLanguage.OSGI_BUNDLES, [
+				try {
+					bundleGenerator.createProject
+				} catch (ExistingProjectException e) {
+					logger.info(e.message);
+				}
 				
-				kuraGenerator.createProject
-				resetGenerationSettings(kuraGenerator.getProjectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, projectName)
+				resetGenerationSettings(bundleGenerator.getProjectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, projectName)
 				
 			])
 			

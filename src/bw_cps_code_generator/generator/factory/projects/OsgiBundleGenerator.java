@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
+import bw_cps_code_generator.exception.ExistingProjectException;
 import bw_cps_code_generator.generator.BwCPSConstants;
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
 
@@ -85,7 +86,7 @@ public class OsgiBundleGenerator extends ProjectGenerator {
 			if (this.deleteExistingProjectWith(projectName)) {
 				project.delete(true, true, null);
 			} else {
-				throw new Exception("Project already exist.");
+				throw new ExistingProjectException(projectName);
 			}
 
 		}

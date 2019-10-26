@@ -50,7 +50,6 @@ public class FileGenerationTest {
 	 */
 	@BeforeClass
 	static public void setUp() throws IOException {
-		entityPackageImpl.init();
 		generationDirectory = new File("test-gen/generator");
 		if (!generationDirectory.exists()) {
 			generationDirectory.mkdir();
