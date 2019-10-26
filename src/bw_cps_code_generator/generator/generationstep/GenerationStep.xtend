@@ -34,7 +34,7 @@ abstract class GenerationStep {
 	
 	public def static resetFilesToGenerate() {
 		
-		if (filesToGenerate == null) {
+		if (filesToGenerate === null) {
 			filesToGenerate = new HashMap
 		} else {
 			filesToGenerate.clear
@@ -45,6 +45,11 @@ abstract class GenerationStep {
 	public def static setFilesToGenerate(HashMap newFilesToGenerate) {
 		
 		filesToGenerate = newFilesToGenerate
+
+	}
+	public def static getFilesToGenerate() {
+		
+		filesToGenerate 
 
 	}
 	/**

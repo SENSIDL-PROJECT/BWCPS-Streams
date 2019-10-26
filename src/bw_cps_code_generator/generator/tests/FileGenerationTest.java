@@ -1,15 +1,12 @@
 package bw_cps_code_generator.generator.tests;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.apache.commons.io.FileDeleteStrategy;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.service.AbstractGenericModule;
@@ -17,17 +14,13 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.inject.Guice;
 
-import de.fzi.bwcps.stream.bwcps_streams.entity.impl.entityPackageImpl;
 import bw_cps_code_generator.exception.MetamodelException;
-import bw_cps_code_generator.exception.NoBwcpsFileException;
-import bw_cps_code_generator.generator.BwcpsGenerator;
 import bw_cps_code_generator.generator.generationstep.FileGenerationStep;
-import bw_cps_code_generator.ui.handler.GenerationHandler;
+import de.fzi.sensidl.language.ui.exception.NoSidlFileException;
 
 /**
  * This class checks, if the generators generate just the desired files.
