@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public enum BwCPSExtentions {
 	
-
+		SENSIDL("sensidl"),
 		SIDL("sidl"), 
 		ENTITY("entity"), 
 		OPERATIONS("operations");

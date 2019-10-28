@@ -14,7 +14,7 @@ import bw_cps_code_generator.generator.metamodelmanager.StreamRepositoryManager
 
 class GenerationJobFactory {
 	
-	public static def getGenerationJobBy(GenerationParameter parameter) {
+	static def getGenerationJobBy(GenerationParameter parameter) {
 		
 		return switch(parameter.generationLanguage) {
 			case GenerationLanguage.OSGI_BUNDLES: return getKuraProjectGenerationJobBy(parameter)
@@ -28,14 +28,15 @@ class GenerationJobFactory {
 		val generationChain = new LinkedHashSet<GenerationStep>()
 		val streamRepo = new StreamRepositoryManager(parameter.resource).filterData()
 
-		generationChain.add(new NodeConfigurationGenerationStep(parameter.fileSystemAccess, StreamRepositoryManager.needsSecurityPackage(streamRepo)))
+		generationChain.add(new NodeConfigurationGenerationStep(streamRepo, parameter.fileSystemAccess))
+		generationChain.add(new FileGenerationStep( parameter.fileSystemAccess))
 
 		streamRepo.container.forEach[c | 
 			{
 				generationChain => [
 					add(new ProjectGenerationStep(c, parameter.fileSystemAccess))
 					add(new DTOGenerationStep(c, StreamRepositoryManager.filterNodelinksOnNodeContainer(streamRepo, c)))
-					add(new FileGenerationStep(c, parameter.fileSystemAccess))
+					add(new FileGenerationStep(parameter.fileSystemAccess))
 //					add(new DeploymentPackageGenerationStep(new StreamRepositoryFilter(), parameter.fileSystemAccess))
 				]
 			}
@@ -44,7 +45,7 @@ class GenerationJobFactory {
 		new GenerationJob(generationChain)
 	}
 	
-	public static def getDTOGenerationJobBy(GenerationParameter parameter) {
+	static def getDTOGenerationJobBy(GenerationParameter parameter) {
 		
 				
 		makeGlobalSettings(parameter)

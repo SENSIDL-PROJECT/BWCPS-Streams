@@ -6,6 +6,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 abstract class ProjectGenerator {
+	public static String projectPath = "";
 	
 	protected boolean deleteExistingProjectWith(final String name) {
 		

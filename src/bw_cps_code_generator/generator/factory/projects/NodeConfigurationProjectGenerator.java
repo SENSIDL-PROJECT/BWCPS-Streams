@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -28,29 +26,28 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.osgi.framework.Bundle;
 
 import bw_cps_code_generator.exception.ExistingProjectException;
 import bw_cps_code_generator.generator.BwCPSConstants;
-import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
 
 /**
  * Creates a Java Plug-in Project at the root of the workspace
  * 
  * @author Sven Eckhardt
  */
-//TODO NOT SECURITY
+
 public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 
-	private String projectName = "NodeConfiguration";
+	private String projectName = BwCPSConstants.NODECONFIG_Project_NAME;
 	private boolean needsSecurityPackage;
 	private final static String JAVA_FILES_PATH = "platform:/plugin/bw-cps-code-generator/resources/nodeconfig/";
 	private final static String JAVA_PACKAGE_ID_IDENTIFIER_TOKEN = "$_1";
 
-	public NodeConfigurationProjectGenerator (boolean needsSecurityPackage) {
+	public NodeConfigurationProjectGenerator(boolean needsSecurityPackage) {
 		this.needsSecurityPackage = needsSecurityPackage;
 	}
+
 	/**
 	 * Create a Java Plug-in Project with the given name.
 	 * 
@@ -89,6 +86,8 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 		project.open(null);
 		project.setDescription(projectDescription, null);
 
+		projectPath = project.getLocation().toOSString();
+
 		// create src folder
 		IFolder srcFolder = project.getFolder("src");
 		if (!srcFolder.exists()) {
@@ -104,11 +103,28 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 				"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5")));
 		classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins")));
 
+		// copy gson
+		Bundle bundle = Platform.getBundle("com.google.gson");
+		Path path = new Path("");
+		URL absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
+
+		java.nio.file.Path gsonSource = java.nio.file.Paths
+				.get(absoluteFileURL.toString().replaceFirst("jar:file:/", "").replace("!/", ""));
+
+		java.nio.file.Path gsonDestination = java.nio.file.Paths
+				.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
+
+		java.nio.file.Files.copy(gsonSource, gsonDestination.resolve(gsonSource.getFileName()),
+				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+		// add gson to classpathEntries
+		File file = new File(gsonDestination.resolve(gsonSource.getFileName()).toString());
+		classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
+
 		if (needsSecurityPackage) {
 			// copy crypto
-			Bundle bundle = Platform.getBundle("bw-cps-code-generator");
-			Path path = new Path("commons-crypto-1.0.0.jar");
-			URL absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
+			bundle = Platform.getBundle("bw-cps-code-generator");
+			path = new Path("commons-crypto-1.0.0.jar");
+			absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
 
 			java.nio.file.Path cryptoSource = java.nio.file.Paths.get(absoluteFileURL.toURI());
 
@@ -132,7 +148,7 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
 			// add crypto to classpathEntries
-			File file = new File(cryptoDestination.resolve(cryptoSource.getFileName()).toString());
+			file = new File(cryptoDestination.resolve(cryptoSource.getFileName()).toString());
 			classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
 
 			// add HKDF to classpathEntries

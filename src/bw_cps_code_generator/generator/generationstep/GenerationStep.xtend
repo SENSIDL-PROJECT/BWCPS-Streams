@@ -12,17 +12,17 @@ abstract class GenerationStep {
 	protected static var HashMap<String, CharSequence> filesToGenerate
 	protected static var GenerationLanguage generationLanguage
 	protected static var String javaPackagePrefix
-	
+	protected static var boolean skipProject = false
 	/**
 	 * This static method is used to reset the generation configurations for a new generation task.
 	 * @param newGenerationLanguage Corresponds to the desired language that you want to generate.
 	 */
-	public def static void setGlobalSettings(GenerationLanguage newGenerationLanguage) {
+	def static void setGlobalSettings(GenerationLanguage newGenerationLanguage) {
 		
 		resetFilesToGenerate
 		
 		generationLanguage = newGenerationLanguage
-		javaPackagePrefix = BwCPSConstants.JAVA_DEFAULT_PACKAGE_PREFIX
+		javaPackagePrefix = BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX
 		
 	}
 	
@@ -32,7 +32,7 @@ abstract class GenerationStep {
 		
 	}
 	
-	public def static resetFilesToGenerate() {
+	def static resetFilesToGenerate() {
 		
 		if (filesToGenerate === null) {
 			filesToGenerate = new HashMap
@@ -42,12 +42,12 @@ abstract class GenerationStep {
 
 	}
 	
-	public def static setFilesToGenerate(HashMap newFilesToGenerate) {
+	def static setFilesToGenerate(HashMap<String, CharSequence> newFilesToGenerate) {
 		
 		filesToGenerate = newFilesToGenerate
 
 	}
-	public def static getFilesToGenerate() {
+	def static getFilesToGenerate() {
 		
 		filesToGenerate 
 
@@ -55,6 +55,6 @@ abstract class GenerationStep {
 	/**
 	 * Starts the generation task.
 	 */
-	public abstract def void startGenerationTask()
+	abstract def void startGenerationTask()
 	
 }

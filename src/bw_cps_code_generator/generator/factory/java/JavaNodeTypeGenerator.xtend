@@ -7,7 +7,8 @@ import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeType
-//TODO in Nodeconfiguration
+import de.fzi.sensidl.design.sensidl.SensorInterface
+
 class JavaNodeTypeGenerator extends JavaEntityGenerator {
 	static val Logger logger = Logger.getLogger(JavaNodeTypeGenerator)
 	val List<NodeType> nodetypes
@@ -25,7 +26,6 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 	override generate() {
 		logger.info("Generate node types.")
 		val filesToGenerate = new HashMap
-		filesToGenerate.put("NodeType.java", generateInterfaceBody())
 		logger.info("File: NodeType.java was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		for (nodetype : nodetypes) { 
@@ -38,23 +38,7 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 		filesToGenerate
 	}
 	
-	def generateInterfaceBody() {
-		'''
-			package «packagePrefix»«projectName.toLowerCase»;
-			
-			/**
-			* NodeType Iterface
-			*
-			* @generated
-			*/
-			public interface NodeType {
-				
-				
-			}
-		'''
-	}
-	
-	override generateClassBody(String entityName, NamedElement nodeType) {
+	def generateClassBody(String entityName, NodeType nodeType) {
 		'''
 			package «packagePrefix»«projectName.toLowerCase»;
 
@@ -66,13 +50,9 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 			
 			«generateImports(nodeType)»
 			
-			public class «entityName» implements NodeType {
+			public abstract class «entityName» {
 									
 				«generateDataFields(nodeType)»
-				
-				«generateConstructor(nodeType, entityName)»
-				
-				«nodeType.generateMethods»
 				
 				«generateDataMethods(nodeType)»
 				
@@ -80,32 +60,29 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 		'''
 	}
 
-	override generateDataMethods(NamedElement nodetype) {
+	def generateDataMethods(NodeType nodetype) {
 		
 	}
-	
-	override generateConstructor(NamedElement nodetype, String className) {
 
-	}
 	
 // ------------------------------ Data Fields ------------------------------
 	
-	override generateDataFields(NamedElement nodetype) {
+	def generateDataFields(NodeType nodetype) {
 		'''
-			«GenerationUtil.getEntityUpperName(nodetype)»InputDataSet input = new «GenerationUtil.getEntityUpperName(nodetype)»InputDataSet();
-			«GenerationUtil.getEntityUpperName(nodetype)»OutputDataSet output = new «GenerationUtil.getEntityUpperName(nodetype)»OutputDataSet();
-		'''
-	}
-	
-	def generateImports(NamedElement nodetype) {
-		'''
-			import «GenerationUtil.getEntityLowerName(nodetype).toLowerCase»inputdataset.«GenerationUtil.getEntityUpperName(nodetype)»InputDataSet;
-			import «GenerationUtil.getEntityLowerName(nodetype).toLowerCase»outputdataset.«GenerationUtil.getEntityUpperName(nodetype)»OutputDataSet;
+			«nodetype.input.get(0).dataSet.name» input = new «nodetype.input.get(0).dataSet.name»();
+			«nodetype.output.get(0).dataSet.name» output = new «nodetype.output.get(0).dataSet.name»();
 		'''
 	}
 	
-	
-	override generateMethods(NamedElement entity) {
+	def generateImports(NodeType nodetype) {
+		'''
+			import «(nodetype.input.get(0).dataSet.eContainer.eContainer as SensorInterface)
+					.name».«nodetype.input.get(0).dataSet.name»;
+			«IF nodetype.input.get(0).dataSet.name != nodetype.output.get(0).dataSet.name»
+				import «(nodetype.output.get(0).dataSet.eContainer.eContainer as SensorInterface)
+					.name».«nodetype.output.get(0).dataSet.name»;
+			«ENDIF»
+		'''
 	}
 	
 

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="ASCII"?>
-<de.fzi.sensidl.design:SensorInterface xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design="http://fzi.de/sensidl/design/1.0" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" ID="_V3B_APRCEem3irz5Pq_Ctg" name="exampleInterface" description="This is the description for the Example Interface">
+<de.fzi.sensidl.design:SensorInterface xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design="http://fzi.de/sensidl/design/1.0" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" ID="_V3B_APRCEem3irz5Pq_Ctg" name="SensorMeasurements" description="This is the description for the Example Interface">
   <encodingSettings ID="_V3CmEPRCEem3irz5Pq_Ctg"/>
   <dataDescription ID="_V3CmEfRCEem3irz5Pq_Ctg">
-    <dataSets ID="_V3CmEvRCEem3irz5Pq_Ctg" name="ExampleDataSet">
+    <dataSets ID="_V3CmEvRCEem3irz5Pq_Ctg" name="LightDataSet">
       <data xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" ID="_V3CmE_RCEem3irz5Pq_Ctg" name="Timestamp" description="This is the description for the NonMeasurementData" dataType="UINT8" constant="true" value="1"/>
-      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_V3CmFPRCEem3irz5Pq_Ctg" name="light" description="This is the description for the MeasurementData" dataType="FLOAT">
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_V3CmFPRCEem3irz5Pq_Ctg" name="Light" description="This is the description for the MeasurementData" dataType="FLOAT">
         <adjustments xsi:type="de.fzi.sensidl.design.sensidl:LinearDataConversionWithInterval" ID="_V3CmFvRCEem3irz5Pq_Ctg" dataType="DOUBLE">
           <fromInterval ID="_V3CmFfRCEem3irz5Pq_Ctg" upperBound="255.0"/>
           <toInterval ID="_V3CmF_RCEem3irz5Pq_Ctg" upperBound="1.0"/>
         </adjustments>
       </data>
     </dataSets>
-    <dataSets ID="_V3CmGPRCEem3irz5Pq_Ctg" name="OtherDataSet">
+    <dataSets ID="_V3CmGPRCEem3irz5Pq_Ctg" name="TempDataSet">
       <data xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" ID="_V3CmGfRCEem3irz5Pq_Ctg" name="Message" description="This is the description for the NonMeasurementData" dataType="UINT8" constant="true" value="1"/>
       <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_V3CmGvRCEem3irz5Pq_Ctg" name="Temp" description="This is the description for the MeasurementData" dataType="FLOAT">
         <adjustments xsi:type="de.fzi.sensidl.design.sensidl:LinearDataConversionWithInterval" ID="_V3CmHPRCEem3irz5Pq_Ctg" dataType="DOUBLE">

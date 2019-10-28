@@ -10,6 +10,7 @@ import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import java.util.stream.Collectors
 import bw_cps_code_generator.generator.GenerationUtil
+import bw_cps_code_generator.generator.BwCPSConstants
 
 /**
  * The JavaGenerator represents a concrete implementation of The ICodeGenerator and implements the 
@@ -30,11 +31,9 @@ class JavaGenerator implements ICodeGenerator {
 		switch generationlanguage {
 			case GenerationLanguage.OSGI_BUNDLES:
 			{
-				val container = element as NodeContainer
-				val nodeTypes = container.nodes.map(node| node.nodetype)
-						.stream.distinct.collect(Collectors.toList())
-				if (nodeTypes != null && !nodeTypes.empty)
-					filesToGenerate.putAll(new JavaNodeTypeGenerator(GenerationUtil.getEntityUpperName(container), nodeTypes, packagePrefix).generate)
+				val nodeTypes = (element as StreamRepository).nodeTypes
+				if (nodeTypes !== null && !nodeTypes.empty)
+					filesToGenerate.putAll(new JavaNodeTypeGenerator(BwCPSConstants.NODECONFIG_Project_NAME, nodeTypes, packagePrefix).generate)
 			}
 			
 			default:			

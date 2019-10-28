@@ -54,7 +54,7 @@ class JavaNodeGenerator extends JavaEntityGenerator {
 		'''
 	}
 	
-	override generateClassBody(String entityName, NamedElement stream) {
+	def generateClassBody(String entityName, NamedElement stream) {
 		'''
 			package nodes;
 			
@@ -82,10 +82,10 @@ class JavaNodeGenerator extends JavaEntityGenerator {
 		'''
 	}
 
-	override generateDataMethods(NamedElement entity) {
+	def generateDataMethods(NamedElement entity) {
 		//
 	}
-	override generateConstructor(NamedElement entity, String className) {
+	def generateConstructor(NamedElement entity, String className) {
 		'''
 				
 			public «className»(NodeType nodeType, Operation operational) {
@@ -102,7 +102,7 @@ class JavaNodeGenerator extends JavaEntityGenerator {
 	def generateMethods(StreamRepository repo) {
 	}
 	
-	override generateDataFields(NamedElement entity) {
+	def generateDataFields(NamedElement entity) {
 		'''
 			private Node source;
 			
@@ -110,7 +110,7 @@ class JavaNodeGenerator extends JavaEntityGenerator {
 		'''
 	}
 	
-	override generateMethods(NamedElement entity) {
+	def generateMethods(NamedElement entity) {
 	//	throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 

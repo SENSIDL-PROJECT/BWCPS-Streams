@@ -1,0 +1,13 @@
+sensorInterface SensorMeasurements /**This is the description for the Example Interface*/ { 
+    encoding : SENSIDL_BINARY, endianness : BIG_ENDIAN, alignment: 1 BIT 
+    sensorData { 
+        dataSet LightDataSet { 
+             TimeStamp as UINT8 constant value ="1" /**This is the description for the NonMeasurementData*/  
+            Light as FLOAT in Dimensionless adjusted by linear mapping [0;255]=> [0;1] as FLOAT/**This is the description for the MeasurementData*/ 
+         }
+         dataSet TempDataSet { 
+             Message as UINT8 constant value ="1" /**This is the description for the NonMeasurementData*/  
+            Temp as FLOAT in Dimensionless adjusted by linear mapping [0;255]=> [0;1] as FLOAT/**This is the description for the MeasurementData*/ 
+         }
+     }
+ } 

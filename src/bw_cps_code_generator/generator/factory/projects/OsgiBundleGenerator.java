@@ -39,7 +39,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
 public class OsgiBundleGenerator extends ProjectGenerator {
 
 	private String projectName;
-	private String projectPath;
+
 
 	/**
 	 * The Constructor.
@@ -49,20 +49,9 @@ public class OsgiBundleGenerator extends ProjectGenerator {
 	public OsgiBundleGenerator(String projectName) {
 
 		this.projectName = projectName;
-		this.projectPath = "";
 	}
 
-	public String getProjectPath() {
 
-		return this.projectPath;
-
-	}
-
-	private void setProjectPath(String projectPath) {
-
-		this.projectPath = projectPath;
-
-	}
 
 	/**
 	 * Create a Java Plug-in Project with the given name.
@@ -102,27 +91,13 @@ public class OsgiBundleGenerator extends ProjectGenerator {
 		project.open(null);
 		project.setDescription(projectDescription, null);
 
-		setProjectPath(project.getLocation().toOSString());
+		projectPath = project.getLocation().toOSString();
 
 		// create src folder
 		IFolder srcFolder = project.getFolder("src");
 		if (!srcFolder.exists()) {
 			srcFolder.create(false, true, null);
 		}
-
-		// copy gson
-		Bundle bundle = Platform.getBundle("com.google.gson");
-		Path path = new Path("");
-		URL absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
-
-		java.nio.file.Path gsonSource = java.nio.file.Paths
-				.get(absoluteFileURL.toString().replaceFirst("jar:file:/", "").replace("!/", ""));
-
-		java.nio.file.Path gsonDestination = java.nio.file.Paths
-				.get(ResourcesPlugin.getWorkspace().getRoot().getLocation() + "/" + projectName + "/");
-
-		java.nio.file.Files.copy(gsonSource, gsonDestination.resolve(gsonSource.getFileName()),
-				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
 		// add classpath entries
 		List<IClasspathEntry> classpathEntries = new ArrayList<IClasspathEntry>();
@@ -132,10 +107,6 @@ public class OsgiBundleGenerator extends ProjectGenerator {
 		classpathEntries.add(JavaCore.newContainerEntry(new Path(
 				"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5")));
 		classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins")));
-
-		// add gson to classpathEntries
-		File file = new File(gsonDestination.resolve(gsonSource.getFileName()).toString());
-		classpathEntries.add(JavaCore.newLibraryEntry(Path.fromOSString(file.getAbsolutePath()), null, null));
 
 		// set classpath entries
 		javaProject.setRawClasspath(classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), null);

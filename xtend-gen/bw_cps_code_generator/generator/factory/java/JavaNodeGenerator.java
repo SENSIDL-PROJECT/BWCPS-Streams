@@ -85,7 +85,6 @@ public class JavaNodeGenerator extends JavaEntityGenerator {
     return _builder;
   }
   
-  @Override
   public CharSequence generateClassBody(final String entityName, final NamedElement stream) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package nodes;");
@@ -132,13 +131,13 @@ public class JavaNodeGenerator extends JavaEntityGenerator {
     _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
-    CharSequence _generateMethods = this.generateMethods(stream);
+    Object _generateMethods = this.generateMethods(stream);
     _builder.append(_generateMethods, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
-    CharSequence _generateDataMethods = this.generateDataMethods(stream);
+    Object _generateDataMethods = this.generateDataMethods(stream);
     _builder.append(_generateDataMethods, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -148,12 +147,10 @@ public class JavaNodeGenerator extends JavaEntityGenerator {
     return _builder;
   }
   
-  @Override
-  public CharSequence generateDataMethods(final NamedElement entity) {
+  public Object generateDataMethods(final NamedElement entity) {
     return null;
   }
   
-  @Override
   public CharSequence generateConstructor(final NamedElement entity, final String className) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("\t");
@@ -180,7 +177,6 @@ public class JavaNodeGenerator extends JavaEntityGenerator {
     return null;
   }
   
-  @Override
   public CharSequence generateDataFields(final NamedElement entity) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("private Node source;");
@@ -191,8 +187,7 @@ public class JavaNodeGenerator extends JavaEntityGenerator {
     return _builder;
   }
   
-  @Override
-  public CharSequence generateMethods(final NamedElement entity) {
+  public Object generateMethods(final NamedElement entity) {
     return null;
   }
 }

@@ -10,9 +10,6 @@ import bw_cps_code_generator.generator.BwCPSConstants
 import bw_cps_code_generator.generator.BwCPSConstants.GenerationLanguage
 import bw_cps_code_generator.generator.IExecuter
 import bw_cps_code_generator.generator.GenerationUtil
-import java.util.List
-import java.util.ArrayList
-import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import bw_cps_code_generator.generator.factory.projects.OsgiBundleGenerator
 import bw_cps_code_generator.generator.metamodelmanager.ElementManager
@@ -36,11 +33,13 @@ class ProjectGenerationStep extends GenerationStep {
 	new(ElementManager filter, IFileSystemAccess newFsa) {
 		this.projectName = (filter.filterData() as StreamRepository).name
 		this.fsa = newFsa
+		skipProject = false
 	}
 	
 	new(NamedElement element, IFileSystemAccess newFsa) {
 		this.projectName = GenerationUtil.getEntityUpperName(element)
 		this.fsa = newFsa
+		skipProject = false
 	}
 	
 	override startGenerationTask() {
@@ -49,7 +48,7 @@ class ProjectGenerationStep extends GenerationStep {
 		
 	}
 	
-	// This have to be done because a java-plugin-project requires java sources.
+	// This has to be done because a java-plugin-project requires java sources.
 	private def resetGenerationSettings(String projectPath, String path, String projectName) {
 		
 		javaPackagePrefix = BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX;
@@ -64,7 +63,6 @@ class ProjectGenerationStep extends GenerationStep {
 		builder.append(PATH_SEPERATOR)
 		builder.append(projectName.replaceAll(" ", "").toLowerCase)
 		builder.append(PATH_SEPERATOR)
-		
 		builder.toString
 		
 	}
@@ -84,10 +82,11 @@ class ProjectGenerationStep extends GenerationStep {
 				try {
 					bundleGenerator.createProject
 				} catch (ExistingProjectException e) {
+					skipProject = true
 					logger.info(e.message);
 				}
 				
-				resetGenerationSettings(bundleGenerator.getProjectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, projectName)
+				resetGenerationSettings(OsgiBundleGenerator.projectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, projectName)
 				
 			])
 			

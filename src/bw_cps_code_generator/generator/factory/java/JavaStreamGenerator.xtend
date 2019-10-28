@@ -52,7 +52,7 @@ class JavaStreamGenerator extends JavaEntityGenerator {
 		'''
 	}
 	
-	override generateClassBody(String entityName, NamedElement stream) {
+	def generateClassBody(String entityName, NamedElement stream) {
 		'''
 			package streams;
 			
@@ -82,10 +82,10 @@ class JavaStreamGenerator extends JavaEntityGenerator {
 		'''
 	}
 
-	override generateDataMethods(NamedElement entity) {
+	def generateDataMethods(NamedElement entity) {
 		//
 	}
-	override generateConstructor(NamedElement etity, String className) {
+	def generateConstructor(NamedElement etity, String className) {
 		'''
 				
 			public «className»(List<NodeLink> nodelinks) {
@@ -101,13 +101,13 @@ class JavaStreamGenerator extends JavaEntityGenerator {
 	def generateMethods(StreamRepository repo) {
 	}
 	
-	override generateDataFields(NamedElement entity) {
+	def generateDataFields(NamedElement entity) {
 	'''
 		private List<NodeLink> nodelinks;
 	'''
 	}
 	
-	override generateMethods(NamedElement entity) {
+	def generateMethods(NamedElement entity) {
 		'''
 			@Override
 			public List<NodeLink> getNodelinks(){

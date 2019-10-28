@@ -31,7 +31,7 @@ import de.fzi.sensidl.language.ui.exception.NoSidlFileException;
 public class FileGenerationTest {
 	private static File generationDirectory;
 	private static Map<String, Boolean> fileIsGenerated;
-	private HashMap<String, String> filesToGenerate;
+	private HashMap<String, CharSequence> filesToGenerate;
 	private static String[] nodes = { "SensorCOM1", "Preprocessing" };
 	private static String PATH = "test-gen/generator/";
 	
@@ -69,7 +69,7 @@ public class FileGenerationTest {
 	@Before
 	public void addFiles() {
 		fileIsGenerated = new HashMap<String, Boolean>();
-		filesToGenerate = new HashMap<String, String>();
+		filesToGenerate = new HashMap<String, CharSequence>();
 		resetGenerationSettings();
 
 	}

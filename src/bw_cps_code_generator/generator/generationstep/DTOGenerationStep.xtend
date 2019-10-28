@@ -1,6 +1,5 @@
 package bw_cps_code_generator.generator.generationstep
 
-
 import bw_cps_code_generator.generator.generationstep.GenerationStep
 import java.util.HashMap
 import java.util.List
@@ -10,15 +9,14 @@ import bw_cps_code_generator.generator.IExecuter
 import bw_cps_code_generator.generator.factory.java.JavaGenerator
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
-import bw_cps_code_generator.generator.factory.sidl.SidlGenerator
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
 import bw_cps_code_generator.generator.factory.components.JavaComponentGenerator
 import bw_cps_code_generator.generator.metamodelmanager.ElementManager
 
 class DTOGenerationStep extends GenerationStep {
 
-	private NamedElement element
-	private List<NodeLink> nodelinks
+	NamedElement element
+	List<NodeLink> nodelinks
 	
 	/**
 	 * The constructor calls the needed data filtered by a
@@ -38,8 +36,8 @@ class DTOGenerationStep extends GenerationStep {
 	 * @see GenerationStep#startGenerationTask()
 	 */
 	override startGenerationTask() {
-	
-		this.resourcesToGenerateMapping.get(generationLanguage).execute
+		if(!skipProject)
+			this.resourcesToGenerateMapping.get(generationLanguage).execute
 		
 	}
 	
@@ -62,14 +60,10 @@ class DTOGenerationStep extends GenerationStep {
 			])
 			put(GenerationLanguage.OSGI_BUNDLES, [
 				val JavaComponentGenerator kgenerator = new JavaComponentGenerator(javaPackagePrefix)
-				val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.OSGI_BUNDLES, javaPackagePrefix)
-				val SidlGenerator sgenerator = new SidlGenerator(javaPackagePrefix)
-
+				
 				resetFilesToGenerate
 				filesToGenerate => [
 					putAll(kgenerator.generateDTO(this.element as NodeContainer, nodelinks))
-					putAll(jgenerator.generateDTO(this.element as NodeContainer))
-					putAll(sgenerator.generateDTO(this.element as NodeContainer))
 				]
 				
 			])

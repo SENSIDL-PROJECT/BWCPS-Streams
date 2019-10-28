@@ -3,11 +3,13 @@ package bw_cps_code_generator.generator.factory.java;
 import bw_cps_code_generator.generator.BwcpsOutputConfigurationProvider;
 import bw_cps_code_generator.generator.GenerationUtil;
 import bw_cps_code_generator.generator.factory.java.JavaEntityGenerator;
-import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement;
+import com.google.common.base.Objects;
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeType;
+import de.fzi.sensidl.design.sensidl.SensorInterface;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
 
 @SuppressWarnings("all")
@@ -32,7 +34,6 @@ public class JavaNodeTypeGenerator extends JavaEntityGenerator {
     {
       JavaNodeTypeGenerator.logger.info("Generate node types.");
       final HashMap<String, CharSequence> filesToGenerate = new HashMap<String, CharSequence>();
-      filesToGenerate.put("NodeType.java", this.generateInterfaceBody());
       JavaNodeTypeGenerator.logger.info(("File: NodeType.java was generated in " + 
         BwcpsOutputConfigurationProvider.BWCPS_GEN));
       for (final NodeType nodetype : this.nodetypes) {
@@ -52,38 +53,7 @@ public class JavaNodeTypeGenerator extends JavaEntityGenerator {
     return _xblockexpression;
   }
   
-  public CharSequence generateInterfaceBody() {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("package ");
-    _builder.append(this.packagePrefix);
-    String _lowerCase = this.projectName.toLowerCase();
-    _builder.append(_lowerCase);
-    _builder.append(";");
-    _builder.newLineIfNotEmpty();
-    _builder.newLine();
-    _builder.append("/**");
-    _builder.newLine();
-    _builder.append("* NodeType Iterface");
-    _builder.newLine();
-    _builder.append("*");
-    _builder.newLine();
-    _builder.append("* @generated");
-    _builder.newLine();
-    _builder.append("*/");
-    _builder.newLine();
-    _builder.append("public interface NodeType {");
-    _builder.newLine();
-    _builder.append("\t");
-    _builder.newLine();
-    _builder.append("\t");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
-    return _builder;
-  }
-  
-  @Override
-  public CharSequence generateClassBody(final String entityName, final NamedElement nodeType) {
+  public CharSequence generateClassBody(final String entityName, final NodeType nodeType) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package ");
     _builder.append(this.packagePrefix);
@@ -108,9 +78,9 @@ public class JavaNodeTypeGenerator extends JavaEntityGenerator {
     _builder.append(_generateImports);
     _builder.newLineIfNotEmpty();
     _builder.newLine();
-    _builder.append("public class ");
+    _builder.append("public abstract class ");
     _builder.append(entityName);
-    _builder.append(" implements NodeType {");
+    _builder.append(" {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t\t\t\t\t");
     _builder.newLine();
@@ -121,19 +91,7 @@ public class JavaNodeTypeGenerator extends JavaEntityGenerator {
     _builder.append("\t");
     _builder.newLine();
     _builder.append("\t");
-    CharSequence _generateConstructor = this.generateConstructor(nodeType, entityName);
-    _builder.append(_generateConstructor, "\t");
-    _builder.newLineIfNotEmpty();
-    _builder.append("\t");
-    _builder.newLine();
-    _builder.append("\t");
-    CharSequence _generateMethods = this.generateMethods(nodeType);
-    _builder.append(_generateMethods, "\t");
-    _builder.newLineIfNotEmpty();
-    _builder.append("\t");
-    _builder.newLine();
-    _builder.append("\t");
-    CharSequence _generateDataMethods = this.generateDataMethods(nodeType);
+    Object _generateDataMethods = this.generateDataMethods(nodeType);
     _builder.append(_generateDataMethods, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
@@ -143,59 +101,56 @@ public class JavaNodeTypeGenerator extends JavaEntityGenerator {
     return _builder;
   }
   
-  @Override
-  public CharSequence generateDataMethods(final NamedElement nodetype) {
+  public Object generateDataMethods(final NodeType nodetype) {
     return null;
   }
   
-  @Override
-  public CharSequence generateConstructor(final NamedElement nodetype, final String className) {
-    return null;
-  }
-  
-  @Override
-  public CharSequence generateDataFields(final NamedElement nodetype) {
+  public CharSequence generateDataFields(final NodeType nodetype) {
     StringConcatenation _builder = new StringConcatenation();
-    String _entityUpperName = GenerationUtil.getEntityUpperName(nodetype);
-    _builder.append(_entityUpperName);
-    _builder.append("InputDataSet input = new ");
-    String _entityUpperName_1 = GenerationUtil.getEntityUpperName(nodetype);
-    _builder.append(_entityUpperName_1);
-    _builder.append("InputDataSet();");
+    String _name = nodetype.getInput().get(0).getDataSet().getName();
+    _builder.append(_name);
+    _builder.append(" input = new ");
+    String _name_1 = nodetype.getInput().get(0).getDataSet().getName();
+    _builder.append(_name_1);
+    _builder.append("();");
     _builder.newLineIfNotEmpty();
-    String _entityUpperName_2 = GenerationUtil.getEntityUpperName(nodetype);
-    _builder.append(_entityUpperName_2);
-    _builder.append("OutputDataSet output = new ");
-    String _entityUpperName_3 = GenerationUtil.getEntityUpperName(nodetype);
-    _builder.append(_entityUpperName_3);
-    _builder.append("OutputDataSet();");
+    String _name_2 = nodetype.getOutput().get(0).getDataSet().getName();
+    _builder.append(_name_2);
+    _builder.append(" output = new ");
+    String _name_3 = nodetype.getOutput().get(0).getDataSet().getName();
+    _builder.append(_name_3);
+    _builder.append("();");
     _builder.newLineIfNotEmpty();
     return _builder;
   }
   
-  public CharSequence generateImports(final NamedElement nodetype) {
+  public CharSequence generateImports(final NodeType nodetype) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("import ");
-    String _lowerCase = GenerationUtil.getEntityLowerName(nodetype).toLowerCase();
-    _builder.append(_lowerCase);
-    _builder.append("inputdataset.");
-    String _entityUpperName = GenerationUtil.getEntityUpperName(nodetype);
-    _builder.append(_entityUpperName);
-    _builder.append("InputDataSet;");
+    EObject _eContainer = nodetype.getInput().get(0).getDataSet().eContainer().eContainer();
+    String _name = ((SensorInterface) _eContainer).getName();
+    _builder.append(_name);
+    _builder.append(".");
+    String _name_1 = nodetype.getInput().get(0).getDataSet().getName();
+    _builder.append(_name_1);
+    _builder.append(";");
     _builder.newLineIfNotEmpty();
-    _builder.append("import ");
-    String _lowerCase_1 = GenerationUtil.getEntityLowerName(nodetype).toLowerCase();
-    _builder.append(_lowerCase_1);
-    _builder.append("outputdataset.");
-    String _entityUpperName_1 = GenerationUtil.getEntityUpperName(nodetype);
-    _builder.append(_entityUpperName_1);
-    _builder.append("OutputDataSet;");
-    _builder.newLineIfNotEmpty();
+    {
+      String _name_2 = nodetype.getInput().get(0).getDataSet().getName();
+      String _name_3 = nodetype.getOutput().get(0).getDataSet().getName();
+      boolean _notEquals = (!Objects.equal(_name_2, _name_3));
+      if (_notEquals) {
+        _builder.append("import ");
+        EObject _eContainer_1 = nodetype.getOutput().get(0).getDataSet().eContainer().eContainer();
+        String _name_4 = ((SensorInterface) _eContainer_1).getName();
+        _builder.append(_name_4);
+        _builder.append(".");
+        String _name_5 = nodetype.getOutput().get(0).getDataSet().getName();
+        _builder.append(_name_5);
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+      }
+    }
     return _builder;
-  }
-  
-  @Override
-  public CharSequence generateMethods(final NamedElement entity) {
-    return null;
   }
 }

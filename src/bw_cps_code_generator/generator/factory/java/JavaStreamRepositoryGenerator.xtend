@@ -28,7 +28,7 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 		filesToGenerate
 	}
 
-	override generateClassBody(String repoName, NamedElement repo) {
+	def generateClassBody(String repoName, NamedElement repo) {
 
 		'''
 			package streamrepository;
@@ -56,11 +56,11 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 		'''
 	}
 
-	override generateDataMethods(NamedElement entity) {
+	def generateDataMethods(NamedElement entity) {
 		
 	}
 
-	override generateConstructor(NamedElement entity, String className) {
+	def generateConstructor(NamedElement entity, String className) {
 		'''
 				
 			public «className»() {
@@ -117,7 +117,7 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 	}
 
 	
-	override generateDataFields(NamedElement entity) {
+	def generateDataFields(NamedElement entity) {
 		'''
 			«IF streamRepo.streams != null»
 					java.util.ArrayList<streams.Stream> streams;
@@ -146,7 +146,7 @@ class JavaStreamRepositoryGenerator extends JavaEntityGenerator {
 		'''
 	}
 	
-	override generateMethods(NamedElement entity) {
+	def generateMethods(NamedElement entity) {
 //
 	}
 
