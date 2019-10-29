@@ -17,7 +17,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.SecurityMeasure
  * code-generator for the language Java.
  * 
  */
-class JavaComponentGenerator  {
+class ComponentGenerator  {
 	//implements ICodeGenerator
 	private var String packagePrefix
 
@@ -31,7 +31,10 @@ class JavaComponentGenerator  {
 //	override generateDTO(NamedElement nodeContainer) {
 //		val container = nodeContainer as NodeContainer
 	def generateDTO(NodeContainer container, List<NodeLink> nodelinks) {
-		new NodeComponentsGenerator(GenerationUtil.getEntityUpperName(container), container.nodes, nodelinks, packagePrefix).generate
+		var filesToGenerate = new HashMap
+		filesToGenerate.putAll(new JavaNodeGenerator(GenerationUtil.getEntityUpperName(container), container.nodes, nodelinks, packagePrefix).generate)
+		
+		return filesToGenerate
 	}
 
 }

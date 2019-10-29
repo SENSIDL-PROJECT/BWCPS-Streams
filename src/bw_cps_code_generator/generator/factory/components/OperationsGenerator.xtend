@@ -6,6 +6,16 @@ import java.util.List
 
 class OperationsGenerator {
 	
+	def static generateDataOperationDeclarations(List<Operation> operational) {
+		var count = 0 as int
+
+		'''
+			«FOR o: operational»
+				public void «GenerationUtil.getEntityLowerName(o)» («IF ! (o.domain === null) »«FOR d: o.domain.dimensions SEPARATOR ', '»
+							«d.valueSpace.getName.toTypeName» param«count++»«ENDFOR»«ENDIF»«{count = 0; "" }»);
+			«ENDFOR»
+		'''	
+	}
 	def static generateDataOperations(List<Operation> operational) {
 		var count = 0 as int
 
@@ -18,7 +28,18 @@ class OperationsGenerator {
 			«ENDFOR»
 		'''
 	}
+	
+	def static generateSecureDataOperationDeclarations(List<Operation> operational) {
+		var count = 0 as int
 
+		'''
+			«FOR o: operational»
+				public String «GenerationUtil.getEntityLowerName(o)» (SecurableNode serviceRequester, «IF ! (o.domain === null) »«FOR d: o.domain
+					.dimensions SEPARATOR ', '»«d.valueSpace.getName.toTypeName» param«count++»«ENDFOR»«ENDIF»«{count = 0; "" }») throws NotConnectedException;
+					«ENDFOR»
+		'''
+	}
+	
 	def static generateSecureDataOperations(List<Operation> operational) {
 		var count = 0 as int
 

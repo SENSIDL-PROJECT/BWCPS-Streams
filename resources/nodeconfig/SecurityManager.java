@@ -1,4 +1,4 @@
-package de.fzi.bwcps.generator.nodeconfiguration.security;
+package $_1.security;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -33,8 +33,8 @@ import org.slf4j.LoggerFactory;
 
 import at.favre.lib.crypto.HKDF;
 
-import de.fzi.bwcps.generator.nodeconfiguration.security.SecurableNode;
-import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityMeasure;
+import $_1.security.SecurableNode;
+import $_1.security.SecurityMeasure;
 
 /**
  * Node: Sensor
@@ -92,7 +92,7 @@ public class SecurityManager {
 	}
 
 	private void exchangeKey(SecurityMeasure securityMeasure, SecurableNode serviceRequester,
-			SecurableNode serviceProvider, PublicKey requestersPK) {
+			SecurableNode serviceProvider) {
 		// create and save AESkey in TextFile Node.id + AESKey
 		KeyGenerator kgen = null;
 		try {
@@ -103,11 +103,12 @@ public class SecurityManager {
 		kgen.init(AES_KEY_LENGTH);
 		SecretKey skey = kgen.generateKey();
 
-		// send encrypted key to source node
+		// send encrypted key to node
 
-		serviceRequester.receiveEncryptedKey(securityMeasure, serviceProvider, encryptKey(requestersPK, skey));
+		serviceProvider.receiveEncryptedKey(securityMeasure, serviceRequester,
+				encryptKey(serviceProvider.getPublicKey(), skey));
 
-		connections.put(serviceRequester, new SimpleEntry<SecurityMeasure, SecretKey>(securityMeasure, skey));
+		connections.put(serviceProvider, new SimpleEntry<SecurityMeasure, SecretKey>(securityMeasure, skey));
 	}
 
 	private byte[] calculateMac(byte[] data, byte[] skey) {
@@ -468,9 +469,9 @@ public class SecurityManager {
 	}
 
 	public void addConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester,
-			SecurableNode serviceProvider, PublicKey requestersPK) {
-		if (getKey(serviceRequester) == null) {
-			exchangeKey(securityMeasure, serviceRequester, serviceProvider, requestersPK);
+			SecurableNode serviceProvider) {
+		if (getKey(serviceProvider) == null) {
+			exchangeKey(securityMeasure, serviceRequester, serviceProvider);
 		}
 	}
 

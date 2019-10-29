@@ -1,6 +1,6 @@
-package de.fzi.bwcps.generator.nodeconfiguration.security;
+package $_1.security;
 
-import de.fzi.bwcps.generator.nodeconfiguration.Node;
+import $_1.Node;
 import java.security.PublicKey;
 
 public interface SecurableNode extends Node{
@@ -9,5 +9,4 @@ public interface SecurableNode extends Node{
 	
 	public void receiveEncryptedKey(SecurityMeasure securityMeasure, SecurableNode node, byte[] key);
 	
-	public void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester, PublicKey requestersPK);
 }

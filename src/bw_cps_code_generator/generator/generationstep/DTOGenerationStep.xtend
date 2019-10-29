@@ -10,8 +10,8 @@ import bw_cps_code_generator.generator.factory.java.JavaGenerator
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
-import bw_cps_code_generator.generator.factory.components.JavaComponentGenerator
 import bw_cps_code_generator.generator.metamodelmanager.ElementManager
+import bw_cps_code_generator.generator.factory.components.ComponentGenerator
 
 class DTOGenerationStep extends GenerationStep {
 
@@ -50,7 +50,7 @@ class DTOGenerationStep extends GenerationStep {
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			put(GenerationLanguage.ALL, [
 				val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.ALL, javaPackagePrefix)
-				val JavaComponentGenerator kgenerator = new JavaComponentGenerator(javaPackagePrefix)
+				val ComponentGenerator kgenerator = new ComponentGenerator(javaPackagePrefix)
 
 				filesToGenerate => [
 					putAll(jgenerator.generateDTO(this.element as StreamRepository))
@@ -59,7 +59,7 @@ class DTOGenerationStep extends GenerationStep {
 				]
 			])
 			put(GenerationLanguage.OSGI_BUNDLES, [
-				val JavaComponentGenerator kgenerator = new JavaComponentGenerator(javaPackagePrefix)
+				val ComponentGenerator kgenerator = new ComponentGenerator(javaPackagePrefix)
 				
 				resetFilesToGenerate
 				filesToGenerate => [

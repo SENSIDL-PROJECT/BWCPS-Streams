@@ -11,8 +11,8 @@ import java.util.List
 import org.apache.log4j.Logger
 import de.fzi.bwcps.stream.bwcps_streams.entity.SecurityMeasure
 
-class NodeComponentsGenerator implements IDTOGenerator{
-	static val Logger logger = Logger.getLogger(NodeComponentsGenerator)
+class JavaNodeGenerator implements IDTOGenerator{
+	static val Logger logger = Logger.getLogger(JavaNodeGenerator)
 	val List<Node> nodes
 	val List<NodeLink> nodelinks
 	val String projectName
@@ -27,7 +27,7 @@ class NodeComponentsGenerator implements IDTOGenerator{
 	}
 
 	override generate() {
-		logger.info("Generate node.")
+		logger.info("Generate nodes.")
 
 		val filesToGenerate = new HashMap
 		for (node : nodes) {
@@ -35,14 +35,41 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			val outputNodelinks = nodelinks.filter[n|n.source.equals(node)].toList
 			val securable = inputNodelinks.exists[n|!n.securityMeasure.equals(SecurityMeasure.NONE)] 
 				|| outputNodelinks.exists[n|!n.securityMeasure.equals(SecurityMeasure.NONE)] 
-
-			//TODO if no name + number
+			
+			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(node) + "OperationService"), 
+				generateOperationService(GenerationUtil.getEntityUpperName(node), node, securable))
 			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(node)),
 			generateClassBody(GenerationUtil.getEntityUpperName(node), node, securable, inputNodelinks, outputNodelinks))
 			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(node)) + " was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		}
 		filesToGenerate
+	}
+	
+	def generateOperationService(String entityName, Node node, boolean securable) {
+		'''	
+			package «packagePrefix»«projectName.replaceAll(" ", "").toLowerCase»;
+
+			
+			«IF securable »
+				import de.fzi.bwcps.generator.nodeconfiguration.security.NotConnectedException;
+				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurableNode;
+			«ENDIF»
+			
+			/**
+			* Operation Service of Node: «entityName»
+			*
+			* @generated
+			*/
+
+			public interface «entityName»OperationService {
+				
+				«IF securable »	
+					«OperationsGenerator.generateSecureDataOperationDeclarations(node.operational)»
+				«ENDIF»
+				«OperationsGenerator.generateDataOperationDeclarations(node.operational)»
+			}
+		'''
 	}
 	
 	def generateClassBody(String entityName, Node node, boolean securable, List<NodeLink> inputNodelinks, List<NodeLink> outputNodelinks) {
@@ -52,14 +79,19 @@ class NodeComponentsGenerator implements IDTOGenerator{
 
 			import org.osgi.service.component.ComponentContext;
 			import org.osgi.service.component.annotations.Component;
+			import org.osgi.service.component.annotations.ConfigurationPolicy;
 			import org.osgi.service.component.annotations.Activate;
 			import org.osgi.service.component.annotations.Deactivate;
+			import org.osgi.service.component.annotations.Modified;
 			import org.osgi.service.component.annotations.Reference;
 			import org.osgi.service.component.annotations.ReferenceCardinality;
+			import org.osgi.service.component.annotations.ReferencePolicy;
 			
 			import org.slf4j.Logger;
 			import org.slf4j.LoggerFactory;
 			
+			import java.util.ArrayList;
+			import java.util.List;
 			«IF securable »
 				import java.security.PublicKey;
 				
@@ -67,9 +99,8 @@ class NodeComponentsGenerator implements IDTOGenerator{
 				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurableNode;
 				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityManager;
 				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityMeasure;
-			«ELSE»
-				import de.fzi.bwcps.generator.nodeconfiguration.Node;
 			«ENDIF»
+			import de.fzi.bwcps.generator.nodeconfiguration.Node;
 			import de.fzi.bwcps.generator.nodeconfiguration.«GenerationUtil.getEntityUpperName(node.nodetype)»;
 			
 			/**
@@ -78,15 +109,23 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			* @generated
 			*/
 			
-			@Component	
-			public class «entityName» extends «GenerationUtil.getEntityUpperName(node.nodetype)» «IF securable »implements SecurableNode «ELSE»implements Node «ENDIF»{
+			@Component(immediate = true,
+						enabled = true,
+						configurationPolicy = ConfigurationPolicy.REQUIRE,
+						property = "service.pid:String=de.fzi.bwcps.generator.azure.AzureNode")	
+			public class «entityName» extends «GenerationUtil.getEntityUpperName(node.nodetype)» implements «IF securable »SecurableNode«ELSE»Node«ENDIF», «entityName»OperationService {
 				
 				«generateDataFields(entityName, node, securable, inputNodelinks, outputNodelinks)»
 				
-				protected «entityName»() {
+				public «entityName»() {
 					«IF securable »
 						securityManager = new SecurityManager();
 					«ENDIF»
+					neededServices = new ArrayList<>();
+				}
+				
+				protected void removeService(Node node) {
+					neededServices.remove(node);
 				}
 				
 				«generateMethods(node, securable, inputNodelinks, outputNodelinks)»
@@ -107,10 +146,18 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			private static final String NAME = «entityName».class.getSimpleName();
 			
 			private static final long serialVersionUID = 1L;
-						
+			
+			private Map<String, Object> properties;
+			
 			«IF securable »
 				private SecurityManager securityManager;
+				
 			«ENDIF»
+			@Reference(cardinality = ReferenceCardinality.MULTIPLE,
+						policy = ReferencePolicy.DYNAMIC,
+						bind = "addService",
+						unbind = "removeService")
+			List<Node> neededServices;
 			
 		'''	
 	}
@@ -140,6 +187,24 @@ class NodeComponentsGenerator implements IDTOGenerator{
 			//TODO This is an auto-generated method 
 			
 			}
+			
+			@Modified	
+			public void updated(Map<String, Object> properties) {
+			    this.properties = properties;
+				if(properties != null && !properties.isEmpty()) {
+					Iterator<Entry<String, Object>> it = properties.entrySet().iterator();
+					while (it.hasNext()) {
+						Entry<String, Object> entry = it.next();
+						s_logger.info("New property - " + entry.getKey() + " = " +
+						entry.getValue() + " of type " + entry.getValue().getClass().toString());
+					}
+				}
+			}
+			
+			protected void addService(Node node) {
+				neededServices.add(node);
+			}
+			
 			public String getName() {
 				return NAME;
 			}
@@ -149,9 +214,9 @@ class NodeComponentsGenerator implements IDTOGenerator{
 					return securityManager.getPublicKey();
 				}
 				
-				@Reference(cardinality = ReferenceCardinality.MULTIPLE)
-				public void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester, PublicKey requestersPK) {
-					securityManager.addConnection(securityMeasure, serviceRequester, this, requestersPK);
+				public void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceProvider) {
+					securityManager.addConnection(securityMeasure, this, serviceProvider);
+					addService(serviceProvider);
 				}
 				
 				public void receiveEncryptedKey(SecurityMeasure securityMeasure, SecurableNode node, byte[] key) {
