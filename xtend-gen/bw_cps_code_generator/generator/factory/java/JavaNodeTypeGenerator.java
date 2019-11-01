@@ -107,6 +107,7 @@ public class JavaNodeTypeGenerator extends JavaEntityGenerator {
   
   public CharSequence generateDataFields(final NodeType nodetype) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("protected ");
     String _name = nodetype.getInput().get(0).getDataSet().getName();
     _builder.append(_name);
     _builder.append(" input = new ");
@@ -114,6 +115,7 @@ public class JavaNodeTypeGenerator extends JavaEntityGenerator {
     _builder.append(_name_1);
     _builder.append("();");
     _builder.newLineIfNotEmpty();
+    _builder.append("protected ");
     String _name_2 = nodetype.getOutput().get(0).getDataSet().getName();
     _builder.append(_name_2);
     _builder.append(" output = new ");

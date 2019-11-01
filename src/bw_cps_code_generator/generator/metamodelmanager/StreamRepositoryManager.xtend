@@ -7,6 +7,8 @@ import java.util.stream.Collectors
 import de.fzi.bwcps.stream.bwcps_streams.entity.SecurityMeasure
 import bw_cps_code_generator.exception.MetamodelException
 import org.eclipse.emf.ecore.util.Diagnostician
+import bw_cps_code_generator.generator.GenerationUtil
+import de.fzi.bwcps.stream.bwcps_streams.entity.Node
 
 class StreamRepositoryManager extends ElementManager {
 
@@ -39,9 +41,7 @@ class StreamRepositoryManager extends ElementManager {
 		streamRepo
 	}
 
-	
-
-	public static def filterNodelinksOnNodeContainer(StreamRepository streamRepo, NodeContainer nodeContainer) {
+	static def filterNodelinksOnNodeContainer(StreamRepository streamRepo, NodeContainer nodeContainer) {
 		streamRepo.streams.stream.map(
 			stream |
 				stream.nodelinks.filter [ nodelink |
@@ -50,7 +50,27 @@ class StreamRepositoryManager extends ElementManager {
 		).flatMap(l|l.toList.stream).collect(Collectors.toList());
 	}
 
-	public static def needsSecurityPackage(StreamRepository streamRepo) {
+	static def filterNeededBundlesForNodeContainer(StreamRepository streamRepo, NodeContainer nodeContainer) {
+		streamRepo.streams.stream.map(
+			stream |
+				stream.nodelinks.filter [ nodelink |
+					nodeContainer.nodes.contains(nodelink.target)
+				]
+		).flatMap(l|l.toList.stream).collect(Collectors.toList())
+		.stream
+		.map(nodelink | GenerationUtil.getEntityLowerName(getNodeContainerOfNode(nodelink.source)).toLowerCase)
+		.filter(name| !name.equals(GenerationUtil.getEntityLowerName(nodeContainer).toLowerCase))
+		.collect(Collectors.toList())
+		.stream
+		.distinct
+		.collect(Collectors.toList())
+	}
+	
+	static def getNodeContainerOfNode(Node node) {
+		(node.eContainer as StreamRepository).container.findFirst[c | c.nodes.contains(node)]
+	}
+	
+	static def needsSecurityPackage(StreamRepository streamRepo) {
 		streamRepo.streams.stream.anyMatch(
 			stream |
 				stream.nodelinks.exists[nodelink|nodelink.securityMeasure != SecurityMeasure.NONE]

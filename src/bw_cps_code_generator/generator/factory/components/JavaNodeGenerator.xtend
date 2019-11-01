@@ -10,20 +10,23 @@ import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
 import de.fzi.bwcps.stream.bwcps_streams.entity.SecurityMeasure
+import bw_cps_code_generator.generator.metamodelmanager.StreamRepositoryManager
 
 class JavaNodeGenerator implements IDTOGenerator{
 	static val Logger logger = Logger.getLogger(JavaNodeGenerator)
 	val List<Node> nodes
 	val List<NodeLink> nodelinks
 	val String projectName
-	
+
+	val boolean kuraAdapted	
 	val String packagePrefix
 	
-	new(String projectName, List<Node> nodes, List<NodeLink> nodelinks, String newPackagePrefix) {
+	new(String projectName, List<Node> nodes, List<NodeLink> nodelinks, String newPackagePrefix, boolean kuraAdapted) {
 		this.projectName = projectName
 		this.nodes = nodes
 		this.nodelinks = nodelinks
 		packagePrefix = newPackagePrefix
+		this.kuraAdapted = kuraAdapted
 	}
 
 	override generate() {
@@ -39,7 +42,7 @@ class JavaNodeGenerator implements IDTOGenerator{
 			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(node) + "OperationService"), 
 				generateOperationService(GenerationUtil.getEntityUpperName(node), node, securable))
 			filesToGenerate.put(addFileExtensionTo(GenerationUtil.getEntityUpperName(node)),
-			generateClassBody(GenerationUtil.getEntityUpperName(node), node, securable, inputNodelinks, outputNodelinks))
+			generateClassBody(GenerationUtil.getEntityUpperName(node), node, securable, inputNodelinks))
 			logger.info("File: " + addFileExtensionTo(GenerationUtil.getEntityUpperName(node)) + " was generated in " +
 			BwcpsOutputConfigurationProvider.BWCPS_GEN)
 		}
@@ -72,26 +75,37 @@ class JavaNodeGenerator implements IDTOGenerator{
 		'''
 	}
 	
-	def generateClassBody(String entityName, Node node, boolean securable, List<NodeLink> inputNodelinks, List<NodeLink> outputNodelinks) {
+	def generateClassBody(String entityName, Node node, boolean securable, List<NodeLink> inputNodelinks) {
 		'''	
 			package «packagePrefix»«projectName.replaceAll(" ", "").toLowerCase»;
 «««			package «packagePrefix»«GenerationUtil.getEntityLowerName(GenerationUtil.getNamedElement(nodes.get(0).eContainer))»;
-
+			
 			import org.osgi.service.component.ComponentContext;
 			import org.osgi.service.component.annotations.Component;
 			import org.osgi.service.component.annotations.ConfigurationPolicy;
 			import org.osgi.service.component.annotations.Activate;
 			import org.osgi.service.component.annotations.Deactivate;
 			import org.osgi.service.component.annotations.Modified;
-			import org.osgi.service.component.annotations.Reference;
-			import org.osgi.service.component.annotations.ReferenceCardinality;
-			import org.osgi.service.component.annotations.ReferencePolicy;
+			«IF !inputNodelinks.empty»
+				import org.osgi.service.component.annotations.Reference;
+				import org.osgi.service.component.annotations.ReferenceCardinality;
+				import org.osgi.service.component.annotations.ReferencePolicy;
+			«ENDIF»
 			
+			«FOR i : inputNodelinks »
+				import «packagePrefix»«GenerationUtil.getEntityLowerName(
+					StreamRepositoryManager.getNodeContainerOfNode(i.source)
+				).toLowerCase».«GenerationUtil.getEntityUpperName(i.source)»;				
+			«ENDFOR»
 			import org.slf4j.Logger;
 			import org.slf4j.LoggerFactory;
 			
 			import java.util.ArrayList;
+			import java.util.Iterator;
 			import java.util.List;
+			import java.util.Map;
+			import java.util.Map.Entry;
+			
 			«IF securable »
 				import java.security.PublicKey;
 				
@@ -113,22 +127,22 @@ class JavaNodeGenerator implements IDTOGenerator{
 						enabled = true,
 						configurationPolicy = ConfigurationPolicy.REQUIRE,
 						property = "service.pid:String=de.fzi.bwcps.generator.azure.AzureNode")	
-			public class «entityName» extends «GenerationUtil.getEntityUpperName(node.nodetype)» implements «IF securable »SecurableNode«ELSE»Node«ENDIF», «entityName»OperationService {
-				
-				«generateDataFields(entityName, node, securable, inputNodelinks, outputNodelinks)»
+						
+			public class «entityName» 
+						extends «GenerationUtil.getEntityUpperName(node.nodetype)» 
+						implements «entityName»OperationService, 
+							       «IF securable »SecurableNode«ELSE»Node«ENDIF»«IF kuraAdapted», 
+								   org.eclipse.kura.configuration.ConfigurableComponent«ENDIF» {
+						
+				«generateDataFields(entityName, node, securable, inputNodelinks)»
 				
 				public «entityName»() {
 					«IF securable »
 						securityManager = new SecurityManager();
 					«ENDIF»
-					neededServices = new ArrayList<>();
 				}
 				
-				protected void removeService(Node node) {
-					neededServices.remove(node);
-				}
-				
-				«generateMethods(node, securable, inputNodelinks, outputNodelinks)»
+				«generateMethods(node, securable, inputNodelinks)»
 				
 				
 			}
@@ -139,7 +153,7 @@ class JavaNodeGenerator implements IDTOGenerator{
 	 * Generates DataFields
 	 * 
 	 */
-	def generateDataFields(String entityName, Node node, boolean securable, List<NodeLink> inputNodelinks, List<NodeLink> outputNodelinks) {
+	def generateDataFields(String entityName, Node node, boolean securable, List<NodeLink> inputNodelinks) {
 		'''		
 			private static final Logger s_logger = LoggerFactory.getLogger(«entityName».class);
 			
@@ -153,12 +167,11 @@ class JavaNodeGenerator implements IDTOGenerator{
 				private SecurityManager securityManager;
 				
 			«ENDIF»
-			@Reference(cardinality = ReferenceCardinality.MULTIPLE,
-						policy = ReferencePolicy.DYNAMIC,
-						bind = "addService",
-						unbind = "removeService")
-			List<Node> neededServices;
 			
+			«FOR i : inputNodelinks »
+				private «GenerationUtil.getEntityUpperName(i.source)» «GenerationUtil.getEntityLowerName(i.source)»;
+				
+			«ENDFOR»
 		'''	
 	}
 	
@@ -166,7 +179,7 @@ class JavaNodeGenerator implements IDTOGenerator{
 	 * Generates Methods
 	 * 
 	 */
-	def generateMethods(Node node, boolean securable, List<NodeLink> inputNodelinks, List<NodeLink> outputNodelinks) {
+	def generateMethods(Node node, boolean securable, List<NodeLink> inputNodelinks) {
 		'''		
 			@Activate
 			protected void activate(ComponentContext componentContext) {
@@ -200,10 +213,22 @@ class JavaNodeGenerator implements IDTOGenerator{
 					}
 				}
 			}
-			
-			protected void addService(Node node) {
-				neededServices.add(node);
-			}
+
+			«FOR i : inputNodelinks »
+				@Reference(cardinality = ReferenceCardinality.OPTIONAL,
+							policy = ReferencePolicy.DYNAMIC,
+							unbind = "unset«GenerationUtil.getEntityUpperName(i.source)»")
+				protected void set«GenerationUtil.getEntityUpperName(i.source)»(«GenerationUtil.getEntityUpperName(i.source)» «GenerationUtil.getEntityLowerName(i.source)») {
+					this.«GenerationUtil.getEntityLowerName(i.source)» = «GenerationUtil.getEntityLowerName(i.source)»;
+					«IF i.securityMeasure != SecurityMeasure.NONE»	
+						establishConnection(SecurityMeasure.«i.securityMeasure.literal», «GenerationUtil.getEntityLowerName(i.source)»);
+					«ENDIF»	
+				}
+				
+				protected void unset«GenerationUtil.getEntityUpperName(i.source)»(«GenerationUtil.getEntityUpperName(i.source)» «GenerationUtil.getEntityLowerName(i.source)») {
+					«GenerationUtil.getEntityLowerName(i.source)» = null;
+				}
+			«ENDFOR»
 			
 			public String getName() {
 				return NAME;
@@ -214,9 +239,8 @@ class JavaNodeGenerator implements IDTOGenerator{
 					return securityManager.getPublicKey();
 				}
 				
-				public void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceProvider) {
+				private void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceProvider) {
 					securityManager.addConnection(securityMeasure, this, serviceProvider);
-					addService(serviceProvider);
 				}
 				
 				public void receiveEncryptedKey(SecurityMeasure securityMeasure, SecurableNode node, byte[] key) {

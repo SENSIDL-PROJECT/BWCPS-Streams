@@ -187,10 +187,7 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 		content.append("Bundle-SymbolicName: " + getPackage() + "; singleton:=true\n");
 		content.append("Bundle-Version: 1.0.0.qualifier\n");
 		content.append("Bundle-RequiredExecutionEnvironment: JavaSE-1.8\n");
-		content.append("Require-Bundle: org.eclipse.osgi.services;bundle-version=\"3.8.0\",\n"
-				+ " org.slf4j.api;bundle-version=\"1.7.2\",\n" + " org.junit,\n"
-				+ " org.apache.commons.lang;bundle-version=\"2.6.0\"\n");
-		content.append("Export-Package: " + getPackage() + "," + getPackage() + ".security\n");
+		content.append("Export-Package: " + getPackage() + ",\n " + getPackage() + ".security\n");
 		IFolder metaInf = project.getFolder("META-INF");
 		metaInf.create(false, true, null);
 		createFile("MANIFEST.MF", metaInf, content.toString());
@@ -202,7 +199,12 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 	private void createBuildProperties(IProject project, String srcFolder) throws CoreException, IOException {
 		StringBuilder content = new StringBuilder("source.. = " + srcFolder + "/");
 		content.append("\n");
-		content.append("bin.includes = META-INF/,\\\n.");
+		content.append("bin.includes = META-INF/,\\\n.\n");
+		content.append("additional.bundles = org.eclipse.osgi.services,\\\n" + 
+				"                     org.slf4j.api,\\\n" + 
+				"                     org.junit,\\\n" + 
+				"                     org.apache.commons.lang3");
+
 		createFile("build.properties", project, content.toString());
 	}
 

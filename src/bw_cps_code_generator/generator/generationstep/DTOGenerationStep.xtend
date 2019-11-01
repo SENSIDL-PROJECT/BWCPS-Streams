@@ -50,7 +50,7 @@ class DTOGenerationStep extends GenerationStep {
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			put(GenerationLanguage.ALL, [
 				val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.ALL, javaPackagePrefix)
-				val ComponentGenerator kgenerator = new ComponentGenerator(javaPackagePrefix)
+				val ComponentGenerator kgenerator = new ComponentGenerator(javaPackagePrefix, kuraAdapted)
 
 				filesToGenerate => [
 					putAll(jgenerator.generateDTO(this.element as StreamRepository))
@@ -59,7 +59,7 @@ class DTOGenerationStep extends GenerationStep {
 				]
 			])
 			put(GenerationLanguage.OSGI_BUNDLES, [
-				val ComponentGenerator kgenerator = new ComponentGenerator(javaPackagePrefix)
+				val ComponentGenerator kgenerator = new ComponentGenerator(javaPackagePrefix, kuraAdapted)
 				
 				resetFilesToGenerate
 				filesToGenerate => [

@@ -69,8 +69,8 @@ class JavaNodeTypeGenerator extends JavaEntityGenerator {
 	
 	def generateDataFields(NodeType nodetype) {
 		'''
-			«nodetype.input.get(0).dataSet.name» input = new «nodetype.input.get(0).dataSet.name»();
-			«nodetype.output.get(0).dataSet.name» output = new «nodetype.output.get(0).dataSet.name»();
+			protected «nodetype.input.get(0).dataSet.name» input = new «nodetype.input.get(0).dataSet.name»();
+			protected «nodetype.output.get(0).dataSet.name» output = new «nodetype.output.get(0).dataSet.name»();
 		'''
 	}
 	

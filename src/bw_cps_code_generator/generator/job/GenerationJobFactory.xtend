@@ -17,12 +17,14 @@ class GenerationJobFactory {
 	static def getGenerationJobBy(GenerationParameter parameter) {
 		
 		return switch(parameter.generationLanguage) {
-			case GenerationLanguage.OSGI_BUNDLES: return getKuraProjectGenerationJobBy(parameter)
+			case GenerationLanguage.OSGI_BUNDLES,
+			case GenerationLanguage.KURA_BUNDLES: 
+				return getOsgiProjectsGenerationJobBy(parameter)
 			default: getDTOGenerationJobBy(parameter)
 		}
 	}
 	
-	private def static getKuraProjectGenerationJobBy(GenerationParameter parameter) {
+	private def static getOsgiProjectsGenerationJobBy(GenerationParameter parameter) {
 		
 		makeGlobalSettings(parameter)
 		val generationChain = new LinkedHashSet<GenerationStep>()
@@ -34,7 +36,7 @@ class GenerationJobFactory {
 		streamRepo.container.forEach[c | 
 			{
 				generationChain => [
-					add(new ProjectGenerationStep(c, parameter.fileSystemAccess))
+					add(new ProjectGenerationStep(c, parameter.fileSystemAccess, StreamRepositoryManager.filterNeededBundlesForNodeContainer(streamRepo, c)))
 					add(new DTOGenerationStep(c, StreamRepositoryManager.filterNodelinksOnNodeContainer(streamRepo, c)))
 					add(new FileGenerationStep(parameter.fileSystemAccess))
 //					add(new DeploymentPackageGenerationStep(new StreamRepositoryFilter(), parameter.fileSystemAccess))

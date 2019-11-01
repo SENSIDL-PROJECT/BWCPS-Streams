@@ -9,6 +9,7 @@ class BwCPSConstants {
 		NONE,
 		ALL,
 		OSGI_BUNDLES,
+		KURA_BUNDLES,
 		JAVA
 	}
 }

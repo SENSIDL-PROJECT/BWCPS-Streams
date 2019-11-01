@@ -13,6 +13,8 @@ abstract class GenerationStep {
 	protected static var GenerationLanguage generationLanguage
 	protected static var String javaPackagePrefix
 	protected static var boolean skipProject = false
+	protected static var boolean kuraAdapted = false
+
 	/**
 	 * This static method is used to reset the generation configurations for a new generation task.
 	 * @param newGenerationLanguage Corresponds to the desired language that you want to generate.
@@ -20,8 +22,12 @@ abstract class GenerationStep {
 	def static void setGlobalSettings(GenerationLanguage newGenerationLanguage) {
 		
 		resetFilesToGenerate
-		
-		generationLanguage = newGenerationLanguage
+		if(newGenerationLanguage == GenerationLanguage.KURA_BUNDLES) {
+			generationLanguage = GenerationLanguage.OSGI_BUNDLES
+			kuraAdapted = true
+		} else {
+			generationLanguage = newGenerationLanguage
+		}
 		javaPackagePrefix = BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX
 		
 	}

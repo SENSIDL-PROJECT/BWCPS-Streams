@@ -19,7 +19,7 @@ class FileGenerationStep extends GenerationStep {
 	val static logger = Logger.getLogger(FileGenerationStep)
 	val static DEFAUL_FILE_PATH = ""
 	val static TEXT_FILE_EXTENSION = "txt"
-
+	val static XML_FILE_EXTENSION = "xml"
 	val IFileSystemAccess fsa;
 
 	public static var String filePath;
@@ -101,7 +101,9 @@ class FileGenerationStep extends GenerationStep {
 
 			return file
 
-		} 
+		} else if (isXmlFile(file)) {
+			return "OSGI-INF/metatype/" + file
+		}
 
 		filePath + file
 
@@ -112,5 +114,9 @@ class FileGenerationStep extends GenerationStep {
 		FilenameUtils.getExtension(file).equals(TEXT_FILE_EXTENSION)
 
 	}
+	def isXmlFile(String file) {
 
+		FilenameUtils.getExtension(file).equals(XML_FILE_EXTENSION)
+
+	}
 }

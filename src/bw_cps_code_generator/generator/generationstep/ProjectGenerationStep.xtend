@@ -15,6 +15,7 @@ import bw_cps_code_generator.generator.factory.projects.OsgiBundleGenerator
 import bw_cps_code_generator.generator.metamodelmanager.ElementManager
 import org.apache.log4j.Logger
 import bw_cps_code_generator.exception.ExistingProjectException
+import java.util.List
 
 class ProjectGenerationStep extends GenerationStep {
 	
@@ -22,7 +23,8 @@ class ProjectGenerationStep extends GenerationStep {
 	private static val PATH_SEPERATOR = "/"
 	
 	private val String projectName
-	private val IFileSystemAccess fsa;
+	private val IFileSystemAccess fsa
+	List<String> neededBundles
 	
 	/**
 	 * The constructor calls the needed data filtered by a
@@ -36,10 +38,11 @@ class ProjectGenerationStep extends GenerationStep {
 		skipProject = false
 	}
 	
-	new(NamedElement element, IFileSystemAccess newFsa) {
+	new(NamedElement element, IFileSystemAccess newFsa, List<String> neededBundles) {
 		this.projectName = GenerationUtil.getEntityUpperName(element)
 		this.fsa = newFsa
 		skipProject = false
+		this.neededBundles = neededBundles
 	}
 	
 	override startGenerationTask() {
@@ -74,7 +77,7 @@ class ProjectGenerationStep extends GenerationStep {
 	 */
 	private def getResourcesToGenerateMapping() {
 		
-		val bundleGenerator = new OsgiBundleGenerator(projectName) 
+		val bundleGenerator = new OsgiBundleGenerator(projectName, kuraAdapted, neededBundles) 
 		
 		return new HashMap<GenerationLanguage, IExecuter> => [
 			

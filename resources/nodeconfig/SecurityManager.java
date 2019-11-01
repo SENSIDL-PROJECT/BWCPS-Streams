@@ -1,6 +1,8 @@
 package $_1.security;
 
-import java.io.Serializable;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
@@ -27,22 +29,26 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.lang.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import SensorMeasurements.SensorMeasurementsUtility;
 import at.favre.lib.crypto.HKDF;
 
-import $_1.security.SecurableNode;
-import $_1.security.SecurityMeasure;
+import de.fzi.bwcps.generator.nodeconfiguration.security.SecurableNode;
+import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityMeasure;
 
 /**
- * Node: Sensor
+ * Security Manager of a node
+ * 
+ * @author Nada_Chatti
  *
+ * @param <I> input data type of the node
+ * @param <O> output data type of the node
  * @generated
  */
 
-public class SecurityManager {
+public class SecurityManager <I, O> {
 
 	private static final Logger s_logger = LoggerFactory.getLogger(SecurityManager.class);
 
@@ -214,10 +220,10 @@ public class SecurityManager {
 		return null;
 	}
 
-	private String encrypt(Object data, SecurableNode connectedNode) {
+	private String encrypt(O data, SecurableNode connectedNode) {
 		SecretKey skey = getKey(connectedNode);
 		// convert object to byte array
-		byte[] serializedData = SerializationUtils.serialize((Serializable) data);
+		byte[] serializedData =  marshalDataTypeByteArray(data);
 		random.nextBytes(IVBytes);
 		iv = new IvParameterSpec(IVBytes);
 		try {
@@ -243,7 +249,7 @@ public class SecurityManager {
 		return null;
 	}
 
-	private Object decrypt(String data, SecurableNode connectedNode) {
+	private I decrypt(String data, SecurableNode connectedNode) throws ClassNotFoundException, IOException {
 		SecretKey skey = getKey(connectedNode);
 		// retrieve cipher and iv
 		byte[] encrypted = decodeB64(data);
@@ -265,8 +271,7 @@ public class SecurityManager {
 		try {
 			cipherAES.init(Cipher.DECRYPT_MODE, skey, iv);
 			byte[] decrypted = cipherAES.doFinal(cipherText);
-
-			return SerializationUtils.deserialize(decrypted);
+			return SensorMeasurementsUtility.unmarshalByteArray(decrypted);
 		} catch (InvalidKeyException e) {
 			s_logger.error("The key used to decrypt is invalid.");
 			e.printStackTrace();
@@ -280,10 +285,10 @@ public class SecurityManager {
 		return null;
 	}
 
-	private String sign(Object data, SecurableNode connectedNode) {
+	private String sign(O data, SecurableNode connectedNode) {
 		SecretKey skey = getKey(connectedNode);
 		// convert object to byte array
-		byte[] serializedData = SerializationUtils.serialize((Serializable) data);
+		byte[] serializedData = marshalDataTypeByteArray(data);
 
 		random.nextBytes(IVBytes);
 
@@ -300,7 +305,7 @@ public class SecurityManager {
 		return encodeB64(signed);
 	}
 
-	private Object verify(String data, SecurableNode connectedNode) {
+	private I verify(String data, SecurableNode connectedNode) throws ClassNotFoundException, IOException {
 		SecretKey skey = getKey(connectedNode);
 		// retrieve cipher and iv
 		byte[] signed = decodeB64(data);
@@ -333,13 +338,13 @@ public class SecurityManager {
 			return null;
 		}
 
-		return SerializationUtils.deserialize(serializedData);
+		return SensorMeasurementsUtility.unmarshalByteArray(serializedData);
 	}
 
-	private String encryptThenSign(Object data, SecurableNode connectedNode) {
+	private String encryptThenSign(O data, SecurableNode connectedNode) {
 		SecretKey skey = getKey(connectedNode);
 		// convert object to byte array
-		byte[] serializedData = SerializationUtils.serialize((Serializable) data);
+		byte[] serializedData = marshalDataTypeByteArray(data);
 
 		random.nextBytes(IVBytes);
 
@@ -382,7 +387,7 @@ public class SecurityManager {
 		return null;
 	}
 
-	private Object verifyThenDecrypt(String data, SecurableNode connectedNode) {
+	private I verifyThenDecrypt(String data, SecurableNode connectedNode) throws ClassNotFoundException, IOException {
 		SecretKey skey = getKey(connectedNode);
 		// decode message
 		byte[] encrypted = decodeB64(data);
@@ -420,7 +425,7 @@ public class SecurityManager {
 		try {
 			cipherAES.init(Cipher.DECRYPT_MODE, new SecretKeySpec(encKey, AES_KEY_ALGO), iv);
 			byte[] decrypted = cipherAES.doFinal(cipherText);
-			return SerializationUtils.deserialize(decrypted);
+			return SensorMeasurementsUtility.unmarshalByteArray(decrypted);
 		} catch (InvalidKeyException e) {
 			s_logger.error("The key used to decrypt is invalid.");
 			e.printStackTrace();
@@ -434,7 +439,7 @@ public class SecurityManager {
 		return null;
 	}
 
-	public String secureData(Object data, SecurableNode connectedNode) throws NotConnectedException {
+	public String secureData(O data, SecurableNode connectedNode) throws NotConnectedException {
 		SecurityMeasure securityMeasure = connections.get(connectedNode).getKey();
 		if (securityMeasure == null) {
 			throw new NotConnectedException();
@@ -444,14 +449,14 @@ public class SecurityManager {
 			return encrypt(data, connectedNode);
 		case AUTHENTICATE:
 			return sign(data, connectedNode);
-		case ENCRYPT_THEN_AUTHENTICATE:
+		case ENC_THEN_AUTH:
 			return encryptThenSign(data, connectedNode);
 		default:
 			return null;
 		}
 	}
 
-	public Object processData(String data, SecurableNode connectedNode) throws NotConnectedException {
+	public I processData(String data, SecurableNode connectedNode) throws NotConnectedException, ClassNotFoundException, IOException {
 		SecurityMeasure securityMeasure = connections.get(connectedNode).getKey();
 		if (securityMeasure == null) {
 			throw new NotConnectedException();
@@ -461,7 +466,7 @@ public class SecurityManager {
 			return decrypt(data, connectedNode);
 		case AUTHENTICATE:
 			return verify(data, connectedNode);
-		case ENCRYPT_THEN_AUTHENTICATE:
+		case ENC_THEN_AUTH:
 			return verifyThenDecrypt(data, connectedNode);
 		default:
 			return null;
@@ -477,5 +482,26 @@ public class SecurityManager {
 
 	public void decryptAndStoreKey(SecurityMeasure securityMeasure, SecurableNode node, byte[] key) {
 		connections.put(node, new SimpleEntry<SecurityMeasure, SecretKey>(securityMeasure, decryptKey(key)));
+	}
+	
+	/**
+	 * method to serialize data set into a byte array using the appropriate method from 
+	 * @see SensorMeasurementsUtility
+	 * @param data to serialize
+	 * @return the byte array
+	 */
+	private byte[] marshalDataTypeByteArray(O data) {
+		for(Method m : SensorMeasurementsUtility.class.getMethods()) {
+			if(m.getName().startsWith("marshall") &&
+					m.getName().endsWith("ByteArray") &&
+			        m.getReturnType() == data.getClass()) {
+				try {
+					return (byte[]) m.invoke(SensorMeasurementsUtility.class);
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
 	}
 }

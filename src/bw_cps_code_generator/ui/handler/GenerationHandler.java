@@ -105,6 +105,9 @@ public class GenerationHandler {
 		case "Osgi Bundles":
 			generationLanguage = BwCPSConstants.GenerationLanguage.OSGI_BUNDLES;
 			break;
+		case "Kura Bundles":
+			generationLanguage = BwCPSConstants.GenerationLanguage.KURA_BUNDLES;
+			break;
 		case "All":
 			generationLanguage = BwCPSConstants.GenerationLanguage.ALL;
 			break;
