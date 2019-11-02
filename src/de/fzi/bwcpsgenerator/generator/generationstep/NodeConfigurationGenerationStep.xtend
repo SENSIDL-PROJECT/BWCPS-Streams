@@ -8,7 +8,7 @@ import de.fzi.bwcpsgenerator.generator.IExecuter
 import de.fzi.bwcpsgenerator.generator.factory.java.JavaGenerator
 import de.fzi.bwcpsgenerator.generator.factory.projects.NodeConfigurationProjectGenerator
 import de.fzi.bwcpsgenerator.generator.factory.sidl.SidlGenerator
-import de.fzi.bwcpsgenerator.generator.metamodelmanager.StreamRepositoryManager
+import de.fzi.bwcpsgenerator.generator.metamodel.StreamRepositoryManager
 import java.util.HashMap
 import org.apache.log4j.Logger
 import org.eclipse.xtext.generator.IFileSystemAccess

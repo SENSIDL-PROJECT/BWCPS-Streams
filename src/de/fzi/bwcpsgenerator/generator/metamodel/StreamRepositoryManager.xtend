@@ -1,4 +1,4 @@
-package de.fzi.bwcpsgenerator.generator.metamodelmanager
+package de.fzi.bwcpsgenerator.generator.metamodel
 
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository
 import org.eclipse.emf.ecore.resource.Resource

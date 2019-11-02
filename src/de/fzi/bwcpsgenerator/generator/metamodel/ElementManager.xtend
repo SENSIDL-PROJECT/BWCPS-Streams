@@ -1,4 +1,4 @@
-package de.fzi.bwcpsgenerator.generator.metamodelmanager
+package de.fzi.bwcpsgenerator.generator.metamodel
 
 import org.eclipse.emf.common.ui.dialogs.DiagnosticDialog
 import org.eclipse.emf.common.util.Diagnostic

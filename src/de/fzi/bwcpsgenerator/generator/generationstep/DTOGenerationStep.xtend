@@ -10,7 +10,7 @@ import de.fzi.bwcpsgenerator.generator.factory.java.JavaGenerator
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink
-import de.fzi.bwcpsgenerator.generator.metamodelmanager.ElementManager
+import de.fzi.bwcpsgenerator.generator.metamodel.ElementManager
 import de.fzi.bwcpsgenerator.generator.factory.components.ComponentGenerator
 
 class DTOGenerationStep extends GenerationStep {

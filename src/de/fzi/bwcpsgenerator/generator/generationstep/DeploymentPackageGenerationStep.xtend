@@ -5,7 +5,7 @@ import de.fzi.bwcpsgenerator.generator.BwCPSConstants
 import de.fzi.bwcpsgenerator.generator.BwCPSConstants.GenerationLanguage
 import de.fzi.bwcpsgenerator.generator.GenerationUtil
 import de.fzi.bwcpsgenerator.generator.IExecuter
-import de.fzi.bwcpsgenerator.generator.metamodelmanager.ElementManager
+import de.fzi.bwcpsgenerator.generator.metamodel.ElementManager
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 

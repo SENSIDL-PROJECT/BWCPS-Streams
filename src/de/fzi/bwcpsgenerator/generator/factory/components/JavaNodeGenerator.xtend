@@ -10,7 +10,7 @@ import java.util.HashMap
 import java.util.List
 import org.apache.log4j.Logger
 import de.fzi.bwcps.stream.bwcps_streams.entity.SecurityMeasure
-import de.fzi.bwcpsgenerator.generator.metamodelmanager.StreamRepositoryManager
+import de.fzi.bwcpsgenerator.generator.metamodel.StreamRepositoryManager
 
 class JavaNodeGenerator implements IDTOGenerator{
 	static val Logger logger = Logger.getLogger(JavaNodeGenerator)

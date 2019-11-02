@@ -10,7 +10,7 @@ import java.util.LinkedHashSet
 import static de.fzi.bwcpsgenerator.generator.generationstep.GenerationStep.*
 import de.fzi.bwcpsgenerator.generator.generationstep.ProjectGenerationStep
 import de.fzi.bwcpsgenerator.generator.generationstep.NodeConfigurationGenerationStep
-import de.fzi.bwcpsgenerator.generator.metamodelmanager.StreamRepositoryManager
+import de.fzi.bwcpsgenerator.generator.metamodel.StreamRepositoryManager
 
 class GenerationJobFactory {
 	

@@ -12,7 +12,7 @@ import de.fzi.bwcpsgenerator.generator.IExecuter
 import de.fzi.bwcpsgenerator.generator.GenerationUtil
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement
 import de.fzi.bwcpsgenerator.generator.factory.projects.OsgiBundleGenerator
-import de.fzi.bwcpsgenerator.generator.metamodelmanager.ElementManager
+import de.fzi.bwcpsgenerator.generator.metamodel.ElementManager
 import org.apache.log4j.Logger
 import de.fzi.bwcpsgenerator.exception.ExistingProjectException
 import java.util.List
