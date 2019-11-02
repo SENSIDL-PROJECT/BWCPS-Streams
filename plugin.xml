@@ -25,20 +25,20 @@
 <!-- ============ Wizard Commands Handlers =========== -->
  	<extension point="org.eclipse.ui.handlers">
      	<handler
-           class="bw_cps_code_generator.ui.handler.ContextMenuHandler"
+           class="de.fzi.bwcpsgenerator.ui.handler.ContextMenuHandler"
            commandId="bw_cps_code_generator.language.ui.handler.ContextMenuCommand">
      	</handler>  
   	</extension>
   	<extension point="org.eclipse.ui.handlers">
      	<handler
-           class="bw_cps_code_generator.ui.handler.LastSettingsGenerationHandler"
+           class="de.fzi.bwcpsgenerator.ui.handler.LastSettingsGenerationHandler"
            commandId="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler">
      	</handler>  
   	</extension>
   		
   	<extension point="org.eclipse.ui.handlers">
      	<handler
-           class="bw_cps_code_generator.ui.handler.EditorMenuHandler"
+           class="de.fzi.bwcpsgenerator.ui.handler.EditorMenuHandler"
            commandId="bw_cps_code_generator.language.ui.handler.EditorMenuCommand">
      	</handler>  
   	</extension>
