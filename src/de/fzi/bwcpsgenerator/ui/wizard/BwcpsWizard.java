@@ -16,7 +16,6 @@ import org.osgi.framework.Bundle;
 
 import de.fzi.bwcpsgenerator.exception.MetamodelException;
 import de.fzi.bwcpsgenerator.exception.NoBwcpsFileException;
-import de.fzi.bwcpsgenerator.generator.BwCPSConstants;
 import de.fzi.bwcpsgenerator.ui.handler.ErrorDialogHandler;
 import de.fzi.bwcpsgenerator.ui.handler.GenerationHandler;
 import de.fzi.bwcpsgenerator.ui.handler.SettingsHandler;
@@ -50,7 +49,7 @@ public class BwcpsWizard extends Wizard {
 	
 	@Override
 	public void addPages() {
-		Bundle bundle = Platform.getBundle(BwCPSConstants.BUNDLE_NAME);
+		Bundle bundle = Platform.getBundle("bw-cps-code-generator");
 		URL fullPathString = BundleUtility.find(bundle, "images/BW-CPS.png");
 		bwcpsWizardPage = new BwcpsWizardPage("BW-CPS - Code Generation", "BW-CPS - Code Generation",
 				ImageDescriptor.createFromURL(fullPathString), modelPath, path, language);

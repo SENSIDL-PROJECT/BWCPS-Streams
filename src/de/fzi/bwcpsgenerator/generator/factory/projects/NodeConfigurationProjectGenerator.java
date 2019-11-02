@@ -41,7 +41,7 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 
 	private String projectName = BwCPSConstants.NODECONFIG_Project_NAME;
 	private boolean needsSecurityPackage;
-	private final static String JAVA_FILES_PATH = "platform:/plugin/" + BwCPSConstants.BUNDLE_NAME + "/resources/nodeconfig/";
+	private final static String JAVA_FILES_PATH = "platform:/plugin/bw-cps-code-generator/resources/nodeconfig/";
 	private final static String JAVA_PACKAGE_ID_IDENTIFIER_TOKEN = "$_1";
 
 	public NodeConfigurationProjectGenerator(boolean needsSecurityPackage) {
@@ -122,7 +122,7 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 
 		if (needsSecurityPackage) {
 			// copy crypto
-			bundle = Platform.getBundle(BwCPSConstants.BUNDLE_NAME);
+			bundle = Platform.getBundle("bw-cps-code-generator");
 			path = new Path("commons-crypto-1.0.0.jar");
 			absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
 
@@ -135,7 +135,7 @@ public class NodeConfigurationProjectGenerator extends ProjectGenerator {
 					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
 			// copy HKDF
-			bundle = Platform.getBundle(BwCPSConstants.BUNDLE_NAME);
+			bundle = Platform.getBundle("bw-cps-code-generator");
 			path = new Path("hkdf-1.1.0.jar");
 			absoluteFileURL = FileLocator.resolve(FileLocator.find(bundle, path, null));
 
