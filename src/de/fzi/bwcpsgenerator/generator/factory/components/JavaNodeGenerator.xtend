@@ -100,9 +100,7 @@ class JavaNodeGenerator implements IDTOGenerator{
 			import org.slf4j.Logger;
 			import org.slf4j.LoggerFactory;
 			
-			import java.util.ArrayList;
 			import java.util.Iterator;
-			import java.util.List;
 			import java.util.Map;
 			import java.util.Map.Entry;
 			
@@ -113,8 +111,9 @@ class JavaNodeGenerator implements IDTOGenerator{
 				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurableNode;
 				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityManager;
 				import de.fzi.bwcps.generator.nodeconfiguration.security.SecurityMeasure;
+			«ELSE»
+				import de.fzi.bwcps.generator.nodeconfiguration.Node;
 			«ENDIF»
-			import de.fzi.bwcps.generator.nodeconfiguration.Node;
 			import de.fzi.bwcps.generator.nodeconfiguration.«GenerationUtil.getEntityUpperName(node.nodetype)»;
 			
 			/**
