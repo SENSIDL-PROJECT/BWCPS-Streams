@@ -53,7 +53,7 @@ public class SecurityManager <I, O> {
 	private static final Logger s_logger = LoggerFactory.getLogger(SecurityManager.class);
 
 	private static final String HMAC_ALGO = "HmacSHA256";
-	private final static String AES_CIPHER_ALGO = "AES/CBC/PKCS5Padding";
+	private final static String AES_CIPHER_ALGO = "AES/GCM/PKCS5Padding";
 	private final static String RSA_CIPHER_ALGO = "RSA/ECB/PKCS1Padding";
 	private final static String AES_KEY_ALGO = "AES";
 	private final static String RSA_KEY_ALGO = "RSA";
@@ -194,7 +194,7 @@ public class SecurityManager <I, O> {
 		return connections;
 	}
 
-	public SecretKey decryptKey(byte[] key) {
+	private SecretKey decryptKey(byte[] key) {
 		try {
 			// init cipher
 			Cipher cipher;
@@ -473,7 +473,7 @@ public class SecurityManager <I, O> {
 		}
 	}
 
-	public void addConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester,
+	public void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceRequester,
 			SecurableNode serviceProvider) {
 		if (getKey(serviceProvider) == null) {
 			exchangeKey(securityMeasure, serviceRequester, serviceProvider);

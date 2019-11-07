@@ -6,24 +6,31 @@ import org.apache.log4j.Logger
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
+import de.fzi.bwcpsgenerator.generator.job.GenerationJobFactory
+import javax.naming.OperationNotSupportedException
 
 class BwcpsGenerator implements IGenerator {
 
-	BwcpsCodeGenerationExecutor codeGenerator;
 	static Logger logger = Logger.getLogger(BwcpsGenerator);
 
 	GenerationLanguage generationLanguage = GenerationLanguage.ALL
 
-	new () {
-		this.codeGenerator = new BwcpsCodeGenerationExecutor;
-	}
-	override doGenerate(Resource resource, IFileSystemAccess fsa) {
+	override doGenerate(Resource input, IFileSystemAccess fsa) {
 		setUpLogger()
-
-		codeGenerator.generationLanguage = generationLanguage
-		codeGenerator.doGenerate(resource, fsa)
 		
-		logger.info("Code was generated")
+		val generationJob = GenerationJobFactory.getGenerationJobBy(new GenerationParameter(input, fsa, generationLanguage));
+
+		try {
+			
+			logger.info("Start with code-generation.")
+			
+			generationJob.start
+			
+		} catch (OperationNotSupportedException e) {
+			logger.error("Start to generate code-templates which does not exist.", e)
+		} catch (Exception e) {
+			logger.error("A error occurred.", e)
+		}
 
 	}
 

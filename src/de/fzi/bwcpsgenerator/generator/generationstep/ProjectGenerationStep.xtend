@@ -92,13 +92,6 @@ class ProjectGenerationStep extends GenerationStep {
 				resetGenerationSettings(OsgiBundleGenerator.projectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, projectName)
 				
 			])
-			
-//				put(GenerationLanguage.MAVEN_PROJECT, [
-//				
-//				mavenGenerator.createProject
-//				resetGenerationSettings(mavenGenerator.projectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH)
-//				
-//			])
 						
 		]
 	}

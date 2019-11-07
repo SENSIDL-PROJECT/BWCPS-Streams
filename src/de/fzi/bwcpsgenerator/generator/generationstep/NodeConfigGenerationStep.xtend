@@ -6,8 +6,7 @@ import de.fzi.bwcpsgenerator.generator.BwCPSConstants
 import de.fzi.bwcpsgenerator.generator.BwCPSConstants.GenerationLanguage
 import de.fzi.bwcpsgenerator.generator.IExecuter
 import de.fzi.bwcpsgenerator.generator.factory.java.JavaGenerator
-import de.fzi.bwcpsgenerator.generator.factory.projects.NodeConfigurationProjectGenerator
-import de.fzi.bwcpsgenerator.generator.factory.sidl.SidlGenerator
+import de.fzi.bwcpsgenerator.generator.factory.projects.NodeConfigProjectGenerator
 import de.fzi.bwcpsgenerator.generator.metamodel.StreamRepositoryManager
 import java.util.HashMap
 import org.apache.log4j.Logger
@@ -15,10 +14,11 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 
 import static de.fzi.bwcpsgenerator.generator.generationstep.FileGenerationStep.*
+import de.fzi.bwcpsgenerator.generator.factory.sidl.DataTypeGenerator
 
-class NodeConfigurationGenerationStep extends GenerationStep {
+class NodeConfigGenerationStep extends GenerationStep {
 
-	val static logger = Logger.getLogger(NodeConfigurationGenerationStep)
+	val static logger = Logger.getLogger(NodeConfigGenerationStep)
 	static val PATH_SEPERATOR = "/"
 	val IFileSystemAccess fsa;
 	StreamRepository streamRepo;
@@ -61,9 +61,9 @@ class NodeConfigurationGenerationStep extends GenerationStep {
 	 */
 	private def getResourcesToGenerateMapping() {
 
-		val generator = new NodeConfigurationProjectGenerator(StreamRepositoryManager.needsSecurityPackage(streamRepo))
+		val generator = new NodeConfigProjectGenerator(StreamRepositoryManager.needsSecurityPackage(streamRepo))
 		val JavaGenerator jgenerator = new JavaGenerator(GenerationLanguage.OSGI_BUNDLES, javaPackagePrefix)
-		val SidlGenerator sgenerator = new SidlGenerator()
+		val DataTypeGenerator sgenerator = new DataTypeGenerator()
 		return new HashMap<GenerationLanguage, IExecuter> => [
 
 			put(GenerationLanguage.OSGI_BUNDLES, [
@@ -76,16 +76,10 @@ class NodeConfigurationGenerationStep extends GenerationStep {
 					putAll(jgenerator.generateDTO(streamRepo))
 				]
 				sgenerator.generate(streamRepo)
-				setGenerationSettings(NodeConfigurationProjectGenerator.projectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, BwCPSConstants.NODECONFIG_Project_NAME)
+				setGenerationSettings(NodeConfigProjectGenerator.projectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH, BwCPSConstants.NODECONFIG_Project_NAME)
 				
 			])
 
-//				put(GenerationLanguage.MAVEN_PROJECT, [
-//				
-//				mavenGenerator.createProject
-//				resetGenerationSettings(mavenGenerator.projectPath, BwCPSConstants.JAVA_PROJECT_PACKAGE_PATH)
-//				
-//			])
 		]
 	}
 

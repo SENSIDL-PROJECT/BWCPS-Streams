@@ -9,8 +9,8 @@ import java.util.LinkedHashSet
 
 import static de.fzi.bwcpsgenerator.generator.generationstep.GenerationStep.*
 import de.fzi.bwcpsgenerator.generator.generationstep.ProjectGenerationStep
-import de.fzi.bwcpsgenerator.generator.generationstep.NodeConfigurationGenerationStep
 import de.fzi.bwcpsgenerator.generator.metamodel.StreamRepositoryManager
+import de.fzi.bwcpsgenerator.generator.generationstep.NodeConfigGenerationStep
 
 class GenerationJobFactory {
 	
@@ -19,18 +19,18 @@ class GenerationJobFactory {
 		return switch(parameter.generationLanguage) {
 			case GenerationLanguage.OSGI_BUNDLES,
 			case GenerationLanguage.KURA_BUNDLES: 
-				return getOsgiProjectsGenerationJobBy(parameter)
+				return getOsgiBundlesGenerationJobBy(parameter)
 			default: getDTOGenerationJobBy(parameter)
 		}
 	}
 	
-	private def static getOsgiProjectsGenerationJobBy(GenerationParameter parameter) {
+	private def static getOsgiBundlesGenerationJobBy(GenerationParameter parameter) {
 		
 		makeGlobalSettings(parameter)
 		val generationChain = new LinkedHashSet<GenerationStep>()
 		val streamRepo = new StreamRepositoryManager(parameter.resource).filterData()
 
-		generationChain.add(new NodeConfigurationGenerationStep(streamRepo, parameter.fileSystemAccess))
+		generationChain.add(new NodeConfigGenerationStep(streamRepo, parameter.fileSystemAccess))
 		generationChain.add(new FileGenerationStep( parameter.fileSystemAccess))
 
 		streamRepo.container.forEach[c | 
@@ -39,7 +39,6 @@ class GenerationJobFactory {
 					add(new ProjectGenerationStep(c, parameter.fileSystemAccess, StreamRepositoryManager.filterNeededBundlesForNodeContainer(streamRepo, c)))
 					add(new DTOGenerationStep(c, StreamRepositoryManager.filterNodelinksOnNodeContainer(streamRepo, c)))
 					add(new FileGenerationStep(parameter.fileSystemAccess))
-//					add(new DeploymentPackageGenerationStep(new StreamRepositoryFilter(), parameter.fileSystemAccess))
 				]
 			}
 		]

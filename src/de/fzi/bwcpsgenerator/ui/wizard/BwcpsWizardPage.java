@@ -35,7 +35,7 @@ public class BwcpsWizardPage  extends WizardPage {
 	 * contains all generation languages that are shown in the generation
 	 * wizard. The languages are: <code>Java</code>
 	 */
-	public static final String[] GENERATION_LANGUAGES_STRINGS = new String[] { "Java", "Osgi Bundles", "Kura Bundles", "All" };
+	public static final String[] GENERATION_LANGUAGES_STRINGS = new String[] { "Osgi Bundles", "Kura Bundles", "All" };
 
 	// first row Elements
 	private Label label_ModelPath;
@@ -196,7 +196,8 @@ public class BwcpsWizardPage  extends WizardPage {
 
 			@Override
 			public void modifyText(ModifyEvent e) {
-				if (combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[1])) {
+				if (combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[0]) 
+						|| combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[1])) {
 					if (textfield_Path.getText().startsWith("platform:/resource/")) {
 						if (textfield_Path.getText().replace("platform:/resource/", "").contains("/")) {
 							setPageComplete(false);
@@ -270,7 +271,8 @@ public class BwcpsWizardPage  extends WizardPage {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[1])) {
+				if (combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[0]) 
+						|| combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[1])) {
 					button_FileSystemPath.setEnabled(false);
 				} else {
 					button_FileSystemPath.setEnabled(true);
@@ -286,7 +288,8 @@ public class BwcpsWizardPage  extends WizardPage {
 			}
 		});
 
-		if (combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[1])) {
+		if (combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[0]) 
+				|| combo_language.getText().equals(GENERATION_LANGUAGES_STRINGS[1])) {
 			button_FileSystemPath.setEnabled(false);
 		} else {
 			button_FileSystemPath.setEnabled(true);

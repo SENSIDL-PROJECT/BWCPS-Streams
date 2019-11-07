@@ -27,6 +27,7 @@ abstract class GenerationStep {
 			kuraAdapted = true
 		} else {
 			generationLanguage = newGenerationLanguage
+			kuraAdapted = false
 		}
 		javaPackagePrefix = BwCPSConstants.JAVA_PROJECT_PACKAGE_PREFIX
 		

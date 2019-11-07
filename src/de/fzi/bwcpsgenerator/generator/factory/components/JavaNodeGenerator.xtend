@@ -220,7 +220,7 @@ class JavaNodeGenerator implements IDTOGenerator{
 				protected void set«GenerationUtil.getEntityUpperName(i.source)»(«GenerationUtil.getEntityUpperName(i.source)» «GenerationUtil.getEntityLowerName(i.source)») {
 					this.«GenerationUtil.getEntityLowerName(i.source)» = «GenerationUtil.getEntityLowerName(i.source)»;
 					«IF i.securityMeasure != SecurityMeasure.NONE»	
-						establishConnection(SecurityMeasure.«i.securityMeasure.literal», «GenerationUtil.getEntityLowerName(i.source)»);
+						securityManager.establishConnection(SecurityMeasure.«i.securityMeasure.literal», this, «GenerationUtil.getEntityLowerName(i.source)»);
 					«ENDIF»	
 				}
 				
@@ -236,10 +236,6 @@ class JavaNodeGenerator implements IDTOGenerator{
 			«IF securable »	
 				public PublicKey getPublicKey() {
 					return securityManager.getPublicKey();
-				}
-				
-				private void establishConnection(SecurityMeasure securityMeasure, SecurableNode serviceProvider) {
-					securityManager.addConnection(securityMeasure, this, serviceProvider);
 				}
 				
 				public void receiveEncryptedKey(SecurityMeasure securityMeasure, SecurableNode node, byte[] key) {

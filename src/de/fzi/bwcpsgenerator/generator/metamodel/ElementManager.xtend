@@ -37,6 +37,7 @@ abstract class ElementManager {
 		) 
 		return continue.get(0) 
 	}
+	
 	protected def handleDiagnostic (Diagnostic diagnostic) {
 		var int severity = diagnostic.getSeverity()
 		if (severity === Diagnostic.ERROR || severity === Diagnostic.WARNING) {

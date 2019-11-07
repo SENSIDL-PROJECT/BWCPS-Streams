@@ -55,7 +55,7 @@ class FileGenerationStep extends GenerationStep {
 			}
 
 			refreshWorkspace
-
+			resetFilesToGenerate
 		}
 	}
 

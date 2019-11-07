@@ -37,14 +37,14 @@ import de.fzi.bwcpsgenerator.generator.BwCPSConstants;
  * @author Sven Eckhardt
  */
 
-public class NodeConfigurationProjectGenerator extends ProjectGenerator {
+public class NodeConfigProjectGenerator extends ProjectGenerator {
 
 	private String projectName = BwCPSConstants.NODECONFIG_Project_NAME;
 	private boolean needsSecurityPackage;
 	private final static String JAVA_FILES_PATH = "platform:/plugin/" + BwCPSConstants.BUNDLE_NAME + "/resources/nodeconfig/";
 	private final static String JAVA_PACKAGE_ID_IDENTIFIER_TOKEN = "$_1";
 
-	public NodeConfigurationProjectGenerator(boolean needsSecurityPackage) {
+	public NodeConfigProjectGenerator(boolean needsSecurityPackage) {
 		this.needsSecurityPackage = needsSecurityPackage;
 	}
 

@@ -11,15 +11,9 @@ import org.apache.log4j.Logger
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.ecore.util.EcoreUtil
 
-/**
- * 
- *  The SidlGenerator represents a concrete implementation of The ICodeGenerator and implements the 
- * code-generator for the sidl file.
- * @author Sven Eckhardt
- */
-class SidlGenerator {
+class DataTypeGenerator {
 
-	val static logger = Logger.getLogger(SidlGenerator)
+	val static logger = Logger.getLogger(DataTypeGenerator)
 
 	def generate(NamedElement element) {
 		val streamRepo = element as StreamRepository
