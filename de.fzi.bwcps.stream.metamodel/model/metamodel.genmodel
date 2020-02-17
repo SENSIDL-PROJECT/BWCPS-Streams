@@ -5,7 +5,7 @@
     editDirectory="/de.fzi.bwcps.stream.metamodel.edit/src-gen" editorDirectory="/de.fzi.bwcps.stream.metamodel.editor/src-gen"
     modelPluginID="de.fzi.bwcps.stream.metamodel" modelName="Metamodel" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
-    copyrightFields="false" usedGenPackages="../../../de.fzi.sensidl.design/model/sensIDL.genmodel#//sensidl"
+    copyrightFields="false" usedGenPackages="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.genmodel#//sensidl"
     operationReflection="true" importOrganizing="true">
   <foreignModel>metamodel.ecore</foreignModel>
   <testsDirectory xsi:nil="true"/>
