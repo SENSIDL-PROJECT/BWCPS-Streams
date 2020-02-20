@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<!-- ============ Wizard Commands =========== -->
+  	<extension point="org.eclipse.ui.commands">
+        <command
+              id="bw_cps_code_generator.language.ui.handler.ContextMenuCommand"
+              name="Wizard...">
+        </command>
+  	</extension>
+  	
+  	<extension point="org.eclipse.ui.commands">
+        <command
+              id="bw_cps_code_generator.language.ui.handler.EditorMenuCommand"
+              name="Wizard...">
+        </command>
+  	</extension>
+  	
+  	<extension point="org.eclipse.ui.commands">
+        <command
+              id="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler"
+              name="Generate now...">
+        </command>
+  	</extension>
+<!-- ============ Wizard Commands Handlers =========== -->
+ 	<extension point="org.eclipse.ui.handlers">
+     	<handler
+           class="de.fzi.bwcpsgenerator.ui.handler.ContextMenuHandler"
+           commandId="bw_cps_code_generator.language.ui.handler.ContextMenuCommand">
+     	</handler>  
+  	</extension>
+  	<extension point="org.eclipse.ui.handlers">
+     	<handler
+           class="de.fzi.bwcpsgenerator.ui.handler.LastSettingsGenerationHandler"
+           commandId="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler">
+     	</handler>  
+  	</extension>
+  		
+  	<extension point="org.eclipse.ui.handlers">
+     	<handler
+           class="de.fzi.bwcpsgenerator.ui.handler.EditorMenuHandler"
+           commandId="bw_cps_code_generator.language.ui.handler.EditorMenuCommand">
+     	</handler>  
+  	</extension>
+<!-- ==================== Context Menu Entry "BW-CPS - Generate Code" ==================== -->
+<extension point="org.eclipse.ui.menus">
+    	<menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+         <menu
+               label="BW-CPS">
+            <!-- Wizard... Command --> 
+            <command
+                  commandId="bw_cps_code_generator.language.ui.handler.ContextMenuCommand"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <test
+                        	property="org.eclipse.core.resources.name"
+                            value="*.entity">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </visibleWhen>
+            </command>
+            <!-- Generate now... Command --> 
+            <command
+                  commandId="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <test
+                            property="org.eclipse.core.resources.name"
+                            value="*.entity">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </visibleWhen>
+            </command>
+            
+         </menu>
+    	</menuContribution>
+    </extension>
+ <!-- ==================== Editor Menu Entry "SensIDL - Generate Code" ==================== -->
+   	<extension point="org.eclipse.ui.menus">
+    	<menuContribution locationURI="popup:#TextEditorContext?after=additions">
+          <menu
+                label="SensIDL">
+             <!-- Wizard... Command --> 
+             <command
+                   commandId="bw_cps_code_generator.language.ui.handler.EditorMenuCommand"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   	<reference
+                    	definitionId="de.fzi.bwcps.stream.metamodel.editor.entityEditor.opened">
+                   	</reference>
+                </visibleWhen>
+             </command>
+             <!-- Generate now... Command --> 
+            <command
+                   commandId="bw_cps_code_generator.language.ui.handler.LastSettingsGenerationHandler"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   	<reference
+                    	definitionId="de.fzi.bwcps.stream.metamodel.editor.entityEditor.opened">
+                   	</reference>
+                </visibleWhen>
+             </command>
+          </menu>
+    	</menuContribution>
+	</extension>
+
+</plugin>

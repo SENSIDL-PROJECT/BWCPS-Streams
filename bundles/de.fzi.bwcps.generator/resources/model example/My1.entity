@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:StreamRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" xmlns:entity="http://www.fzi.de/bwcps/stream/entity/1.0" xmlns:operations="http://www.fzi.de/bwcps/stream/operations/1.0" name="">
+  <streams name="FirstStream" nodelinks="//@nodelinks.0 //@nodelinks.1 //@nodelinks.5 //@nodelinks.4 //@nodelinks.6 //@nodelinks.3 //@nodelinks.2"/>
+  <container xsi:type="entity:EdgeDevice" name="Intel Galileo Gen 2" nodes="//@nodes.1 //@nodes.0 //@nodes.3 //@nodes.4"/>
+  <container xsi:type="entity:EdgeGateway" name="Intel NUC" nodes="//@nodes.5 //@nodes.7 //@nodes.6"/>
+  <container xsi:type="entity:DataSink" name="Azure" nodes="//@nodes.8"/>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="SinkSource">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sensidl#_V3CmGfRCEem3irz5Pq_Ctg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sensidl#_V3CmGvRCEem3irz5Pq_Ctg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sensidl#_V3CmFPRCEem3irz5Pq_Ctg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sensidl#_V3CmE_RCEem3irz5Pq_Ctg"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SinkNodeType" name="Sink">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sensidl#_V3CmFPRCEem3irz5Pq_Ctg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sensidl#_V3CmE_RCEem3irz5Pq_Ctg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sensidl#_V3CmFPRCEem3irz5Pq_Ctg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sensidl#_V3CmE_RCEem3irz5Pq_Ctg"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="SinkSource2">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sensidl#_V3CmFPRCEem3irz5Pq_Ctg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sensidl#_V3CmE_RCEem3irz5Pq_Ctg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="Example.sensidl#_V3CmGvRCEem3irz5Pq_Ctg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="Example.sensidl#_V3CmGfRCEem3irz5Pq_Ctg"/>
+  </nodeTypes>
+  <nodes name="SensorCOM1" nodetype="//@nodeTypes.0">
+    <operational xsi:type="operations:CompositionellOperation" href="My1.operations#//@operations.0"/>
+  </nodes>
+  <nodes name="SensorCOM2" nodetype="//@nodeTypes.1">
+    <operational xsi:type="operations:CompositionellOperation" href="My1.operations#//@operations.0"/>
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.2"/>
+  </nodes>
+  <nodes name="EXAMPLE Not in Container" nodetype="//@nodeTypes.1">
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.6"/>
+  </nodes>
+  <nodes name="Preprocessing" nodetype="//@nodeTypes.0">
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.4"/>
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.1"/>
+  </nodes>
+  <nodes name="Publisher" nodetype="//@nodeTypes.0">
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.1"/>
+  </nodes>
+  <nodes name="MQTT Broker" nodetype="//@nodeTypes.2">
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.1"/>
+  </nodes>
+  <nodes name="PreprocessingGateway" nodetype="//@nodeTypes.2">
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.5"/>
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.6"/>
+  </nodes>
+  <nodes name="AzureAPI" nodetype="//@nodeTypes.2">
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.1"/>
+  </nodes>
+  <nodes name="AzureNode" nodetype="//@nodeTypes.1">
+    <operational xsi:type="operations:AtomicOperation" href="My1.operations#//@operations.5"/>
+  </nodes>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EncThenAuth" source="//@nodes.7" target="//@nodes.8" securityMeasure="ENCRYPT"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="WithSign" source="//@nodes.4" target="//@nodes.5" securityMeasure="AUTHENTICATE"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="S1Pre" source="//@nodes.3" target="//@nodes.0"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="PreS2" source="//@nodes.3" target="//@nodes.1"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="PrePub" source="//@nodes.4" target="//@nodes.3"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="BroPre" source="//@nodes.6" target="//@nodes.5"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="Pre Az" source="//@nodes.7" target="//@nodes.6"/>
+</entity:StreamRepository>
