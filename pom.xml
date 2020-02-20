@@ -26,5 +26,6 @@
   
   <modules>
     <module>bundles</module>
+	<module>features</module>
   </modules>
 </project>

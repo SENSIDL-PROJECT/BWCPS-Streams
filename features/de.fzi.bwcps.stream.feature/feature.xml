@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="de.fzi.bwcps.stream.feature"
+      label="BWCPS Stream SDK Feature"
+      version="0.1.0.qualifier"
+      provider-name="FZI Forschungszentrum Informatik">
+
+   <description url="https://github.com/SENSIDL-PROJECT/BWCPS-Metamodel">
+      This project provides a language for stream modeling with respect to Edge- and Security-Analytics.
+   </description>
+
+   <license>
+      Eclipse Public License 1.0
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="de.fzi.sensidl.design"/>
+      <import plugin="de.fzi.sensidl.design.edit"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="de.fzi.sensidl.design" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+   </requires>
+
+   <plugin
+         id="de.fzi.bwcps.stream.metamodel.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.fzi.bwcps.stream.metamodel"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.fzi.bwcps.stream.metamodel.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
