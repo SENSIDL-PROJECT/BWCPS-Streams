@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BWCPS Stream Generator
+Bundle-SymbolicName: de.fzi.bwcps.generator;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Activator: de.fzi.bwcpsgenerator.Activator
+Require-Bundle: org.eclipse.xtend.lib,
+ org.eclipse.emf.emfstore.common,
+ org.eclipse.xtext.generator,
+ org.apache.log4j;bundle-version="1.2.15",
+ de.fzi.bwcps.stream.metamodel.editor;bundle-version="0.1.0",
+ org.eclipse.xtext,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
+ org.eclipse.m2e.core,
+ org.eclipse.m2e.maven.runtime,
+ de.fzi.sensidl.language.ui,
+ org.junit
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: bw-cps-generator
+Bundle-ActivationPolicy: lazy

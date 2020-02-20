@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="de.fzi.bwcps.stream.feature"
+      label="BWCPS Stream SDK Feature"
+      version="0.1.0.qualifier"
+      provider-name="FZI Forschungszentrum Informatik">
+
+   <description url="https://github.com/SENSIDL-PROJECT/BWCPS-Metamodel">
+      This project provides a language for stream modeling with respect to Edge- and Security-Analytics.
+   </description>
+
+   <license>
+      Eclipse Public License 1.0
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="de.fzi.sensidl.design"/>
+      <import plugin="de.fzi.sensidl.design.edit"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="de.fzi.sensidl.design" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.xtend.lib"/>
+      <import plugin="org.eclipse.emf.emfstore.common"/>
+      <import plugin="org.eclipse.xtext.generator"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="de.fzi.bwcps.stream.metamodel.editor" version="0.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.eclipse.m2e.core"/>
+      <import plugin="org.eclipse.m2e.maven.runtime"/>
+      <import plugin="de.fzi.sensidl.language.ui"/>
+      <import plugin="org.junit"/>
+   </requires>
+
+   <plugin
+         id="de.fzi.bwcps.stream.metamodel.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.fzi.bwcps.stream.metamodel"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.fzi.bwcps.stream.metamodel.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.fzi.bwcps.generator"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
