@@ -1,3 +1,7 @@
+target/
+bin/
+xtend-gen/
+
 # ---> Java
 # Compiled class file
 *.class

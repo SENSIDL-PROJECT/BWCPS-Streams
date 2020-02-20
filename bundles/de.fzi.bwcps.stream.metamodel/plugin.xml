@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated metamodel -->
+      <package
+            uri="http://www.fzi.de/bwcps/stream/operations/1.0"
+            class="de.fzi.bwcps.stream.bwcps_streams.operations.operationsPackage"
+            genModel="model/metamodel.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated metamodel -->
+      <package
+            uri="http://www.fzi.de/bwcps/stream/entity/1.0"
+            class="de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage"
+            genModel="model/metamodel.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated metamodel -->
+      <package
+            uri="http://www.fzi.de/bwcps/stream/commons/1.0"
+            class="de.fzi.bwcps.stream.bwcps_streams.commons.commonsPackage"
+            genModel="model/metamodel.genmodel"/>
+   </extension>
+
+</plugin>

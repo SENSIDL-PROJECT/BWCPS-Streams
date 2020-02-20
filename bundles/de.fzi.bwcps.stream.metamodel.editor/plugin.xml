@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated metamodel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="de.fzi.bwcps.stream.bwcps_streams.operations.presentation.operationsModelWizardID"
+            name="%_UI_operationsModelWizard_label"
+            class="de.fzi.bwcps.stream.bwcps_streams.operations.presentation.operationsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/operationsModelFile.gif">
+         <description>%_UI_operationsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated metamodel -->
+      <editor
+            id="de.fzi.bwcps.stream.bwcps_streams.operations.presentation.operationsEditorID"
+            name="%_UI_operationsEditor_label"
+            icon="icons/full/obj16/operationsModelFile.gif"
+            extensions="operations"
+            class="de.fzi.bwcps.stream.bwcps_streams.operations.presentation.operationsEditor"
+            contributorClass="de.fzi.bwcps.stream.bwcps_streams.operations.presentation.operationsActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated metamodel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="de.fzi.bwcps.stream.bwcps_streams.entity.presentation.entityModelWizardID"
+            name="%_UI_entityModelWizard_label"
+            class="de.fzi.bwcps.stream.bwcps_streams.entity.presentation.entityModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/entityModelFile.gif">
+         <description>%_UI_entityModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated metamodel -->
+      <editor
+            id="de.fzi.bwcps.stream.bwcps_streams.entity.presentation.entityEditorID"
+            name="%_UI_entityEditor_label"
+            icon="icons/full/obj16/entityModelFile.gif"
+            extensions="entity"
+            class="de.fzi.bwcps.stream.bwcps_streams.entity.presentation.entityEditor"
+            contributorClass="de.fzi.bwcps.stream.bwcps_streams.entity.presentation.entityActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated metamodel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="de.fzi.bwcps.stream.bwcps_streams.commons.presentation.commonsModelWizardID"
+            name="%_UI_commonsModelWizard_label"
+            class="de.fzi.bwcps.stream.bwcps_streams.commons.presentation.commonsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/commonsModelFile.gif">
+         <description>%_UI_commonsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated metamodel -->
+      <editor
+            id="de.fzi.bwcps.stream.bwcps_streams.commons.presentation.commonsEditorID"
+            name="%_UI_commonsEditor_label"
+            icon="icons/full/obj16/commonsModelFile.gif"
+            extensions="commons"
+            class="de.fzi.bwcps.stream.bwcps_streams.commons.presentation.commonsEditor"
+            contributorClass="de.fzi.bwcps.stream.bwcps_streams.commons.presentation.commonsActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

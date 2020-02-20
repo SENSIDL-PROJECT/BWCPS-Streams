@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+		<groupId>tools.mdsd</groupId>
+		<artifactId>eclipse-parent-updatesite-notp</artifactId>
+		<version>0.4.3</version>
+  </parent>
+  <groupId>de.fzi.bwcps</groupId>
+  <version>0.1.0-SNAPSHOT</version>
+  <artifactId>parent</artifactId>
+  <packaging>pom</packaging>
+
+  <properties>
+		<tools.mdsd.dependencies.eclipse-version>2019-12</tools.mdsd.dependencies.eclipse-version>
+		<tools.mdsd.dependencies.orbit-version>R20191126223242</tools.mdsd.dependencies.orbit-version>
+  </properties>
+  
+  <repositories>
+	<repository>
+		<id>SensIDL</id>
+		<layout>p2</layout>
+		<url>https://sdqweb.ipd.kit.edu/eclipse/sensidl/nightly/</url>
+	</repository>
+  </repositories>
+  
+  <modules>
+    <module>bundles</module>
+  </modules>
+</project>

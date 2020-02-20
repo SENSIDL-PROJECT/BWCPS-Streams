@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/de.fzi.bwcps.stream.metamodel/src-gen" creationIcons="false"
+    editDirectory="/de.fzi.bwcps.stream.metamodel.edit/src-gen" editorDirectory="/de.fzi.bwcps.stream.metamodel.editor/src-gen"
+    modelPluginID="de.fzi.bwcps.stream.metamodel" modelName="Metamodel" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
+    copyrightFields="false" usedGenPackages="platform:/plugin/de.fzi.sensidl.design/model/sensIDL.genmodel#//sensidl"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>metamodel.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Metamodel" basePackage="de.fzi.bwcps.stream" disposableProviderFactory="true"
+      ecorePackage="metamodel.ecore#/">
+    <nestedGenPackages prefix="operations" basePackage="de.fzi.bwcps.stream.bwcps_streams"
+        disposableProviderFactory="true" ecorePackage="metamodel.ecore#//operations">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="metamodel.ecore#//operations/JoinOperation">
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//operations/JoinOperation/SUM"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//operations/JoinOperation/PRODUCT"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//operations/JoinOperation/MIN"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//operations/JoinOperation/MAX"/>
+      </genEnums>
+      <genClasses ecoreClass="metamodel.ecore#//operations/Domain">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//operations/Domain/subDomain"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//operations/Domain/dimensions"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="metamodel.ecore#//operations/Property"/>
+      <genClasses image="false" ecoreClass="metamodel.ecore#//operations/Operation">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//operations/Operation/properties"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//operations/Operation/type"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//operations/Operation/domain"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//operations/Operation/range"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//operations/Aggregating">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//operations/Aggregating/size"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//operations/Aggregating/step"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//operations/Aggregating/joinOperation"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//operations/CompositionellOperation">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//operations/CompositionellOperation/operation"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//operations/Mapping"/>
+      <genClasses ecoreClass="metamodel.ecore#//operations/Dimension">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//operations/Dimension/valueSpace"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//operations/OperationDefinition">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//operations/OperationDefinition/operations"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//operations/OperationDefinition/domains"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//operations/Selecting"/>
+      <genClasses ecoreClass="metamodel.ecore#//operations/AtomicOperation"/>
+      <genClasses ecoreClass="metamodel.ecore#//operations/Projection"/>
+      <genClasses image="false" ecoreClass="metamodel.ecore#//operations/OperationType"/>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="entity" basePackage="de.fzi.bwcps.stream.bwcps_streams"
+        disposableProviderFactory="true" ecorePackage="metamodel.ecore#//entity">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="metamodel.ecore#//entity/SecurityMeasure">
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/ENCRYPT"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/AUTHENTICATE"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/ENC_THEN_AUTH"/>
+        <genEnumLiterals ecoreEnumLiteral="metamodel.ecore#//entity/SecurityMeasure/NONE"/>
+      </genEnums>
+      <genClasses ecoreClass="metamodel.ecore#//entity/EdgeDevice"/>
+      <genClasses ecoreClass="metamodel.ecore#//entity/AggregatedNodeLink">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/AggregatedNodeLink/aggregatedLinks"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//entity/StreamRepository">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//entity/StreamRepository/streams"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//entity/StreamRepository/container"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//entity/StreamRepository/nodeTypes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//entity/StreamRepository/nodes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//entity/StreamRepository/nodelinks"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//entity/Stream">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/Stream/nodelinks"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//entity/PrimitiveNodeLink"/>
+      <genClasses ecoreClass="metamodel.ecore#//entity/Node">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/Node/nodetype"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/Node/operational"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//entity/SinkSourceNodeType"/>
+      <genClasses image="false" ecoreClass="metamodel.ecore#//entity/NodeLink">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/NodeLink/source"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/NodeLink/target"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//entity/NodeLink/securityMeasure"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//entity/EdgeGateway"/>
+      <genClasses ecoreClass="metamodel.ecore#//entity/DataSink"/>
+      <genClasses ecoreClass="metamodel.ecore#//entity/SourceNodeType"/>
+      <genClasses ecoreClass="metamodel.ecore#//entity/SinkNodeType"/>
+      <genClasses image="false" ecoreClass="metamodel.ecore#//entity/NodeContainer">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/NodeContainer/nodes"/>
+      </genClasses>
+      <genClasses ecoreClass="metamodel.ecore#//entity/NodeType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/NodeType/refines"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/NodeType/input"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//entity/NodeType/output"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="commons" basePackage="de.fzi.bwcps.stream.bwcps_streams"
+        disposableProviderFactory="true" ecorePackage="metamodel.ecore#//commons">
+      <genClasses ecoreClass="metamodel.ecore#//commons/NamedElement">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//commons/NamedElement/name"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>
