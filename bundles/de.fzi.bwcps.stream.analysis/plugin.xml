@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="de.fzi.bwcps.stream.analysis.start"
+            name="Command Name">
+         <defaultHandler
+               class="de.fzi.bwcps.stream.analysis.EdgeAnalysisHandler">
+         </defaultHandler>
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:de.fzi.bwcps.stream.bwcps_streams.entity.presentation.entityEditorID?endof=additions">
+         <command
+               commandId="de.fzi.bwcps.stream.analysis.start"
+               label="Analyze BWCPS Instance"
+               mnemonic="A"
+               style="push"
+               tooltip="Performs an edge analysis on the selected bwcps instance">
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>
