@@ -54,6 +54,11 @@
       <genClasses ecoreClass="metamodel.ecore#//operations/AtomicOperation"/>
       <genClasses ecoreClass="metamodel.ecore#//operations/Projection"/>
       <genClasses image="false" ecoreClass="metamodel.ecore#//operations/OperationType"/>
+      <genClasses ecoreClass="metamodel.ecore#//operations/OperationDeployment">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference metamodel.ecore#//operations/OperationDeployment/operation"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//operations/OperationDeployment/nextDeployment"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="entity" basePackage="de.fzi.bwcps.stream.bwcps_streams"
         disposableProviderFactory="true" ecorePackage="metamodel.ecore#//entity">
@@ -83,6 +88,7 @@
       <genClasses ecoreClass="metamodel.ecore#//entity/Node">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference metamodel.ecore#//entity/Node/nodetype"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodel.ecore#//entity/Node/operationalDeployment"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference metamodel.ecore#//entity/Node/operational"/>
       </genClasses>
