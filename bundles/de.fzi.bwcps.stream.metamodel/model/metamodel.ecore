@@ -96,10 +96,13 @@
           eType="#//entity/Node"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="securityMeasure" eType="#//entity/SecurityMeasure"
           defaultValueLiteral="NONE"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bandwith" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="EdgeGateway" eSuperTypes="#//entity/NodeContainer"/>
     <eClassifiers xsi:type="ecore:EClass" name="DataSink" eSuperTypes="#//entity/NodeContainer"/>
-    <eClassifiers xsi:type="ecore:EClass" name="SourceNodeType" eSuperTypes="#//entity/NodeType"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SourceNodeType" eSuperTypes="#//entity/NodeType">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="frequency" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SinkNodeType" eSuperTypes="#//entity/NodeType"/>
     <eClassifiers xsi:type="ecore:EClass" name="NodeContainer" abstract="true" eSuperTypes="#//commons/NamedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" lowerBound="1"
