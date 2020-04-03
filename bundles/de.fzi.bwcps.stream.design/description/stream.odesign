@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" name="stream" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" name="stream" version="12.0.0.2017041100">
   <ownedViewpoints name="StreamDiagrams" label="Stream Diagrams">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Streams" domainClass="StreamRepository" enablePopupBars="true">
       <metamodel href="http://www.fzi.de/bwcps/stream/commons/1.0#/"/>
@@ -14,7 +14,7 @@
           </style>
         </nodeMappings>
         <edgeMappings name="StreamNodeLink" semanticCandidatesExpression="aql:self.nodelinks" sourceMapping="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']" targetMapping="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="NodeLink" useDomainElement="true">
-          <style targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription labelSize="12">
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -107,4 +107,14 @@
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="de.fzi.bwcps.stream.design.Services"/>
   </ownedViewpoints>
+  <extensions xsi:type="properties:ViewExtensionDescription">
+    <categories>
+      <pages>
+        <extends href="platform:/plugin/org.eclipse.sirius.properties.defaultrules/model/properties.odesign#//@extensions.0/@categories.0/@pages.0"/>
+      </pages>
+      <pages labelExpression="NodeType" domainClass="NodeType" semanticCandidateExpression="aql:self.oclAsType(entity::Node).nodetype" preconditionExpression="aql:self.oclIsKindOf(entity::Node)">
+        <extends href="platform:/plugin/org.eclipse.sirius.properties.defaultrules/model/properties.odesign#//@extensions.0/@categories.0/@pages.0"/>
+      </pages>
+    </categories>
+  </extensions>
 </description:Group>

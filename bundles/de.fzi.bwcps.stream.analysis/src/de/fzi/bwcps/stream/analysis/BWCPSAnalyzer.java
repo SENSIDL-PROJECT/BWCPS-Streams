@@ -31,40 +31,80 @@ public class BWCPSAnalyzer {
 			StreamRepository root = (StreamRepository) rootObj;
 			
 			/* Validate 3 points for each Node: 
-			 * 1. If input size > 0 at least one incoming connection exists
-			 * 2. total output size per second <= bandwith of outgoing links
-			 * 3. overall output size matches input size for connected outgoing link targets
+			 * 1. If input size > 0 and at least one incoming connection exists
+			 * 2. Total output size per second <= bandwidth of outgoing links
+			 * 3. Overall output size <= input size for connected outgoing link targets
 			 */
 			
 			Collection<Node> nodes = EcoreUtil.getObjectsByType(root.getNodes(),
 					entityPackage.eINSTANCE.getNode());
 			for(Node node: nodes) {
-				NodeType type = node.getNodetype();
-				if(type == null ) continue;
-				int inputSize = determineSizeOfData(type.getInput());
-				if (inputSize > 0 && getIncomingLinks(node).isEmpty())
-					System.err.println("Point 1 voilated at" + node);
-				
-				if(type.eClass().equals(entityPackage.eINSTANCE.getSinkNodeType())) continue;
-				int frequency = ((SourceNodeType)type).getFrequency();
-				int outputSize = determineSizeOfData(type.getOutput());
-				int outBandwith = getOutgoingLinks(node).stream().map(n->n.getBandwith()).reduce(0, (s,n) -> s+n);
-				if (outBandwith < outputSize * frequency)
-					System.err.println("Point 2 violated at " + node);
-				
-				int linkedNodesInput = getOutgoingLinks(node).stream().map(link -> {
-					if(link.getTarget() != null && link.getTarget().getNodetype() != null)
-						return determineSizeOfData(link.getTarget().getNodetype().getInput());
-					return 0;
-				}).reduce(0, (s,n) -> s+n);
-				if (outputSize > 0 && linkedNodesInput != outputSize)
-					System.err.println("Point 3 violated at " + node);
-					
+				String result = analyzeNode(node);
+				if(result != null) System.err.println(result);
 			}
 		}		
 	}
 	
-	private static Collection<PrimitiveNodeLink> getOutgoingLinks(Node node) {
+	/**
+	 * Analyzes a BWCPS node based on three qualities and returns an error message if any of them are not fulfilled:
+	 * * 1. If input size > 0 and at least one incoming connection exists
+	 * * 2. Total output size per second <= bandwidth of outgoing links
+	 * * 3. Overall output size <= input size for connected outgoing link targets
+	 * If all qualities are fulfilled the method returns null.
+	 *  
+	 * @param node
+	 * @return Error message or null
+	 */
+	public String analyzeNode(Node node) {
+		NodeType type = node.getNodetype();
+		if(type == null ) return String.format("NodeType for Node %s not set!", node);
+		int inputSize = determineInputSize(type);
+		if (inputSize > 0 && getIncomingLinks(node).isEmpty())
+			return String.format("Point 1 voilated at %s:\n Input size %s > 0 with no existing incoming connection.",
+					node, inputSize);
+		
+		if(type.eClass().equals(entityPackage.eINSTANCE.getSinkNodeType())) return null;
+		int frequency = ((SourceNodeType)type).getFrequency();
+		int outputSize = determineOutputSize(type);
+		int outBandwith = getOutgoingLinks(node).stream().mapToInt(n->n.getBandwith()).sum();
+		
+		if (outBandwith < outputSize * frequency)
+			return String.format("Point 2 violated at %s:\n Total output size per second %s >= bandwith %s of outgoing links", 
+					node, outputSize * frequency, outBandwith);
+		
+		int linkedNodesInput = getOutgoingLinks(node).stream().mapToInt(link -> {
+			if(link.getTarget() != null && link.getTarget().getNodetype() != null)
+				return determineInputSize(link.getTarget().getNodetype());
+			return 0;
+		}).sum();
+		if (outputSize > 0 && linkedNodesInput < outputSize)
+			return String.format("Point 3 violated at %s:\\n\"\n"
+					+" Overall output size %s > input size %s for connected outgoing link targets",
+					node, outputSize, linkedNodesInput);
+		return null;
+	}
+	
+	/**
+	 * Calculate input size for a NodeType while also regarding refining types
+	 * @param type
+	 * @return
+	 */
+	private int determineInputSize(NodeType type) {
+		return type.getRefines().stream().mapToInt(t->determineInputSize(t)).sum()
+				+ determineSizeOfData(type.getInput());
+	}
+	
+	/**
+	 * Calculate output size for a NodeType while also regarding refining types
+	 * @param type
+	 * @return
+	 */
+	private int determineOutputSize(NodeType type) {
+		return type.getRefines().stream().mapToInt(t->determineOutputSize(t)).sum()
+				+ determineSizeOfData(type.getOutput());
+	}
+	
+	private Collection<PrimitiveNodeLink> getOutgoingLinks(Node node) {
 		ArrayList<PrimitiveNodeLink> result = new ArrayList<>();
 		for(Setting ref : getInverseReferences(node)) {
 			EObject o = ref.getEObject();
@@ -74,7 +114,7 @@ public class BWCPSAnalyzer {
 		return result;
 	}
 	
-	private static Collection<PrimitiveNodeLink> getIncomingLinks(Node node) {
+	private Collection<PrimitiveNodeLink> getIncomingLinks(Node node) {
 		ArrayList<PrimitiveNodeLink> result = new ArrayList<>();
 		for(Setting ref : getInverseReferences(node)) {
 			EObject o = ref.getEObject();
