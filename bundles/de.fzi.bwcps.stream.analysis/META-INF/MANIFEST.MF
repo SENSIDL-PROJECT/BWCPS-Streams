@@ -8,3 +8,4 @@ Automatic-Module-Name: de.fzi.bwcps.stream.analysis
 Bundle-RequiredExecutionEnvironment: JavaSE-13
 Require-Bundle: org.eclipse.ui,
  de.fzi.bwcps.stream.metamodel.editor;bundle-version="0.1.0"
+Export-Package: de.fzi.bwcps.stream.analysis

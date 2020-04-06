@@ -2,6 +2,9 @@ package de.fzi.bwcps.stream.design;
 
 import org.eclipse.emf.ecore.EObject;
 
+import de.fzi.bwcps.stream.analysis.BWCPSAnalyzer;
+import de.fzi.bwcps.stream.bwcps_streams.entity.Node;
+
 /**
  * The services class used by VSM.
  */
@@ -13,5 +16,11 @@ public class Services {
     public EObject myService(EObject self, String arg) {
        // TODO Auto-generated code
       return self;
+    }
+    
+    public String analyzeNode(EObject self) {
+    	if (self instanceof Node)
+    		return new BWCPSAnalyzer().analyzeNode((Node)self);
+    	return null;
     }
 }

@@ -84,7 +84,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="nodetype" lowerBound="1"
           eType="#//entity/NodeType"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="operationalDeployment"
-          lowerBound="1" eType="#//operations/OperationDeployment" containment="true"/>
+          eType="#//operations/OperationDeployment" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="operational" upperBound="-1"
           eType="#//operations/Operation"/>
     </eClassifiers>

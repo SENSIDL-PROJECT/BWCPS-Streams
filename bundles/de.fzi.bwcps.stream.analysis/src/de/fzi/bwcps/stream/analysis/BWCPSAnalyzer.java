@@ -23,7 +23,7 @@ public class BWCPSAnalyzer {
 	
 	public void start(NamedElement startingPoint) {
 		// Add cross references adapter to resource set resolve inverse cross references
-		EcoreUtil.getRootContainer(startingPoint).eResource().getResourceSet()
+		startingPoint.eResource().getResourceSet()
 			.eAdapters().add(new ECrossReferenceAdapter());
 		
 		Notifier rootObj = EcoreUtil.getRootContainer(startingPoint, true);		
@@ -39,7 +39,7 @@ public class BWCPSAnalyzer {
 			Collection<Node> nodes = EcoreUtil.getObjectsByType(root.getNodes(),
 					entityPackage.eINSTANCE.getNode());
 			for(Node node: nodes) {
-				String result = analyzeNode(node);
+				String result = analyzeNode_internal(node);
 				if(result != null) System.err.println(result);
 			}
 		}		
@@ -55,7 +55,7 @@ public class BWCPSAnalyzer {
 	 * @param node
 	 * @return Error message or null
 	 */
-	public String analyzeNode(Node node) {
+	private String analyzeNode_internal(Node node) {
 		NodeType type = node.getNodetype();
 		if(type == null ) return String.format("NodeType for Node %s not set!", node);
 		int inputSize = determineInputSize(type);
@@ -83,6 +83,25 @@ public class BWCPSAnalyzer {
 					node, outputSize, linkedNodesInput);
 		return null;
 	}
+	
+	/**
+	 * Analyzes a BWCPS node based on three qualities and returns an error message if any of them are not fulfilled:
+	 * * 1. If input size > 0 and at least one incoming connection exists
+	 * * 2. Total output size per second <= bandwidth of outgoing links
+	 * * 3. Overall output size <= input size for connected outgoing link targets
+	 * If all qualities are fulfilled the method returns null.
+	 *  
+	 * @param node
+	 * @return Error message or null
+	 */
+	public String analyzeNode(Node node) {		
+		if (ECrossReferenceAdapter.getCrossReferenceAdapter(node) == null)
+		// Add cross references adapter to resource set resolve inverse cross references
+		node.eResource().getResourceSet()
+			.eAdapters().add(new ECrossReferenceAdapter());
+		return analyzeNode_internal(node);
+	}
+	
 	
 	/**
 	 * Calculate input size for a NodeType while also regarding refining types
