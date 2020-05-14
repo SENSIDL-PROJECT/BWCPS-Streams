@@ -1,4 +1,4 @@
-# BWCPS-Metamodel
+# BWCPS-Streams
 
 This project is intended to provide a language for Stream modeling with respect to Edge- and Security-Analytics.
 
