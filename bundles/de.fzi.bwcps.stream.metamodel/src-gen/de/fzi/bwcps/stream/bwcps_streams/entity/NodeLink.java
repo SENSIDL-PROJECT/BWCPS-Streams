@@ -16,6 +16,7 @@ import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement;
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink#getSource <em>Source</em>}</li>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink#getTarget <em>Target</em>}</li>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink#getSecurityMeasure <em>Security Measure</em>}</li>
+ *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink#getBandwith <em>Bandwith</em>}</li>
  * </ul>
  *
  * @see de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage#getNodeLink()
@@ -92,5 +93,27 @@ public interface NodeLink extends NamedElement {
 	 * @generated
 	 */
 	void setSecurityMeasure(SecurityMeasure value);
+
+	/**
+	 * Returns the value of the '<em><b>Bandwith</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bandwith</em>' attribute.
+	 * @see #setBandwith(int)
+	 * @see de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage#getNodeLink_Bandwith()
+	 * @model
+	 * @generated
+	 */
+	int getBandwith();
+
+	/**
+	 * Sets the value of the '{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink#getBandwith <em>Bandwith</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bandwith</em>' attribute.
+	 * @see #getBandwith()
+	 * @generated
+	 */
+	void setBandwith(int value);
 
 } // NodeLink

@@ -53,6 +53,7 @@ public class NodeLinkItemProvider extends NamedElementItemProvider {
 			addSourcePropertyDescriptor(object);
 			addTargetPropertyDescriptor(object);
 			addSecurityMeasurePropertyDescriptor(object);
+			addBandwithPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -104,6 +105,22 @@ public class NodeLinkItemProvider extends NamedElementItemProvider {
 	}
 
 	/**
+	 * This adds a property descriptor for the Bandwith feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBandwithPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_NodeLink_bandwith_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_NodeLink_bandwith_feature",
+								"_UI_NodeLink_type"),
+						entityPackage.Literals.NODE_LINK__BANDWITH, true, false, false,
+						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -139,6 +156,7 @@ public class NodeLinkItemProvider extends NamedElementItemProvider {
 
 		switch (notification.getFeatureID(NodeLink.class)) {
 		case entityPackage.NODE_LINK__SECURITY_MEASURE:
+		case entityPackage.NODE_LINK__BANDWITH:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

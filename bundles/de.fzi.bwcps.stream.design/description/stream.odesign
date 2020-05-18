@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:validation="http://www.eclipse.org/sirius/description/validation/1.1.0" name="stream" version="12.0.0.2017041100">
+  <ownedViewpoints name="StreamDiagrams" label="Stream Diagrams">
+    <validationSet name="Node Analysis">
+      <ownedRules xsi:type="validation:SemanticValidationRule" name="Analyze Node" level="WARNING" message="aql:self.analyzeNode()" targetClass="entity::Node">
+        <audits auditExpression="aql:self.analyzeNode() = null"/>
+      </ownedRules>
+    </validationSet>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Streams" domainClass="StreamRepository" enablePopupBars="true">
+      <metamodel href="http://www.fzi.de/bwcps/stream/commons/1.0#/"/>
+      <metamodel href="http://www.fzi.de/bwcps/stream/entity/1.0#/"/>
+      <metamodel href="http://www.fzi.de/bwcps/stream/operations/1.0#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="Stream" semanticCandidatesExpression="feature:streams" domainClass="Stream">
+          <style xsi:type="style:DotDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="StreamNodeLink" semanticCandidatesExpression="aql:self.nodelinks" sourceMapping="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']" targetMapping="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="NodeLink" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+          <conditionnalStyles predicateExpression="aql:self.oclIsTypeOf(entity::AggregatedNodeLink)">
+            <style lineStyle="dot" sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+              <centerLabelStyleDescription labelSize="12">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+        </edgeMappings>
+        <containerMappings name="NodeContainer" semanticCandidatesExpression="feature:container" domainClass="entity::NodeContainer">
+          <subNodeMappings name="Node" semanticCandidatesExpression="feature:nodes" domainClass="Node">
+            <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="8" height="4">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+            <conditionnalStyles predicateExpression="aql:self.nodetype.oclIsTypeOf(entity::SourceNodeType)">
+              <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="8" height="4">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              </style>
+            </conditionnalStyles>
+            <conditionnalStyles predicateExpression="aql:self.nodetype.oclIsTypeOf(entity::SinkNodeType)">
+              <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="8" height="4">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+              </style>
+            </conditionnalStyles>
+            <conditionnalStyles predicateExpression="aql:self.nodetype.oclIsTypeOf(entity::SinkSourceNodeType)">
+              <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="8" height="4">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='orange']"/>
+              </style>
+            </conditionnalStyles>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Nodes" domainClass="StreamRepository" enablePopupBars="true">
+      <metamodel href="http://www.fzi.de/bwcps/stream/commons/1.0#/"/>
+      <metamodel href="http://www.fzi.de/bwcps/stream/entity/1.0#/"/>
+      <metamodel href="http://www.fzi.de/bwcps/stream/operations/1.0#/"/>
+      <defaultLayer name="Default">
+        <edgeMappings name="NodeLink" sourceMapping="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Nodes']/@defaultLayer/@containerMappings[name='Node']" targetMapping="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Nodes']/@defaultLayer/@containerMappings[name='Node']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="entity::NodeLink" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="Node" domainClass="Node">
+          <borderedNodeMappings name="Input" semanticCandidatesExpression="aql:self" domainClass="Node">
+            <style xsi:type="style:BundledImageDescription" labelSize="12" showIcon="false" labelExpression="In" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </borderedNodeMappings>
+          <borderedNodeMappings name="Output" semanticCandidatesExpression="aql:self" domainClass="Node">
+            <style xsi:type="style:BundledImageDescription" labelSize="12" showIcon="false" labelExpression="Out" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </borderedNodeMappings>
+          <subNodeMappings name="Deployment" semanticCandidatesExpression="feature:eAllContents"/>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12" showIcon="false">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </containerMappings>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="de.fzi.bwcps.stream.design.Services"/>
+  </ownedViewpoints>
+  <extensions xsi:type="properties:ViewExtensionDescription">
+    <categories>
+      <pages>
+        <extends href="platform:/plugin/org.eclipse.sirius.properties.defaultrules/model/properties.odesign#//@extensions.0/@categories.0/@pages.0"/>
+      </pages>
+      <pages labelExpression="NodeType" domainClass="NodeType" semanticCandidateExpression="aql:self.oclAsType(entity::Node).nodetype" preconditionExpression="aql:self.oclIsKindOf(entity::Node)">
+        <extends href="platform:/plugin/org.eclipse.sirius.properties.defaultrules/model/properties.odesign#//@extensions.0/@categories.0/@pages.0"/>
+      </pages>
+    </categories>
+  </extensions>
+</description:Group>

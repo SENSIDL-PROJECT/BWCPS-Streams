@@ -198,13 +198,22 @@ public interface entityPackage extends EPackage {
 	int NODE_LINK__SECURITY_MEASURE = commonsPackage.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Bandwith</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_LINK__BANDWITH = commonsPackage.NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Node Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_LINK_FEATURE_COUNT = commonsPackage.NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int NODE_LINK_FEATURE_COUNT = commonsPackage.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Node Link</em>' class.
@@ -260,6 +269,15 @@ public interface entityPackage extends EPackage {
 	 * @ordered
 	 */
 	int AGGREGATED_NODE_LINK__SECURITY_MEASURE = NODE_LINK__SECURITY_MEASURE;
+
+	/**
+	 * The feature id for the '<em><b>Bandwith</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AGGREGATED_NODE_LINK__BANDWITH = NODE_LINK__BANDWITH;
 
 	/**
 	 * The feature id for the '<em><b>Aggregated Links</b></em>' reference list.
@@ -463,6 +481,15 @@ public interface entityPackage extends EPackage {
 	int PRIMITIVE_NODE_LINK__SECURITY_MEASURE = NODE_LINK__SECURITY_MEASURE;
 
 	/**
+	 * The feature id for the '<em><b>Bandwith</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_NODE_LINK__BANDWITH = NODE_LINK__BANDWITH;
+
+	/**
 	 * The number of structural features of the '<em>Primitive Node Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -646,13 +673,22 @@ public interface entityPackage extends EPackage {
 	int SOURCE_NODE_TYPE__OUTPUT = NODE_TYPE__OUTPUT;
 
 	/**
+	 * The feature id for the '<em><b>Frequency</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOURCE_NODE_TYPE__FREQUENCY = NODE_TYPE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Source Node Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_NODE_TYPE_FEATURE_COUNT = NODE_TYPE_FEATURE_COUNT + 0;
+	int SOURCE_NODE_TYPE_FEATURE_COUNT = NODE_TYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Source Node Type</em>' class.
@@ -708,6 +744,15 @@ public interface entityPackage extends EPackage {
 	 * @ordered
 	 */
 	int SINK_SOURCE_NODE_TYPE__OUTPUT = SOURCE_NODE_TYPE__OUTPUT;
+
+	/**
+	 * The feature id for the '<em><b>Frequency</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SINK_SOURCE_NODE_TYPE__FREQUENCY = SOURCE_NODE_TYPE__FREQUENCY;
 
 	/**
 	 * The number of structural features of the '<em>Sink Source Node Type</em>' class.
@@ -1106,6 +1151,17 @@ public interface entityPackage extends EPackage {
 	EAttribute getNodeLink_SecurityMeasure();
 
 	/**
+	 * Returns the meta object for the attribute '{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink#getBandwith <em>Bandwith</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bandwith</em>'.
+	 * @see de.fzi.bwcps.stream.bwcps_streams.entity.NodeLink#getBandwith()
+	 * @see #getNodeLink()
+	 * @generated
+	 */
+	EAttribute getNodeLink_Bandwith();
+
+	/**
 	 * Returns the meta object for class '{@link de.fzi.bwcps.stream.bwcps_streams.entity.EdgeGateway <em>Edge Gateway</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1134,6 +1190,17 @@ public interface entityPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getSourceNodeType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link de.fzi.bwcps.stream.bwcps_streams.entity.SourceNodeType#getFrequency <em>Frequency</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Frequency</em>'.
+	 * @see de.fzi.bwcps.stream.bwcps_streams.entity.SourceNodeType#getFrequency()
+	 * @see #getSourceNodeType()
+	 * @generated
+	 */
+	EAttribute getSourceNodeType_Frequency();
 
 	/**
 	 * Returns the meta object for class '{@link de.fzi.bwcps.stream.bwcps_streams.entity.SinkNodeType <em>Sink Node Type</em>}'.
@@ -1419,6 +1486,14 @@ public interface entityPackage extends EPackage {
 		EAttribute NODE_LINK__SECURITY_MEASURE = eINSTANCE.getNodeLink_SecurityMeasure();
 
 		/**
+		 * The meta object literal for the '<em><b>Bandwith</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NODE_LINK__BANDWITH = eINSTANCE.getNodeLink_Bandwith();
+
+		/**
 		 * The meta object literal for the '{@link de.fzi.bwcps.stream.bwcps_streams.entity.impl.EdgeGatewayImpl <em>Edge Gateway</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1447,6 +1522,14 @@ public interface entityPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SOURCE_NODE_TYPE = eINSTANCE.getSourceNodeType();
+
+		/**
+		 * The meta object literal for the '<em><b>Frequency</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOURCE_NODE_TYPE__FREQUENCY = eINSTANCE.getSourceNodeType_Frequency();
 
 		/**
 		 * The meta object literal for the '{@link de.fzi.bwcps.stream.bwcps_streams.entity.impl.SinkNodeTypeImpl <em>Sink Node Type</em>}' class.
