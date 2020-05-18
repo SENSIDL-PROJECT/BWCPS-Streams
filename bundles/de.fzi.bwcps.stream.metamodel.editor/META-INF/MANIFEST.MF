@@ -8,7 +8,7 @@ Bundle-ClassPath: .
 Bundle-Activator: de.fzi.bwcps.stream.bwcps_streams.operations.presentation.MetamodelEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: de.fzi.bwcps.stream.bwcps_streams.commons.presentation,
  de.fzi.bwcps.stream.bwcps_streams.entity.presentation,
  de.fzi.bwcps.stream.bwcps_streams.operations.presentation

@@ -13,6 +13,6 @@ Require-Bundle: org.eclipse.ui,
  de.fzi.bwcps.stream.metamodel,
  de.fzi.bwcps.stream.analysis;bundle-version="0.1.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: %providerName
 Automatic-Module-Name: de.fzi.bwcps.stream.design

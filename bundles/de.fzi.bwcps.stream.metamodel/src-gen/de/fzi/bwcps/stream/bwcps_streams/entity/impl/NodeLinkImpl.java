@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.impl.NodeLinkImpl#getSource <em>Source</em>}</li>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.impl.NodeLinkImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.impl.NodeLinkImpl#getSecurityMeasure <em>Security Measure</em>}</li>
+ *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.impl.NodeLinkImpl#getBandwith <em>Bandwith</em>}</li>
  * </ul>
  *
  * @generated
@@ -71,6 +72,26 @@ public abstract class NodeLinkImpl extends NamedElementImpl implements NodeLink 
 	 * @ordered
 	 */
 	protected SecurityMeasure securityMeasure = SECURITY_MEASURE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBandwith() <em>Bandwith</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBandwith()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int BANDWITH_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getBandwith() <em>Bandwith</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBandwith()
+	 * @generated
+	 * @ordered
+	 */
+	protected int bandwith = BANDWITH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -203,6 +224,30 @@ public abstract class NodeLinkImpl extends NamedElementImpl implements NodeLink 
 	 * @generated
 	 */
 	@Override
+	public int getBandwith() {
+		return bandwith;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBandwith(int newBandwith) {
+		int oldBandwith = bandwith;
+		bandwith = newBandwith;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, entityPackage.NODE_LINK__BANDWITH, oldBandwith,
+					bandwith));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case entityPackage.NODE_LINK__SOURCE:
@@ -215,6 +260,8 @@ public abstract class NodeLinkImpl extends NamedElementImpl implements NodeLink 
 			return basicGetTarget();
 		case entityPackage.NODE_LINK__SECURITY_MEASURE:
 			return getSecurityMeasure();
+		case entityPackage.NODE_LINK__BANDWITH:
+			return getBandwith();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -235,6 +282,9 @@ public abstract class NodeLinkImpl extends NamedElementImpl implements NodeLink 
 			return;
 		case entityPackage.NODE_LINK__SECURITY_MEASURE:
 			setSecurityMeasure((SecurityMeasure) newValue);
+			return;
+		case entityPackage.NODE_LINK__BANDWITH:
+			setBandwith((Integer) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -257,6 +307,9 @@ public abstract class NodeLinkImpl extends NamedElementImpl implements NodeLink 
 		case entityPackage.NODE_LINK__SECURITY_MEASURE:
 			setSecurityMeasure(SECURITY_MEASURE_EDEFAULT);
 			return;
+		case entityPackage.NODE_LINK__BANDWITH:
+			setBandwith(BANDWITH_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -275,6 +328,8 @@ public abstract class NodeLinkImpl extends NamedElementImpl implements NodeLink 
 			return target != null;
 		case entityPackage.NODE_LINK__SECURITY_MEASURE:
 			return securityMeasure != SECURITY_MEASURE_EDEFAULT;
+		case entityPackage.NODE_LINK__BANDWITH:
+			return bandwith != BANDWITH_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -292,6 +347,8 @@ public abstract class NodeLinkImpl extends NamedElementImpl implements NodeLink 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (securityMeasure: ");
 		result.append(securityMeasure);
+		result.append(", bandwith: ");
+		result.append(bandwith);
 		result.append(')');
 		return result.toString();
 	}

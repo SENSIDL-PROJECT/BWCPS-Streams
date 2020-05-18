@@ -439,6 +439,16 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getNodeLink_Bandwith() {
+		return (EAttribute) nodeLinkEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getEdgeGateway() {
 		return edgeGatewayEClass;
 	}
@@ -461,6 +471,16 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 	@Override
 	public EClass getSourceNodeType() {
 		return sourceNodeTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSourceNodeType_Frequency() {
+		return (EAttribute) sourceNodeTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -600,12 +620,14 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 		createEReference(nodeLinkEClass, NODE_LINK__SOURCE);
 		createEReference(nodeLinkEClass, NODE_LINK__TARGET);
 		createEAttribute(nodeLinkEClass, NODE_LINK__SECURITY_MEASURE);
+		createEAttribute(nodeLinkEClass, NODE_LINK__BANDWITH);
 
 		edgeGatewayEClass = createEClass(EDGE_GATEWAY);
 
 		dataSinkEClass = createEClass(DATA_SINK);
 
 		sourceNodeTypeEClass = createEClass(SOURCE_NODE_TYPE);
+		createEAttribute(sourceNodeTypeEClass, SOURCE_NODE_TYPE__FREQUENCY);
 
 		sinkNodeTypeEClass = createEClass(SINK_NODE_TYPE);
 
@@ -714,7 +736,7 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 		initEReference(getNode_Nodetype(), this.getNodeType(), null, "nodetype", null, 1, 1, Node.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
-		initEReference(getNode_Operational(), theoperationsPackage.getOperation(), null, "operational", null, 1, -1,
+		initEReference(getNode_Operational(), theoperationsPackage.getOperation(), null, "operational", null, 0, -1,
 				Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -731,6 +753,8 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 		initEAttribute(getNodeLink_SecurityMeasure(), this.getSecurityMeasure(), "securityMeasure", "NONE", 0, 1,
 				NodeLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNodeLink_Bandwith(), ecorePackage.getEInt(), "bandwith", null, 0, 1, NodeLink.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(edgeGatewayEClass, EdgeGateway.class, "EdgeGateway", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -740,6 +764,9 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 
 		initEClass(sourceNodeTypeEClass, SourceNodeType.class, "SourceNodeType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSourceNodeType_Frequency(), ecorePackage.getEInt(), "frequency", null, 0, 1,
+				SourceNodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(sinkNodeTypeEClass, SinkNodeType.class, "SinkNodeType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

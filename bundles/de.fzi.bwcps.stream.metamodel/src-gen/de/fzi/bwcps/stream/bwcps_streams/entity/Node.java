@@ -55,7 +55,7 @@ public interface Node extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Operational</em>' reference list.
 	 * @see de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage#getNode_Operational()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	EList<Operation> getOperational();

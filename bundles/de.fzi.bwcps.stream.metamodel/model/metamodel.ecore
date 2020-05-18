@@ -51,11 +51,6 @@
     <eClassifiers xsi:type="ecore:EClass" name="AtomicOperation" eSuperTypes="#//operations/Operation"/>
     <eClassifiers xsi:type="ecore:EClass" name="Projection" eSuperTypes="#//operations/OperationType"/>
     <eClassifiers xsi:type="ecore:EClass" name="OperationType" abstract="true"/>
-    <eClassifiers xsi:type="ecore:EClass" name="OperationDeployment">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="operation" eType="#//operations/Operation"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="nextDeployment" eType="#//operations/OperationDeployment"
-          containment="true"/>
-    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="entity" nsURI="http://www.fzi.de/bwcps/stream/entity/1.0" nsPrefix="entity">
     <eClassifiers xsi:type="ecore:EClass" name="EdgeDevice" eSuperTypes="#//entity/NodeContainer"/>
@@ -83,8 +78,6 @@
     <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//commons/NamedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="nodetype" lowerBound="1"
           eType="#//entity/NodeType"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="operationalDeployment"
-          eType="#//operations/OperationDeployment" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="operational" upperBound="-1"
           eType="#//operations/Operation"/>
     </eClassifiers>
