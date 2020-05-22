@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.ECrossReferenceAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import de.fzi.bwcps.stream.analysis.util.BWCPSDataInterpreter;
+import de.fzi.bwcps.stream.analysis.util.BWCPSDataInterpreterImpl;
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement;
 import de.fzi.bwcps.stream.bwcps_streams.entity.Node;
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeType;
@@ -17,9 +19,17 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.SourceNodeType;
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
 import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
 
-import static de.fzi.bwcps.stream.analysis.util.BWCPSDataInterpreter.determineSizeOfData;
-
 public class BWCPSAnalyzer {
+	
+	BWCPSDataInterpreter dataInterpreter;
+	
+	public BWCPSAnalyzer() {
+		dataInterpreter = new BWCPSDataInterpreterImpl();
+	}
+	
+	public BWCPSAnalyzer(BWCPSDataInterpreter customDataInterpreter) {
+		this.dataInterpreter = customDataInterpreter;
+	}
 	
 	public void start(NamedElement startingPoint) {
 		// Add cross references adapter to resource set resolve inverse cross references
@@ -110,7 +120,7 @@ public class BWCPSAnalyzer {
 	 */
 	private int determineInputSize(NodeType type) {
 		return type.getRefines().stream().mapToInt(t->determineInputSize(t)).sum()
-				+ determineSizeOfData(type.getInput());
+				+ dataInterpreter.determineSizeOfData(type.getInput());
 	}
 	
 	/**
@@ -120,7 +130,7 @@ public class BWCPSAnalyzer {
 	 */
 	private int determineOutputSize(NodeType type) {
 		return type.getRefines().stream().mapToInt(t->determineOutputSize(t)).sum()
-				+ determineSizeOfData(type.getOutput());
+				+ dataInterpreter.determineSizeOfData(type.getOutput());
 	}
 	
 	private Collection<PrimitiveNodeLink> getOutgoingLinks(Node node) {
