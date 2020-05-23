@@ -1,8 +1,10 @@
 package de.fzi.bwcps.stream.analysis;
 
+import static de.fzi.bwcps.stream.analysis.util.BWCPSEcoreUtils.getInverseReferences;
+
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
@@ -21,7 +23,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
 
 public class BWCPSAnalyzer {
 	
-	BWCPSDataInterpreter dataInterpreter;
+	BWCPSDataInterpreter dataInterpreter;	
 	
 	public BWCPSAnalyzer() {
 		dataInterpreter = new BWCPSDataInterpreterImpl();
@@ -39,6 +41,8 @@ public class BWCPSAnalyzer {
 		Notifier rootObj = EcoreUtil.getRootContainer(startingPoint, true);		
 		if (rootObj instanceof StreamRepository) {
 			StreamRepository root = (StreamRepository) rootObj;
+			
+			new BWCPSTimelinessAnalyzer().run(root.getStreams());
 			
 			/* Validate 3 points for each Node: 
 			 * 1. If input size > 0 and at least one incoming connection exists
@@ -105,10 +109,10 @@ public class BWCPSAnalyzer {
 	 * @return Error message or null
 	 */
 	public String analyzeNode(Node node) {		
-		if (ECrossReferenceAdapter.getCrossReferenceAdapter(node) == null)
+		if (ECrossReferenceAdapter.getCrossReferenceAdapter(node) == null) {
 		// Add cross references adapter to resource set resolve inverse cross references
-		node.eResource().getResourceSet()
-			.eAdapters().add(new ECrossReferenceAdapter());
+			node.eResource().getResourceSet().eAdapters().add(new ECrossReferenceAdapter());
+		}
 		return analyzeNode_internal(node);
 	}
 	
@@ -152,12 +156,4 @@ public class BWCPSAnalyzer {
 		}
 		return result;
 	}
-	
-	private static Collection<Setting> getInverseReferences(EObject eObject) {
-		  ECrossReferenceAdapter crossReferenceAdapter = ECrossReferenceAdapter
-		    .getCrossReferenceAdapter(eObject);
-		  return crossReferenceAdapter == null
-		    ? Collections.<Setting> emptyList()
-		    : crossReferenceAdapter.getInverseReferences(eObject, true);
-		}
 }
