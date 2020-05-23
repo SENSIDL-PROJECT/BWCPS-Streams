@@ -313,6 +313,16 @@ public class operationsPackageImpl extends EPackageImpl implements operationsPac
 	 * @generated
 	 */
 	@Override
+	public EAttribute getOperation_ProcessingUnits() {
+		return (EAttribute) operationEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getAggregating() {
 		return aggregatingEClass;
 	}
@@ -518,6 +528,7 @@ public class operationsPackageImpl extends EPackageImpl implements operationsPac
 		createEReference(operationEClass, OPERATION__TYPE);
 		createEReference(operationEClass, OPERATION__DOMAIN);
 		createEReference(operationEClass, OPERATION__RANGE);
+		createEAttribute(operationEClass, OPERATION__PROCESSING_UNITS);
 
 		aggregatingEClass = createEClass(AGGREGATING);
 		createEAttribute(aggregatingEClass, AGGREGATING__SIZE);
@@ -616,6 +627,9 @@ public class operationsPackageImpl extends EPackageImpl implements operationsPac
 		initEReference(getOperation_Range(), this.getDomain(), null, "range", null, 1, 1, Operation.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOperation_ProcessingUnits(), ecorePackage.getEInt(), "processingUnits", null, 0, 1,
+				Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(aggregatingEClass, Aggregating.class, "Aggregating", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

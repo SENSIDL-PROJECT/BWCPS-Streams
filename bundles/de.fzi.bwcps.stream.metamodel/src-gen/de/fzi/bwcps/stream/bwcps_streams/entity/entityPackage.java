@@ -88,13 +88,22 @@ public interface entityPackage extends EPackage {
 	int NODE_CONTAINER__NODES = commonsPackage.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Processing Speed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_CONTAINER__PROCESSING_SPEED = commonsPackage.NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Node Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_CONTAINER_FEATURE_COUNT = commonsPackage.NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int NODE_CONTAINER_FEATURE_COUNT = commonsPackage.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Node Container</em>' class.
@@ -132,6 +141,15 @@ public interface entityPackage extends EPackage {
 	 * @ordered
 	 */
 	int EDGE_DEVICE__NODES = NODE_CONTAINER__NODES;
+
+	/**
+	 * The feature id for the '<em><b>Processing Speed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_DEVICE__PROCESSING_SPEED = NODE_CONTAINER__PROCESSING_SPEED;
 
 	/**
 	 * The number of structural features of the '<em>Edge Device</em>' class.
@@ -801,6 +819,15 @@ public interface entityPackage extends EPackage {
 	int EDGE_GATEWAY__NODES = NODE_CONTAINER__NODES;
 
 	/**
+	 * The feature id for the '<em><b>Processing Speed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_GATEWAY__PROCESSING_SPEED = NODE_CONTAINER__PROCESSING_SPEED;
+
+	/**
 	 * The number of structural features of the '<em>Edge Gateway</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -845,6 +872,15 @@ public interface entityPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_SINK__NODES = NODE_CONTAINER__NODES;
+
+	/**
+	 * The feature id for the '<em><b>Processing Speed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SINK__PROCESSING_SPEED = NODE_CONTAINER__PROCESSING_SPEED;
 
 	/**
 	 * The number of structural features of the '<em>Data Sink</em>' class.
@@ -1234,6 +1270,17 @@ public interface entityPackage extends EPackage {
 	EReference getNodeContainer_Nodes();
 
 	/**
+	 * Returns the meta object for the attribute '{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer#getProcessingSpeed <em>Processing Speed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Processing Speed</em>'.
+	 * @see de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer#getProcessingSpeed()
+	 * @see #getNodeContainer()
+	 * @generated
+	 */
+	EAttribute getNodeContainer_ProcessingSpeed();
+
+	/**
 	 * Returns the meta object for class '{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeType <em>Node Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1558,6 +1605,14 @@ public interface entityPackage extends EPackage {
 		 * @generated
 		 */
 		EReference NODE_CONTAINER__NODES = eINSTANCE.getNodeContainer_Nodes();
+
+		/**
+		 * The meta object literal for the '<em><b>Processing Speed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NODE_CONTAINER__PROCESSING_SPEED = eINSTANCE.getNodeContainer_ProcessingSpeed();
 
 		/**
 		 * The meta object literal for the '{@link de.fzi.bwcps.stream.bwcps_streams.entity.impl.NodeTypeImpl <em>Node Type</em>}' class.

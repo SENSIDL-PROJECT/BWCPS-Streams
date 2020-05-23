@@ -3,13 +3,11 @@
 package de.fzi.bwcps.stream.bwcps_streams.entity.provider;
 
 import de.fzi.bwcps.stream.bwcps_streams.entity.EdgeDevice;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 
 /**

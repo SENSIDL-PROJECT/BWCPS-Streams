@@ -4,7 +4,6 @@ package de.fzi.bwcps.stream.bwcps_streams.entity.impl;
 
 import de.fzi.bwcps.stream.bwcps_streams.entity.EdgeDevice;
 import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
-
 import org.eclipse.emf.ecore.EClass;
 
 /**

@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer} object.
@@ -49,6 +51,7 @@ public class NodeContainerItemProvider extends NamedElementItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addNodesPropertyDescriptor(object);
+			addProcessingSpeedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -66,6 +69,22 @@ public class NodeContainerItemProvider extends NamedElementItemProvider {
 						getString("_UI_PropertyDescriptor_description", "_UI_NodeContainer_nodes_feature",
 								"_UI_NodeContainer_type"),
 						entityPackage.Literals.NODE_CONTAINER__NODES, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Processing Speed feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addProcessingSpeedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_NodeContainer_processingSpeed_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_NodeContainer_processingSpeed_feature",
+								"_UI_NodeContainer_type"),
+						entityPackage.Literals.NODE_CONTAINER__PROCESSING_SPEED, true, false, false,
+						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -101,6 +120,12 @@ public class NodeContainerItemProvider extends NamedElementItemProvider {
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(NodeContainer.class)) {
+		case entityPackage.NODE_CONTAINER__PROCESSING_SPEED:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
+		}
 		super.notifyChanged(notification);
 	}
 
