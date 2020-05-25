@@ -5,6 +5,9 @@
       <ownedRules xsi:type="validation:SemanticValidationRule" name="Analyze Node" level="WARNING" message="aql:self.analyzeNode()" targetClass="entity::Node">
         <audits auditExpression="aql:self.analyzeNode() = null"/>
       </ownedRules>
+      <ownedRules xsi:type="validation:SemanticValidationRule" name="AnalyzeStream" label="Analyze Stream" message="aql:self.analyzeStream()" targetClass="entity::Stream">
+        <audits auditExpression="aql:self.analyzeStream() = null"/>
+      </ownedRules>
     </validationSet>
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Streams" domainClass="StreamRepository" enablePopupBars="true">
       <metamodel href="http://www.fzi.de/bwcps/stream/commons/1.0#/"/>

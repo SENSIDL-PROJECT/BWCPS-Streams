@@ -42,8 +42,6 @@ public class BWCPSAnalyzer {
 		if (rootObj instanceof StreamRepository) {
 			StreamRepository root = (StreamRepository) rootObj;
 			
-			new BWCPSTimelinessAnalyzer().run(root.getStreams());
-			
 			/* Validate 3 points for each Node: 
 			 * 1. If input size > 0 and at least one incoming connection exists
 			 * 2. Total output size per second <= bandwidth of outgoing links

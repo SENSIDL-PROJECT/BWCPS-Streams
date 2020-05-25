@@ -27,7 +27,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.Stream;
 import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
 import de.fzi.bwcps.stream.bwcps_streams.operations.Operation;
 
-public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>{
+public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>, BWCPSSingleElementAnalysis<Stream>{
 
 	public List<BWCPSAnalysisReport> run(List<Stream> elements) {
 		List<BWCPSAnalysisReport> results = new ArrayList<>();
@@ -35,6 +35,10 @@ public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>{
 			results.add(analyzeStreamTimeliness(s));
 		}
 		return results;
+	}
+	
+	public BWCPSAnalysisReport run(Stream element) {
+		return analyzeStreamTimeliness(element);
 	}
 	
 	/**
@@ -103,7 +107,7 @@ public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>{
 				if (edgePower == 0) {
 					map.put(buildReportNoComputingPower(node), 0f);
 				} else {
-					duration = nodeOps / edgePower;
+					duration = nodeOps / (float) edgePower;
 					map.put(buildReport(node, duration), duration);
 				}
 			} catch (NodeNotDeployedException e) {
@@ -156,7 +160,11 @@ public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>{
 		return aggregatedDuration;
 	}
 	
-	private class NodeNotDeployedException extends RuntimeException { }
+	private class NodeNotDeployedException extends RuntimeException {		
+		private static final long serialVersionUID = -5104246542861747581L;
+	}
 	
-	private class NodeDeployedOnMultipleEdgesException extends RuntimeException { }
+	private class NodeDeployedOnMultipleEdgesException extends RuntimeException {
+		private static final long serialVersionUID = -917369879840970730L;
+	}
 }
