@@ -16,6 +16,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 
+import static de.fzi.bwcps.stream.analysis.util.BWCPSEcoreUtils.applyECrossReferenceAdapter;
+
 import de.fzi.bwcps.stream.analysis.report.BWCPSAnalysisReport;
 import de.fzi.bwcps.stream.analysis.report.BWCPSAnalysisReportImpl;
 import de.fzi.bwcps.stream.analysis.report.BWCPSAnalysisReportType;
@@ -29,7 +31,10 @@ import de.fzi.bwcps.stream.bwcps_streams.operations.Operation;
 
 public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>, BWCPSSingleElementAnalysis<Stream>{
 
-	public List<BWCPSAnalysisReport> run(List<Stream> elements) {
+	public List<BWCPSAnalysisReport> run(Collection<Stream> elements) {
+		if(elements == null || elements.isEmpty())
+			return Collections.emptyList();
+		applyECrossReferenceAdapter(elements.iterator().next());
 		List<BWCPSAnalysisReport> results = new ArrayList<>();
 		for (Stream s : elements) {
 			results.add(analyzeStreamTimeliness(s));
@@ -38,6 +43,7 @@ public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>, BWCPSSing
 	}
 	
 	public BWCPSAnalysisReport run(Stream element) {
+		applyECrossReferenceAdapter(element);
 		return analyzeStreamTimeliness(element);
 	}
 	
@@ -55,7 +61,7 @@ public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>, BWCPSSing
 	
 	private BWCPSAnalysisReport buildReport(Stream stream, Map<BWCPSAnalysisReport, Float> latencies) {
 		Collection<BWCPSAnalysisReport> nodeReports = new LinkedList<>();
-		int streamLatency = 0;
+		float streamLatency = 0f;
 		for (Map.Entry<BWCPSAnalysisReport, Float> pair : latencies.entrySet()) {
 			nodeReports.add(pair.getKey());
 			streamLatency += pair.getValue();

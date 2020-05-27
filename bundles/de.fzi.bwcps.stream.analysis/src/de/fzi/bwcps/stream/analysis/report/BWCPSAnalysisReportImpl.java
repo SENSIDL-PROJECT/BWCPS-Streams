@@ -2,7 +2,6 @@ package de.fzi.bwcps.stream.analysis.report;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement;
 
 public class BWCPSAnalysisReportImpl implements BWCPSAnalysisReport {
@@ -65,6 +64,28 @@ public class BWCPSAnalysisReportImpl implements BWCPSAnalysisReport {
 	public BWCPSAnalysisReportImpl detailedReports(Collection<BWCPSAnalysisReport> details) {
 		this.furtherReports = details;
 		return this;
+	}
+	
+	private void reportToStringRecursive(BWCPSAnalysisReport node, StringBuilder result, int depth) {
+		if(node == null)
+	        return;
+	    // add this report to result with indentation
+	    result.append(System.lineSeparator());
+	    for(int i=0; i<depth; i++)
+	        result.append("  ");
+	    result.append(node.getType() + " " + node.getTarget() + ": " + node.getMessage());
+	    
+	    if (node.getDetailedReports() != null)
+		    for (BWCPSAnalysisReport sucessor : node.getDetailedReports()) {
+		    	reportToStringRecursive(sucessor, result, depth + 1);
+		    }
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		reportToStringRecursive(this, builder, 0);
+		return builder.toString();
 	}
 
 }
