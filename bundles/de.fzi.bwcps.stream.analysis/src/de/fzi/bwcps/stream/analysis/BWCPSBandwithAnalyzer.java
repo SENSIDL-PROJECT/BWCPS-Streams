@@ -10,22 +10,20 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
-import org.eclipse.emf.ecore.util.ECrossReferenceAdapter;
 import de.fzi.bwcps.stream.analysis.report.BWCPSAnalysisReport;
 import de.fzi.bwcps.stream.analysis.report.BWCPSAnalysisReportImpl;
 import de.fzi.bwcps.stream.analysis.report.BWCPSAnalysisReportType;
 import de.fzi.bwcps.stream.analysis.util.BWCPSDataInterpreter;
 import de.fzi.bwcps.stream.analysis.util.BWCPSDataInterpreterImpl;
-import de.fzi.bwcps.stream.analysis.util.BWCPSEcoreUtils;
 import de.fzi.bwcps.stream.bwcps_streams.entity.Node;
 import de.fzi.bwcps.stream.bwcps_streams.entity.NodeType;
 import de.fzi.bwcps.stream.bwcps_streams.entity.PrimitiveNodeLink;
 import de.fzi.bwcps.stream.bwcps_streams.entity.SourceNodeType;
 import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
 
-public class BWCPSBandwithAnalyzer implements BWCPSAnalysis<Node>, BWCPSSingleElementAnalysis<Node> {
+public class BWCPSBandwithAnalyzer implements BWCPSSingleElementAnalysis<Node> {
 
-BWCPSDataInterpreter dataInterpreter;	
+	BWCPSDataInterpreter dataInterpreter;	
 	
 	public BWCPSBandwithAnalyzer() {
 		dataInterpreter = new BWCPSDataInterpreterImpl();
@@ -34,7 +32,6 @@ BWCPSDataInterpreter dataInterpreter;
 	public BWCPSBandwithAnalyzer(BWCPSDataInterpreter customDataInterpreter) {
 		this.dataInterpreter = customDataInterpreter;
 	}
-	
 	
 	/**
 	 * Analyzes a BWCPS node based on three qualities and returns an error message if any of them are not fulfilled:

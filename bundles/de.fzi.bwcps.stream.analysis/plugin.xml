@@ -9,6 +9,11 @@
          <defaultHandler
                class="de.fzi.bwcps.stream.analysis.EdgeAnalysisHandler">
          </defaultHandler>
+         <commandParameter
+               id="de.fzi.bwcps.stream.analysis.name"
+               name="Ananlysis name"
+               optional="false">
+         </commandParameter>
       </command>
    </extension>
    <extension
@@ -22,10 +27,29 @@
                mnemonic="A">
             <command
                   commandId="de.fzi.bwcps.stream.analysis.start"
+                  label="Run all analyses"
+                  mnemonic="A"
+                  style="push"
+                  tooltip="Runs all availiable analyses">
+               <parameter
+                     name="de.fzi.bwcps.stream.analysis.name"
+                     value="all">
+               </parameter>
+            </command>
+            <separator
+                  name="de.fzi.bwcps.stream.analysis.sep1"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="de.fzi.bwcps.stream.analysis.start"
                   label="Throughput analysis"
                   mnemonic="T"
                   style="push"
                   tooltip="Performs an edge throughput analysis on the selected bwcps instance">
+               <parameter
+                     name="de.fzi.bwcps.stream.analysis.name"
+                     value="throughput">
+               </parameter>
             </command>
             <command
                   commandId="de.fzi.bwcps.stream.analysis.start"
@@ -33,6 +57,10 @@
                   mnemonic="I"
                   style="push"
                   tooltip="Performs an edge timeliness analysis on the selected bwcps instance">
+               <parameter
+                     name="de.fzi.bwcps.stream.analysis.name"
+                     value="timeliness">
+               </parameter>
             </command>
          </menu>
       </menuContribution>

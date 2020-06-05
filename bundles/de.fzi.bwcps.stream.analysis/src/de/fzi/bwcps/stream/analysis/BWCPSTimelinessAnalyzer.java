@@ -29,7 +29,7 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.Stream;
 import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
 import de.fzi.bwcps.stream.bwcps_streams.operations.Operation;
 
-public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>, BWCPSSingleElementAnalysis<Stream>{
+public class BWCPSTimelinessAnalyzer implements BWCPSSingleElementAnalysis<Stream>{
 
 	public List<BWCPSAnalysisReport> run(Collection<Stream> elements) {
 		if(elements == null || elements.isEmpty())
@@ -57,50 +57,6 @@ public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>, BWCPSSing
 		Set<Node> nodes = collectNodes(stream.getNodelinks());
 		Map<BWCPSAnalysisReport, Float> latencies = calculateNodeLatencies(nodes);		
 		return buildReport(stream, latencies);
-	}
-	
-	private BWCPSAnalysisReport buildReport(Stream stream, Map<BWCPSAnalysisReport, Float> latencies) {
-		Collection<BWCPSAnalysisReport> nodeReports = new LinkedList<>();
-		float streamLatency = 0f;
-		for (Map.Entry<BWCPSAnalysisReport, Float> pair : latencies.entrySet()) {
-			nodeReports.add(pair.getKey());
-			streamLatency += pair.getValue();
-		}
-		return new BWCPSAnalysisReportImpl()
-				.type(BWCPSAnalysisReportType.INFO)
-				.target(stream)
-				.message("Latency: " + streamLatency)
-				.detailedReports(nodeReports);
-	}
-	
-	
-
-	private BWCPSAnalysisReport buildReport(Node node, float latency) {
-		return new BWCPSAnalysisReportImpl()
-				.type(BWCPSAnalysisReportType.INFO)
-				.target(node)
-				.message("Latency: " + latency);
-	}
-	
-	private BWCPSAnalysisReport buildReportNotDeployed(Node node) {
-		return new BWCPSAnalysisReportImpl()
-				.type(BWCPSAnalysisReportType.ERROR)
-				.target(node)
-				.message("Node is not deployed but part of a stream!");
-	}
-	
-	private BWCPSAnalysisReport buildReportMultipleDeployments(Node node) {
-		return new BWCPSAnalysisReportImpl()
-				.type(BWCPSAnalysisReportType.ERROR)
-				.target(node)
-				.message("Node is deployed on multiple edge devices!");
-	}
-	
-	private BWCPSAnalysisReport buildReportNoComputingPower(Node node) {
-		return new BWCPSAnalysisReportImpl()
-				.type(BWCPSAnalysisReportType.ERROR)
-				.target(node)
-				.message("Node is deployed on an edge device without computing power!");
 	}
 
 	private Map<BWCPSAnalysisReport, Float> calculateNodeLatencies(Set<Node> nodes) {
@@ -164,6 +120,48 @@ public class BWCPSTimelinessAnalyzer implements BWCPSAnalysis<Stream>, BWCPSSing
 			}
 		}
 		return aggregatedDuration;
+	}
+	
+	private BWCPSAnalysisReport buildReport(Stream stream, Map<BWCPSAnalysisReport, Float> latencies) {
+		Collection<BWCPSAnalysisReport> nodeReports = new LinkedList<>();
+		float streamLatency = 0f;
+		for (Map.Entry<BWCPSAnalysisReport, Float> pair : latencies.entrySet()) {
+			nodeReports.add(pair.getKey());
+			streamLatency += pair.getValue();
+		}
+		return new BWCPSAnalysisReportImpl()
+				.type(BWCPSAnalysisReportType.INFO)
+				.target(stream)
+				.message("Latency: " + streamLatency)
+				.detailedReports(nodeReports);
+	}
+	
+	private BWCPSAnalysisReport buildReport(Node node, float latency) {
+		return new BWCPSAnalysisReportImpl()
+				.type(BWCPSAnalysisReportType.INFO)
+				.target(node)
+				.message("Latency: " + latency);
+	}
+	
+	private BWCPSAnalysisReport buildReportNotDeployed(Node node) {
+		return new BWCPSAnalysisReportImpl()
+				.type(BWCPSAnalysisReportType.ERROR)
+				.target(node)
+				.message("Node is not deployed but part of a stream!");
+	}
+	
+	private BWCPSAnalysisReport buildReportMultipleDeployments(Node node) {
+		return new BWCPSAnalysisReportImpl()
+				.type(BWCPSAnalysisReportType.ERROR)
+				.target(node)
+				.message("Node is deployed on multiple edge devices!");
+	}
+	
+	private BWCPSAnalysisReport buildReportNoComputingPower(Node node) {
+		return new BWCPSAnalysisReportImpl()
+				.type(BWCPSAnalysisReportType.ERROR)
+				.target(node)
+				.message("Node is deployed on an edge device without computing power!");
 	}
 	
 	private class NodeNotDeployedException extends RuntimeException {		
