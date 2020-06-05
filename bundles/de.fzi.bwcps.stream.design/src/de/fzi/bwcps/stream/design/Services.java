@@ -2,7 +2,7 @@ package de.fzi.bwcps.stream.design;
 
 import org.eclipse.emf.ecore.EObject;
 
-import de.fzi.bwcps.stream.analysis.BWCPSAnalyzer;
+import de.fzi.bwcps.stream.analysis.BWCPSBandwithAnalyzer;
 import de.fzi.bwcps.stream.analysis.BWCPSTimelinessAnalyzer;
 import de.fzi.bwcps.stream.bwcps_streams.entity.Node;
 import de.fzi.bwcps.stream.bwcps_streams.entity.Stream;
@@ -22,7 +22,7 @@ public class Services {
     
     public String analyzeNode(EObject self) {
     	if (self instanceof Node)
-    		return new BWCPSAnalyzer().analyzeNode((Node)self);
+    		return new BWCPSBandwithAnalyzer().run((Node)self).getMessage();
     	return null;
     }
     
