@@ -29,6 +29,14 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.Stream;
 import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
 import de.fzi.bwcps.stream.bwcps_streams.operations.Operation;
 
+/**
+ * Algorithm implementation that analyzes the latency of streams in an BWCPS instance
+ * and builds an {@link BWCPSAnalysisReport}.
+ * 
+ * @author Fabian Scheytt
+ *
+ * @see BWCPSAnalysis
+ */
 public class BWCPSTimelinessAnalyzer implements BWCPSSingleElementAnalysis<Stream>{
 
 	public List<BWCPSAnalysisReport> run(Collection<Stream> elements) {

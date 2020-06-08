@@ -2,8 +2,18 @@ package de.fzi.bwcps.stream.analysis.util;
 
 import java.util.List;
 
+import de.fzi.bwcps.stream.analysis.BWCPSBandwithAnalyzer;
 import de.fzi.sensidl.design.sensidl.dataRepresentation.Data;
 
+/**
+ * Sample implementation of an BWCPSDataInterpreter that provides fictional
+ * data sizes for SensIDL data representations.
+ * @author Fabian Scheytt
+ *
+ * @see {@link BWCPSBandwithAnalyzer}
+ * @see {@link BWCPSBandwithAnalyzer#determineInputSize}
+ * @see {@link BWCPSBandwithAnalyzer#determineOutputSize}
+ */
 public class BWCPSDataInterpreterImpl implements BWCPSDataInterpreter{
 	
 	public int determineSizeOfData(List<Data> data) {

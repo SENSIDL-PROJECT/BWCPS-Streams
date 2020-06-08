@@ -4,6 +4,12 @@ import java.util.List;
 
 import de.fzi.sensidl.design.sensidl.dataRepresentation.Data;
 
+/**
+ * Interface for attaching concrete data sizes to the abstract SensIDL data representations.
+ * @author Fabian Scheytt
+ *
+ * @see BWCPSDataInterpreterImpl
+ */
 public interface BWCPSDataInterpreter {
 	/**
 	 * Returns the summed size of the given data types in BYTE.

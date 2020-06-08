@@ -21,6 +21,14 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.PrimitiveNodeLink;
 import de.fzi.bwcps.stream.bwcps_streams.entity.SourceNodeType;
 import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
 
+/**
+ * Algorithm implementation that analyzes the existing and required bandwidth of an BWCPS instance
+ * and builds an {@link BWCPSAnalysisReport}.
+ * @author Fabian Scheytt
+ * 
+ * @see BWCPSAnalysis
+ *
+ */
 public class BWCPSBandwithAnalyzer implements BWCPSSingleElementAnalysis<Node> {
 
 	BWCPSDataInterpreter dataInterpreter;	

@@ -30,6 +30,13 @@ import de.fzi.bwcps.stream.bwcps_streams.entity.Stream;
 import de.fzi.bwcps.stream.bwcps_streams.entity.StreamRepository;
 import de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage;
 
+/**
+ * Handler for the de.fzi.bwcps.stream.analysis.start command.
+ * Runs BWCPS analyses from the tree view and reports results in the problem marker view.
+ * 
+ * @author Fabian Scheytt
+ *
+ */
 public class EdgeAnalysisHandler extends AbstractHandler implements IHandler{
 
 	@Override
