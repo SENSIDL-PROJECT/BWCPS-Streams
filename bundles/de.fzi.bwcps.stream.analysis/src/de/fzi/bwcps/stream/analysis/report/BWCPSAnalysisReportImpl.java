@@ -2,6 +2,7 @@ package de.fzi.bwcps.stream.analysis.report;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement;
 
 public class BWCPSAnalysisReportImpl implements BWCPSAnalysisReport {
@@ -88,4 +89,16 @@ public class BWCPSAnalysisReportImpl implements BWCPSAnalysisReport {
 		return builder.toString();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+		BWCPSAnalysisReport report = (BWCPSAnalysisReport) obj;
+		return type == report.getType() &&
+				Objects.equals(message, report.getMessage()) &&
+				Objects.equals(target, report.getTarget()) &&
+				Objects.equals(furtherReports, report.getDetailedReports());
+	}
 }
