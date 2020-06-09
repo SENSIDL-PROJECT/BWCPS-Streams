@@ -39,6 +39,7 @@
         </edgeMappings>
         <containerMappings name="NodeContainer" semanticCandidatesExpression="feature:container" domainClass="entity::NodeContainer">
           <subNodeMappings name="Node" semanticCandidatesExpression="feature:nodes" domainClass="Node">
+            <borderedNodeMappings name="NodeType" semanticCandidatesExpression="aql:{}" domainClass="NodeType"/>
             <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="8" height="4">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -109,6 +110,60 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="Stream" referenceName="streams"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Nodes">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="Create and Deploy Node" nodeMappings="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container.eContainer().oclAsType(entity::StreamRepository)">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="entity::Node" referenceName="nodes">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="nodes" valueExpression="aql:self.nodes->including(instance)"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="Create and set SourceNodeType" nodeMappings="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']/@borderedNodeMappings[name='NodeType']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.getRoot()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="entity::SourceNodeType" referenceName="nodeTypes">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="nodetype" valueExpression="var:instance"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="Create and set SinkSourceNodeType" nodeMappings="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']/@borderedNodeMappings[name='NodeType']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.getRoot()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="entity::SinkSourceNodeType" referenceName="nodeTypes">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="nodetype" valueExpression="var:instance"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="Create and set SinkNodeType" nodeMappings="//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']/@borderedNodeMappings[name='NodeType']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.getRoot()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="entity::SinkNodeType" referenceName="nodeTypes">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="nodetype" valueExpression="var:instance"/>
+                  </subModelOperations>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
