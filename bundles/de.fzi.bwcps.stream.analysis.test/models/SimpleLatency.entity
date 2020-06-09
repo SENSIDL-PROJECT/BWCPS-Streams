@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<entity:StreamRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:entity="http://www.fzi.de/bwcps/stream/entity/1.0" xmlns:operations="http://www.fzi.de/bwcps/stream/operations/1.0" name="StreamRepository Simple Latency">
+  <streams name="Stream SourceSink" nodelinks="//@nodelinks.2"/>
+  <container xsi:type="entity:EdgeDevice" name="SimpleEdge" nodes="//@nodes.0 //@nodes.2"/>
+  <container xsi:type="entity:DataSink" name="SimpleSink" nodes="//@nodes.1"/>
+  <nodeTypes xsi:type="entity:SourceNodeType" name="SimpleSource"/>
+  <nodeTypes xsi:type="entity:SinkNodeType" name="Sink"/>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="SimpleSinkSource"/>
+  <nodes name="Source" nodetype="//@nodeTypes.0">
+    <operational xsi:type="operations:AtomicOperation" href="CommonOperations.operations#//@operations.0"/>
+  </nodes>
+  <nodes name="Sink" nodetype="//@nodeTypes.1">
+    <operational xsi:type="operations:AtomicOperation" href="CommonOperations.operations#//@operations.0"/>
+  </nodes>
+  <nodes name="Tenacious Preprocessing" nodetype="//@nodeTypes.2">
+    <operational xsi:type="operations:AtomicOperation" href="CommonOperations.operations#//@operations.3"/>
+  </nodes>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="Source-Prep" source="//@nodes.0" target="//@nodes.2"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="Prep-Sink" source="//@nodes.2" target="//@nodes.1"/>
+  <nodelinks xsi:type="entity:AggregatedNodeLink" name="Source-Sink" source="//@nodes.0" target="//@nodes.1" aggregatedLinks="//@nodelinks.1 //@nodelinks.0"/>
+</entity:StreamRepository>

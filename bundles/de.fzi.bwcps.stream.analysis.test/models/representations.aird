@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:entity="http://www.fzi.de/bwcps/stream/entity/1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
+  <viewpoint:DAnalysis uid="_T6L0UKpLEeqPm-Cp9A3kXg" selectedViews="_bEUfwKpLEeqPm-Cp9A3kXg" version="14.3.1.202003101500">
+    <semanticResources>SimpleLatency.entity</semanticResources>
+    <semanticResources>CommonOperations.operations</semanticResources>
+    <ownedViews xmi:type="viewpoint:DView" uid="_bEUfwKpLEeqPm-Cp9A3kXg">
+      <viewpoint xmi:type="description:Viewpoint" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']"/>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_cDQNMKpLEeqPm-Cp9A3kXg" name="SimpleLatency" repPath="#_cCzhQKpLEeqPm-Cp9A3kXg" changeId="07570d91-d088-4ebf-8d47-f2d50ad965ba">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']"/>
+        <target xmi:type="entity:StreamRepository" href="SimpleLatency.entity#/"/>
+      </ownedRepresentationDescriptors>
+    </ownedViews>
+  </viewpoint:DAnalysis>
+  <diagram:DSemanticDiagram uid="_cCzhQKpLEeqPm-Cp9A3kXg">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_cDOYAKpLEeqPm-Cp9A3kXg" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_cDOYAapLEeqPm-Cp9A3kXg"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_cDrD8KpLEeqPm-Cp9A3kXg" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_cDrD8apLEeqPm-Cp9A3kXg" type="Sirius" element="_cCzhQKpLEeqPm-Cp9A3kXg" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_wNPaQKpLEeqPm-Cp9A3kXg" type="2002" element="_wNIFgKpLEeqPm-Cp9A3kXg">
+          <children xmi:type="notation:Node" xmi:id="_wNRPcKpLEeqPm-Cp9A3kXg" type="5006"/>
+          <children xmi:type="notation:Node" xmi:id="_wNRPcapLEeqPm-Cp9A3kXg" type="7001">
+            <children xmi:type="notation:Node" xmi:id="_aUAnsKpMEeqPm-Cp9A3kXg" type="3007" element="_aT89UKpMEeqPm-Cp9A3kXg">
+              <children xmi:type="notation:Node" xmi:id="_aUBOwKpMEeqPm-Cp9A3kXg" type="5003">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_aUBOwapMEeqPm-Cp9A3kXg" y="5"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_RfkrsKpOEeqPm-Cp9A3kXg" type="3003" element="_Rfi2gqpOEeqPm-Cp9A3kXg">
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_RfkrsapOEeqPm-Cp9A3kXg" fontName="Segoe UI"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RfkrsqpOEeqPm-Cp9A3kXg"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_aUAnsapMEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aUAnsqpMEeqPm-Cp9A3kXg" x="31" y="42" width="145" height="40"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_hRgTYKpOEeqPm-Cp9A3kXg" type="3007" element="_hRXwgKpOEeqPm-Cp9A3kXg">
+              <children xmi:type="notation:Node" xmi:id="_hRg6cKpOEeqPm-Cp9A3kXg" type="5003">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_hRg6capOEeqPm-Cp9A3kXg" y="5"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_Rt8pcKpPEeqPm-Cp9A3kXg" type="3003" element="_Rt5mI6pPEeqPm-Cp9A3kXg">
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_Rt8pcapPEeqPm-Cp9A3kXg" fontName="Segoe UI"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Rt8pcqpPEeqPm-Cp9A3kXg"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_hRgTYapOEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRgTYqpOEeqPm-Cp9A3kXg" x="31" y="126" width="145" height="40"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_wNRPcqpLEeqPm-Cp9A3kXg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_wNRPc6pLEeqPm-Cp9A3kXg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_wNPaQapLEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wNPaQqpLEeqPm-Cp9A3kXg" x="144" y="180" width="207" height="231"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_WknS4KpOEeqPm-Cp9A3kXg" type="2002" element="_WkiaYKpOEeqPm-Cp9A3kXg">
+          <children xmi:type="notation:Node" xmi:id="_Wkn58KpOEeqPm-Cp9A3kXg" type="5006"/>
+          <children xmi:type="notation:Node" xmi:id="_Wkn58apOEeqPm-Cp9A3kXg" type="7001">
+            <children xmi:type="notation:Node" xmi:id="_X-DLAKpOEeqPm-Cp9A3kXg" type="3007" element="_X95aAKpOEeqPm-Cp9A3kXg">
+              <children xmi:type="notation:Node" xmi:id="_X-DyEKpOEeqPm-Cp9A3kXg" type="5003">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_X-DyEapOEeqPm-Cp9A3kXg" y="5"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_YP03gKpOEeqPm-Cp9A3kXg" type="3003" element="_YPzCUapOEeqPm-Cp9A3kXg">
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_YP03gapOEeqPm-Cp9A3kXg" fontName="Segoe UI"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_YP03gqpOEeqPm-Cp9A3kXg"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_X-DLAapOEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_X-DLAqpOEeqPm-Cp9A3kXg" x="55" y="36" width="80" height="40"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_Wkn58qpOEeqPm-Cp9A3kXg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_Wkn586pOEeqPm-Cp9A3kXg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_WknS4apOEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WknS4qpOEeqPm-Cp9A3kXg" x="588" y="186" width="195" height="111"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_srzzgKpOEeqPm-Cp9A3kXg" type="2001" element="_srr3sKpOEeqPm-Cp9A3kXg">
+          <children xmi:type="notation:Node" xmi:id="_srzzg6pOEeqPm-Cp9A3kXg" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_srzzhKpOEeqPm-Cp9A3kXg" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_sr0akKpOEeqPm-Cp9A3kXg" type="3002" element="_srr3sapOEeqPm-Cp9A3kXg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_sr0akapOEeqPm-Cp9A3kXg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sr0akqpOEeqPm-Cp9A3kXg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_srzzgapOEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_srzzgqpOEeqPm-Cp9A3kXg" x="372" y="108" width="193" height="30"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_cDrD8qpLEeqPm-Cp9A3kXg"/>
+        <edges xmi:type="notation:Edge" xmi:id="_qKbb4KpOEeqPm-Cp9A3kXg" type="4001" element="_qKIg8KpOEeqPm-Cp9A3kXg" source="_aUAnsKpMEeqPm-Cp9A3kXg" target="_hRgTYKpOEeqPm-Cp9A3kXg">
+          <children xmi:type="notation:Node" xmi:id="_qKcC8KpOEeqPm-Cp9A3kXg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qKcC8apOEeqPm-Cp9A3kXg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_qKcC8qpOEeqPm-Cp9A3kXg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qKcC86pOEeqPm-Cp9A3kXg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_qKcqAKpOEeqPm-Cp9A3kXg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qKcqAapOEeqPm-Cp9A3kXg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_qKbb4apOEeqPm-Cp9A3kXg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_qKbb4qpOEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qKbb46pOEeqPm-Cp9A3kXg" points="[0, 0, 0, -44]$[0, 44, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qKd4IKpOEeqPm-Cp9A3kXg" id="(0.496551724137931,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qKd4IapOEeqPm-Cp9A3kXg" id="(0.496551724137931,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_qiNCsKpOEeqPm-Cp9A3kXg" type="4001" element="_qhyL9KpOEeqPm-Cp9A3kXg" source="_hRgTYKpOEeqPm-Cp9A3kXg" target="_X-DLAKpOEeqPm-Cp9A3kXg">
+          <children xmi:type="notation:Node" xmi:id="_qiNCtKpOEeqPm-Cp9A3kXg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qiNCtapOEeqPm-Cp9A3kXg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_qiNCtqpOEeqPm-Cp9A3kXg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qiNCt6pOEeqPm-Cp9A3kXg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_qiNpwKpOEeqPm-Cp9A3kXg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qiNpwapOEeqPm-Cp9A3kXg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_qiNCsapOEeqPm-Cp9A3kXg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_qiNCsqpOEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qiNCs6pOEeqPm-Cp9A3kXg" points="[0, 0, -323, 72]$[323, -72, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qiNpwqpOEeqPm-Cp9A3kXg" id="(1.0,0.3)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qiNpw6pOEeqPm-Cp9A3kXg" id="(0.0,0.6)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_rDJzoKpOEeqPm-Cp9A3kXg" type="4001" element="_rCyAMKpOEeqPm-Cp9A3kXg" source="_aUAnsKpMEeqPm-Cp9A3kXg" target="_X-DLAKpOEeqPm-Cp9A3kXg">
+          <children xmi:type="notation:Node" xmi:id="_rDJzpKpOEeqPm-Cp9A3kXg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rDJzpapOEeqPm-Cp9A3kXg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_rDJzpqpOEeqPm-Cp9A3kXg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rDJzp6pOEeqPm-Cp9A3kXg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_rDJzqKpOEeqPm-Cp9A3kXg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rDJzqapOEeqPm-Cp9A3kXg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_rDJzoapOEeqPm-Cp9A3kXg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_rDJzoqpOEeqPm-Cp9A3kXg" fontName="Segoe UI" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_rDJzo6pOEeqPm-Cp9A3kXg" points="[0, 0, -323, 0]$[323, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rDKasKpOEeqPm-Cp9A3kXg" id="(1.0,0.6)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rDKasapOEeqPm-Cp9A3kXg" id="(0.0,0.6)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_wNIFgKpLEeqPm-Cp9A3kXg" name="SimpleEdge">
+      <target xmi:type="entity:EdgeDevice" href="SimpleLatency.entity#//@container.0"/>
+      <semanticElements xmi:type="entity:EdgeDevice" href="SimpleLatency.entity#//@container.0"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_wNJ6sKpLEeqPm-Cp9A3kXg" labelSize="12" borderSize="1" borderSizeComputationExpression="1">
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']"/>
+      <ownedDiagramElements xmi:type="diagram:DNode" uid="_aT89UKpMEeqPm-Cp9A3kXg" name="Source" outgoingEdges="_qKIg8KpOEeqPm-Cp9A3kXg _rCyAMKpOEeqPm-Cp9A3kXg" width="8" height="4" resizeKind="NSEW">
+        <target xmi:type="entity:Node" href="SimpleLatency.entity#//@nodes.0"/>
+        <semanticElements xmi:type="entity:Node" href="SimpleLatency.entity#//@nodes.0"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:Square" uid="_Rfi2gqpOEeqPm-Cp9A3kXg" labelSize="12" labelPosition="node" width="8" height="4" color="138,226,52">
+          <description xmi:type="style:SquareDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']/@conditionnalStyles.0/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNode" uid="_hRXwgKpOEeqPm-Cp9A3kXg" name="Tenacious Preprocessing" outgoingEdges="_qhyL9KpOEeqPm-Cp9A3kXg" incomingEdges="_qKIg8KpOEeqPm-Cp9A3kXg" width="8" height="4" resizeKind="NSEW">
+        <target xmi:type="entity:Node" href="SimpleLatency.entity#//@nodes.2"/>
+        <semanticElements xmi:type="entity:Node" href="SimpleLatency.entity#//@nodes.2"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:Square" uid="_Rt5mI6pPEeqPm-Cp9A3kXg" labelSize="12" labelPosition="node" width="8" height="4" color="252,175,62">
+          <description xmi:type="style:SquareDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']/@conditionnalStyles.2/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']"/>
+      </ownedDiagramElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_WkiaYKpOEeqPm-Cp9A3kXg" name="SimpleSink">
+      <target xmi:type="entity:DataSink" href="SimpleLatency.entity#//@container.1"/>
+      <semanticElements xmi:type="entity:DataSink" href="SimpleLatency.entity#//@container.1"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_WkjBcKpOEeqPm-Cp9A3kXg" labelSize="12" borderSize="1" borderSizeComputationExpression="1">
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']"/>
+      <ownedDiagramElements xmi:type="diagram:DNode" uid="_X95aAKpOEeqPm-Cp9A3kXg" name="Sink" incomingEdges="_qhyL9KpOEeqPm-Cp9A3kXg _rCyAMKpOEeqPm-Cp9A3kXg" width="8" height="4" resizeKind="NSEW">
+        <target xmi:type="entity:Node" href="SimpleLatency.entity#//@nodes.1"/>
+        <semanticElements xmi:type="entity:Node" href="SimpleLatency.entity#//@nodes.1"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:Square" uid="_YPzCUapOEeqPm-Cp9A3kXg" labelSize="12" labelPosition="node" width="8" height="4" color="239,41,41">
+          <description xmi:type="style:SquareDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']/@conditionnalStyles.1/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@containerMappings[name='NodeContainer']/@subNodeMappings[name='Node']"/>
+      </ownedDiagramElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_qKIg8KpOEeqPm-Cp9A3kXg" sourceNode="_aT89UKpMEeqPm-Cp9A3kXg" targetNode="_hRXwgKpOEeqPm-Cp9A3kXg">
+      <target xmi:type="entity:PrimitiveNodeLink" href="SimpleLatency.entity#//@nodelinks.0"/>
+      <semanticElements xmi:type="entity:PrimitiveNodeLink" href="SimpleLatency.entity#//@nodelinks.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_qKKWIKpOEeqPm-Cp9A3kXg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@edgeMappings[name='StreamNodeLink']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_qKKWIapOEeqPm-Cp9A3kXg" labelSize="12"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@edgeMappings[name='StreamNodeLink']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_qhyL9KpOEeqPm-Cp9A3kXg" sourceNode="_hRXwgKpOEeqPm-Cp9A3kXg" targetNode="_X95aAKpOEeqPm-Cp9A3kXg">
+      <target xmi:type="entity:PrimitiveNodeLink" href="SimpleLatency.entity#//@nodelinks.1"/>
+      <semanticElements xmi:type="entity:PrimitiveNodeLink" href="SimpleLatency.entity#//@nodelinks.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_qhyzAKpOEeqPm-Cp9A3kXg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@edgeMappings[name='StreamNodeLink']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_qhyzAapOEeqPm-Cp9A3kXg" labelSize="12"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@edgeMappings[name='StreamNodeLink']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_rCyAMKpOEeqPm-Cp9A3kXg" sourceNode="_aT89UKpMEeqPm-Cp9A3kXg" targetNode="_X95aAKpOEeqPm-Cp9A3kXg">
+      <target xmi:type="entity:AggregatedNodeLink" href="SimpleLatency.entity#//@nodelinks.2"/>
+      <semanticElements xmi:type="entity:AggregatedNodeLink" href="SimpleLatency.entity#//@nodelinks.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_rCynQKpOEeqPm-Cp9A3kXg" lineStyle="dot" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@edgeMappings[name='StreamNodeLink']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_rCynQapOEeqPm-Cp9A3kXg" labelSize="12"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@edgeMappings[name='StreamNodeLink']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_srr3sKpOEeqPm-Cp9A3kXg" name="Stream SourceSink" width="3" height="3" resizeKind="NSEW">
+      <target xmi:type="entity:Stream" href="SimpleLatency.entity#//@streams.0"/>
+      <semanticElements xmi:type="entity:Stream" href="SimpleLatency.entity#//@streams.0"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:Dot" uid="_srr3sapOEeqPm-Cp9A3kXg" labelSize="12" labelPosition="node">
+        <description xmi:type="style:DotDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@nodeMappings[name='Stream']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer/@nodeMappings[name='Stream']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_cC3ysKpLEeqPm-Cp9A3kXg"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/de.fzi.bwcps.stream.design/description/stream.odesign#//@ownedViewpoints[name='StreamDiagrams']/@ownedRepresentations[name='Streams']/@defaultLayer"/>
+    <target xmi:type="entity:StreamRepository" href="SimpleLatency.entity#/"/>
+  </diagram:DSemanticDiagram>
+</xmi:XMI>
