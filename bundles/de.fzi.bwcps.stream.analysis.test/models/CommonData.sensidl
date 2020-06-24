@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<de.fzi.sensidl.design:SensorInterface xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design="http://fzi.de/sensidl/design/1.0" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" ID="_9mI34LoLEeq187Q9Ovznfw">
+  <dataDescription ID="__bTCsboLEeq187Q9Ovznfw">
+    <dataSets ID="_AVokALoMEeq187Q9Ovznfw" name="TemperatureTimeData">
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_CemboLoMEeq187Q9Ovznfw" name="Temperature" dataType="INT16" unit="C"/>
+      <data xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" ID="_IIYHkboMEeq187Q9Ovznfw" name="Time" dataType="INT64"/>
+    </dataSets>
+  </dataDescription>
+</de.fzi.sensidl.design:SensorInterface>

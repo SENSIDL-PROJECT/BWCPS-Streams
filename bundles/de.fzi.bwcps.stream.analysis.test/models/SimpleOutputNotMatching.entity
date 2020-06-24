@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<entity:StreamRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" xmlns:entity="http://www.fzi.de/bwcps/stream/entity/1.0" name="InputWithoutNodeLink">
+  <container xsi:type="entity:EdgeDevice" name="Edge" nodes="//@nodes.0"/>
+  <nodeTypes xsi:type="entity:SinkNodeType" name="InputWithoutLink">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="CommonData.sensidl#_CemboLoMEeq187Q9Ovznfw"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:NonMeasurementData" href="CommonData.sensidl#_IIYHkboMEeq187Q9Ovznfw"/>
+  </nodeTypes>
+  <nodes name="InputWithoutLink" nodetype="//@nodeTypes.0"/>
+</entity:StreamRepository>
