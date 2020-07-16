@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="de.fzi.bwcps.stream.analysis.extension" name="Extended Analyses" schema="schema/de.fzi.bwcps.stream.analysis.extension.exsd"/>
    <extension
          point="org.eclipse.ui.commands">
       <command
@@ -40,30 +41,30 @@
                   name="de.fzi.bwcps.stream.analysis.sep1"
                   visible="true">
             </separator>
-            <command
-                  commandId="de.fzi.bwcps.stream.analysis.start"
-                  label="Throughput analysis"
-                  mnemonic="T"
-                  style="push"
-                  tooltip="Performs an edge throughput analysis on the selected bwcps instance">
-               <parameter
-                     name="de.fzi.bwcps.stream.analysis.name"
-                     value="throughput">
-               </parameter>
-            </command>
-            <command
-                  commandId="de.fzi.bwcps.stream.analysis.start"
-                  label="Timeliness analysis"
-                  mnemonic="I"
-                  style="push"
-                  tooltip="Performs an edge timeliness analysis on the selected bwcps instance">
-               <parameter
-                     name="de.fzi.bwcps.stream.analysis.name"
-                     value="timeliness">
-               </parameter>
-            </command>
+            <dynamic
+                  class="de.fzi.bwcps.stream.analysis.extensions.AnalysisMenuContributions"
+                  id="de.fzi.bwcps.stream.analysis.algorithms">
+            </dynamic>
          </menu>
       </menuContribution>
    </extension>
-
+   <extension
+         id="id2"
+         name="name"
+         point="de.fzi.bwcps.stream.analysis.extension">
+      <algorithm
+            algorithm="de.fzi.bwcps.stream.analysis.BWCPSBandwithAnalyzer"
+            id="de.fzi.bwcps.stream.analysis.algo.bandwidth"
+            menu_label="Throughput analysis"
+            menu_mnemonic="T"
+            menu_tooltip="Performs an edge throughput analysis on the selected bwcps instance">
+      </algorithm>
+      <algorithm
+            algorithm="de.fzi.bwcps.stream.analysis.BWCPSTimelinessAnalyzer"
+            id="de.fzi.bwcps.stream.analysis.algo.timeliness"
+            menu_label="Timeliness Analysis"
+            menu_mnemonic="I"
+            menu_tooltip="Performs an edge timeliness analysis on the selected bwcps instance">
+      </algorithm>
+   </extension>
 </plugin>
