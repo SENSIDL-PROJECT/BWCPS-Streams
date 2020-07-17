@@ -3,6 +3,8 @@ package de.fzi.bwcps.stream.analysis;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EClass;
+
 import de.fzi.bwcps.stream.analysis.report.BWCPSAnalysisReport;
 import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement;
 
@@ -17,4 +19,9 @@ import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement;
 public interface BWCPSAnalysis<T extends NamedElement> {
 
 	public List<BWCPSAnalysisReport> run(Collection<T> elements);
+	
+	/**
+	 * @return EClass of the generic Type T of this BWCPSAnalysis class.
+	 */
+	public EClass getBWCPSElementType();
 }

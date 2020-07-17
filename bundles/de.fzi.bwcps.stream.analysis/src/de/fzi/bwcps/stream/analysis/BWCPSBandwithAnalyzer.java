@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import de.fzi.bwcps.stream.analysis.report.BWCPSAnalysisReport;
@@ -189,6 +190,11 @@ public class BWCPSBandwithAnalyzer implements BWCPSSingleElementAnalysis<Node> {
 						outputSize, linkedInputSize))
 				.target(node)
 				.type(BWCPSAnalysisReportType.WARNING);
+	}
+
+	@Override
+	public EClass getBWCPSElementType() {
+		return entityPackage.eINSTANCE.getNode(); 
 	}
 
 }

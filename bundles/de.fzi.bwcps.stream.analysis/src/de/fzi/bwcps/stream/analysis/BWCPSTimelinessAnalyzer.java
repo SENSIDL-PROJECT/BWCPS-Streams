@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 
@@ -178,5 +179,10 @@ public class BWCPSTimelinessAnalyzer implements BWCPSSingleElementAnalysis<Strea
 	
 	private class NodeDeployedOnMultipleEdgesException extends RuntimeException {
 		private static final long serialVersionUID = -917369879840970730L;
+	}
+
+	@Override
+	public EClass getBWCPSElementType() {
+		return entityPackage.eINSTANCE.getStream();
 	}
 }
