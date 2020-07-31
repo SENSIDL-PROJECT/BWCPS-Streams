@@ -18,3 +18,8 @@ The BW-CPS project provides a framework with a domain-specific language for data
 This repository contains the framework Stream Model for the description of edge architectures using a domain-specific modeling language. [Stream Model](https://github.com/SENSIDL-PROJECT/BWCPS-Streams/wiki/BWCPS-Stream-Model) includes the modeling language as well as [code generators](https://github.com/SENSIDL-PROJECT/BWCPS-Streams/tree/master/bundles/de.fzi.bwcps.generator) to create a prototype of the described architecture. Modeling is eased with the provided [Sirius-based graphical editor](https://github.com/SENSIDL-PROJECT/BWCPS-Streams/wiki/BWCPS-Sirius-Editor). Based on the [SensIDL](https://github.com/SENSIDL-PROJECT/SensIDL) framework for the model-based description of sensor interfaces and data structures for the communication, Stream Model enables the description of the entire bidirectional communication path from sensor to cloud. In addition to the [data processing functionalities](https://github.com/SENSIDL-PROJECT/BWCPS-Streams/wiki/BWCPS-Stream-Analysis) in the edge nodes, this includes security profiles that control security features such as [encryption and data signing](https://github.com/SENSIDL-PROJECT/BWCPS-Generator/blob/master/Documents/Security%20Aspects%20Integration.pdf) between and across edge nodes. 
 
 > For more information please visit our [Wiki](https://github.com/SENSIDL-PROJECT/BWCPS-Streams/wiki).
+- [Tutorial](../../wiki/BWCPS-Tutorial)
+- [Stream Model](../../wiki/BWCPS-Stream-Model)
+- [Generation Framework](../../wiki/BWCPS-Generation)
+- [Stream Analysis](../../wiki/BWCPS-Stream-Analysis)
+
