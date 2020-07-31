@@ -1,3 +1,7 @@
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/SENSIDL-PROJECT/BWCPS-Streams/Java%20CI)
+![GitHub issues](https://img.shields.io/github/issues/SENSIDL-PROJECT/BWCPS-Streams)
+![GitHub contributors](https://img.shields.io/github/contributors/SENSIDL-PROJECT/BWCPS-Streams)
+
 # BWCPS-Streams
 
 This project is intended to provide a language for Stream modeling with respect to Edge- and Security-Analytics.
