@@ -172,7 +172,7 @@ public class BWCPSBandwithAnalyzer implements BWCPSSingleElementAnalysis<Node> {
 	
 	private BWCPSAnalysisReport buildReportPoint1(Node node, int inputSize) {		
 		return new BWCPSAnalysisReportImpl()
-				.message(String.format("Point 1 voilated: Input size %s > 0 with no existing incoming connection.", inputSize))
+				.message(String.format("Point 1 violated: Input size %s > 0 with no existing incoming connection.", inputSize))
 				.target(node)
 				.type(BWCPSAnalysisReportType.WARNING);
 	}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operations:OperationDefinition xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:operations="http://www.fzi.de/bwcps/stream/operations/1.0">
+  <operations xsi:type="operations:AtomicOperation" name="Operation10" processingUnits="10"/>
+  <operations xsi:type="operations:AtomicOperation" name="Operation20" processingUnits="20"/>
+  <operations xsi:type="operations:AtomicOperation" name="Operation50" processingUnits="50"/>
+  <operations xsi:type="operations:AtomicOperation" name="Operation5000" processingUnits="5000"/>
+  <operations xsi:type="operations:AtomicOperation" name="Operation0"/>
+</operations:OperationDefinition>
