@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer#getNodes <em>Nodes</em>}</li>
+ *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer#getProcessingSpeed <em>Processing Speed</em>}</li>
  * </ul>
  *
  * @see de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage#getNodeContainer()
@@ -34,5 +35,28 @@ public interface NodeContainer extends NamedElement {
 	 * @generated
 	 */
 	EList<Node> getNodes();
+
+	/**
+	 * Returns the value of the '<em><b>Processing Speed</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Processing Speed</em>' attribute.
+	 * @see #setProcessingSpeed(int)
+	 * @see de.fzi.bwcps.stream.bwcps_streams.entity.entityPackage#getNodeContainer_ProcessingSpeed()
+	 * @model default="1"
+	 * @generated
+	 */
+	int getProcessingSpeed();
+
+	/**
+	 * Sets the value of the '{@link de.fzi.bwcps.stream.bwcps_streams.entity.NodeContainer#getProcessingSpeed <em>Processing Speed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Processing Speed</em>' attribute.
+	 * @see #getProcessingSpeed()
+	 * @generated
+	 */
+	void setProcessingSpeed(int value);
 
 } // NodeContainer

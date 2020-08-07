@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -52,6 +53,7 @@ public class OperationItemProvider extends NamedElementItemProvider {
 
 			addDomainPropertyDescriptor(object);
 			addRangePropertyDescriptor(object);
+			addProcessingUnitsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -84,6 +86,22 @@ public class OperationItemProvider extends NamedElementItemProvider {
 						getString("_UI_PropertyDescriptor_description", "_UI_Operation_range_feature",
 								"_UI_Operation_type"),
 						operationsPackage.Literals.OPERATION__RANGE, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Processing Units feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addProcessingUnitsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Operation_processingUnits_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Operation_processingUnits_feature",
+								"_UI_Operation_type"),
+						operationsPackage.Literals.OPERATION__PROCESSING_UNITS, true, false, false,
+						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -152,6 +170,9 @@ public class OperationItemProvider extends NamedElementItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Operation.class)) {
+		case operationsPackage.OPERATION__PROCESSING_UNITS:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
 		case operationsPackage.OPERATION__PROPERTIES:
 		case operationsPackage.OPERATION__TYPE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));

@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="de.fzi.bwcps.stream.analysis.extension" name="Extended Analyses" schema="schema/de.fzi.bwcps.stream.analysis.extension.exsd"/>
    <extension
          point="org.eclipse.ui.commands">
       <command
             id="de.fzi.bwcps.stream.analysis.start"
-            name="Command Name">
+            name="BWCPS Analysis Start">
          <defaultHandler
                class="de.fzi.bwcps.stream.analysis.EdgeAnalysisHandler">
          </defaultHandler>
+         <commandParameter
+               id="de.fzi.bwcps.stream.analysis.name"
+               name="Ananlysis name"
+               optional="false">
+         </commandParameter>
       </command>
    </extension>
    <extension
@@ -16,14 +22,49 @@
       <menuContribution
             allPopups="true"
             locationURI="popup:de.fzi.bwcps.stream.bwcps_streams.entity.presentation.entityEditorID?endof=additions">
-         <command
-               commandId="de.fzi.bwcps.stream.analysis.start"
+         <menu
+               id="de.fzi.bwcps.stream.analysis"
                label="Analyze BWCPS Instance"
-               mnemonic="A"
-               style="push"
-               tooltip="Performs an edge analysis on the selected bwcps instance">
-         </command>
+               mnemonic="A">
+            <command
+                  commandId="de.fzi.bwcps.stream.analysis.start"
+                  label="Run all analyses"
+                  mnemonic="A"
+                  style="push"
+                  tooltip="Runs all availiable analyses">
+               <parameter
+                     name="de.fzi.bwcps.stream.analysis.name"
+                     value="all">
+               </parameter>
+            </command>
+            <separator
+                  name="de.fzi.bwcps.stream.analysis.sep1"
+                  visible="true">
+            </separator>
+            <dynamic
+                  class="de.fzi.bwcps.stream.analysis.extensions.AnalysisMenuContributions"
+                  id="de.fzi.bwcps.stream.analysis.algorithms">
+            </dynamic>
+         </menu>
       </menuContribution>
    </extension>
-
+   <extension
+         id="id2"
+         name="name"
+         point="de.fzi.bwcps.stream.analysis.extension">
+      <algorithm
+            algorithm="de.fzi.bwcps.stream.analysis.BWCPSBandwithAnalyzer"
+            id="de.fzi.bwcps.stream.analysis.algo.bandwidth"
+            menu_label="Throughput analysis"
+            menu_mnemonic="T"
+            menu_tooltip="Performs an edge throughput analysis on the selected bwcps instance">
+      </algorithm>
+      <algorithm
+            algorithm="de.fzi.bwcps.stream.analysis.BWCPSTimelinessAnalyzer"
+            id="de.fzi.bwcps.stream.analysis.algo.timeliness"
+            menu_label="Timeliness Analysis"
+            menu_mnemonic="I"
+            menu_tooltip="Performs an edge timeliness analysis on the selected bwcps instance">
+      </algorithm>
+   </extension>
 </plugin>

@@ -32,6 +32,7 @@
             ecoreFeature="ecore:EReference metamodel.ecore#//operations/Operation/domain"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference metamodel.ecore#//operations/Operation/range"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//operations/Operation/processingUnits"/>
       </genClasses>
       <genClasses ecoreClass="metamodel.ecore#//operations/Aggregating">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//operations/Aggregating/size"/>
@@ -104,6 +105,7 @@
       <genClasses image="false" ecoreClass="metamodel.ecore#//entity/NodeContainer">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference metamodel.ecore#//entity/NodeContainer/nodes"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodel.ecore#//entity/NodeContainer/processingSpeed"/>
       </genClasses>
       <genClasses ecoreClass="metamodel.ecore#//entity/NodeType">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

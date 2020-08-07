@@ -6,6 +6,10 @@ Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: FZI Forschungszentrum Informatik
 Automatic-Module-Name: de.fzi.bwcps.stream.analysis
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: org.eclipse.ui,
- de.fzi.bwcps.stream.metamodel.editor;bundle-version="0.1.0"
-Export-Package: de.fzi.bwcps.stream.analysis
+Require-Bundle: de.fzi.bwcps.stream.metamodel.editor;bundle-version="0.1.0",
+ org.eclipse.emf.validation;bundle-version="1.8.0",
+ org.eclipse.ui,
+ org.eclipse.equinox.registry,
+ org.eclipse.core.runtime
+Export-Package: de.fzi.bwcps.stream.analysis,
+ de.fzi.bwcps.stream.analysis.report

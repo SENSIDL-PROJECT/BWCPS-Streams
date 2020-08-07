@@ -17,6 +17,7 @@ import de.fzi.bwcps.stream.bwcps_streams.commons.NamedElement;
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.operations.Operation#getType <em>Type</em>}</li>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.operations.Operation#getDomain <em>Domain</em>}</li>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.operations.Operation#getRange <em>Range</em>}</li>
+ *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.operations.Operation#getProcessingUnits <em>Processing Units</em>}</li>
  * </ul>
  *
  * @see de.fzi.bwcps.stream.bwcps_streams.operations.operationsPackage#getOperation()
@@ -111,5 +112,27 @@ public interface Operation extends NamedElement {
 	 * @generated
 	 */
 	void setRange(Domain value);
+
+	/**
+	 * Returns the value of the '<em><b>Processing Units</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Processing Units</em>' attribute.
+	 * @see #setProcessingUnits(int)
+	 * @see de.fzi.bwcps.stream.bwcps_streams.operations.operationsPackage#getOperation_ProcessingUnits()
+	 * @model
+	 * @generated
+	 */
+	int getProcessingUnits();
+
+	/**
+	 * Sets the value of the '{@link de.fzi.bwcps.stream.bwcps_streams.operations.Operation#getProcessingUnits <em>Processing Units</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Processing Units</em>' attribute.
+	 * @see #getProcessingUnits()
+	 * @generated
+	 */
+	void setProcessingUnits(int value);
 
 } // Operation

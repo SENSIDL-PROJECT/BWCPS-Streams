@@ -519,6 +519,16 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getNodeContainer_ProcessingSpeed() {
+		return (EAttribute) nodeContainerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getNodeType() {
 		return nodeTypeEClass;
 	}
@@ -633,6 +643,7 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 
 		nodeContainerEClass = createEClass(NODE_CONTAINER);
 		createEReference(nodeContainerEClass, NODE_CONTAINER__NODES);
+		createEAttribute(nodeContainerEClass, NODE_CONTAINER__PROCESSING_SPEED);
 
 		nodeTypeEClass = createEClass(NODE_TYPE);
 		createEReference(nodeTypeEClass, NODE_TYPE__REFINES);
@@ -776,6 +787,9 @@ public class entityPackageImpl extends EPackageImpl implements entityPackage {
 		initEReference(getNodeContainer_Nodes(), this.getNode(), null, "nodes", null, 1, -1, NodeContainer.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNodeContainer_ProcessingSpeed(), ecorePackage.getEInt(), "processingSpeed", "1", 0, 1,
+				NodeContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeTypeEClass, NodeType.class, "NodeType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

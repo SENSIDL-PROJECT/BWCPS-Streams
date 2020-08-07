@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.operations.impl.OperationImpl#getType <em>Type</em>}</li>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.operations.impl.OperationImpl#getDomain <em>Domain</em>}</li>
  *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.operations.impl.OperationImpl#getRange <em>Range</em>}</li>
+ *   <li>{@link de.fzi.bwcps.stream.bwcps_streams.operations.impl.OperationImpl#getProcessingUnits <em>Processing Units</em>}</li>
  * </ul>
  *
  * @generated
@@ -74,6 +75,26 @@ public abstract class OperationImpl extends NamedElementImpl implements Operatio
 	 * @ordered
 	 */
 	protected Domain range;
+
+	/**
+	 * The default value of the '{@link #getProcessingUnits() <em>Processing Units</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProcessingUnits()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int PROCESSING_UNITS_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getProcessingUnits() <em>Processing Units</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProcessingUnits()
+	 * @generated
+	 * @ordered
+	 */
+	protected int processingUnits = PROCESSING_UNITS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -286,6 +307,30 @@ public abstract class OperationImpl extends NamedElementImpl implements Operatio
 	 * @generated
 	 */
 	@Override
+	public int getProcessingUnits() {
+		return processingUnits;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setProcessingUnits(int newProcessingUnits) {
+		int oldProcessingUnits = processingUnits;
+		processingUnits = newProcessingUnits;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, operationsPackage.OPERATION__PROCESSING_UNITS,
+					oldProcessingUnits, processingUnits));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case operationsPackage.OPERATION__PROPERTIES:
@@ -316,6 +361,8 @@ public abstract class OperationImpl extends NamedElementImpl implements Operatio
 			if (resolve)
 				return getRange();
 			return basicGetRange();
+		case operationsPackage.OPERATION__PROCESSING_UNITS:
+			return getProcessingUnits();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -339,6 +386,9 @@ public abstract class OperationImpl extends NamedElementImpl implements Operatio
 			return;
 		case operationsPackage.OPERATION__RANGE:
 			setRange((Domain) newValue);
+			return;
+		case operationsPackage.OPERATION__PROCESSING_UNITS:
+			setProcessingUnits((Integer) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -364,6 +414,9 @@ public abstract class OperationImpl extends NamedElementImpl implements Operatio
 		case operationsPackage.OPERATION__RANGE:
 			setRange((Domain) null);
 			return;
+		case operationsPackage.OPERATION__PROCESSING_UNITS:
+			setProcessingUnits(PROCESSING_UNITS_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -384,8 +437,27 @@ public abstract class OperationImpl extends NamedElementImpl implements Operatio
 			return domain != null;
 		case operationsPackage.OPERATION__RANGE:
 			return range != null;
+		case operationsPackage.OPERATION__PROCESSING_UNITS:
+			return processingUnits != PROCESSING_UNITS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (processingUnits: ");
+		result.append(processingUnits);
+		result.append(')');
+		return result.toString();
 	}
 
 } //OperationImpl
